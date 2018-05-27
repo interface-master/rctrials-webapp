@@ -1,0 +1,9 @@
+fieldset {
+	display: flex;
+	flex-direction: column;
+}
+
+fieldset input {
+	width: 100%;
+	margin-bottom: 20px;
+}
