@@ -1,10 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+	<h1>
+		Welcome to {{ title }}!
+	</h1>
 </div>
+
 <h2>Register</h2>
+
 <fieldset>
 	<label>email:
 		<input type='text' name='email' [value]='email' (input)='email = $event.target.value' />
@@ -29,4 +31,17 @@
 	</div>
 
 	<button (click)='register($event)'>Register</button>
+</fieldset>
+
+<h2>Login</h2>
+
+<fieldset>
+	<label>email:
+		<input type='text' name='email' [value]='email' (input)='email = $event.target.value' />
+	</label>
+	<label>pass:
+		<input type='text' name='pass' [value]='pass' (input)='pass = $event.target.value' />
+	</label>
+
+	<button (click)='login($event)'>Login</button>
 </fieldset>
