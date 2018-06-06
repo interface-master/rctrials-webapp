@@ -9,11 +9,13 @@ export class HomeComponent implements OnInit {
 	private title = 'MRCT';
 
 	constructor() {
-		console.log("HOME CONSTRUCT");
 	}
 
 	ngOnInit() {
-		console.log("HOME INIT");
+	}
+
+	receiveData( data ) {
+		this.email = data;
 	}
 
 }
