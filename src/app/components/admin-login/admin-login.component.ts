@@ -10,7 +10,9 @@ import sha256 from 'crypto-js/sha256';
 	styleUrls: ['./admin-login.component.scss']
 })
 export class AdminLoginComponent implements OnInit {
-	private title = 'Researcher Login';
+	private title:string = 'Researcher Login';
+	private email:string = '';
+	private pass:string = '';
 
 	constructor() {
 	}
