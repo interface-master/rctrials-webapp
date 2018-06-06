@@ -11,7 +11,7 @@ import sha256 from 'crypto-js/sha256';
 	styleUrls: ['./admin-registration.component.scss']
 })
 export class AdminRegistrationComponent implements OnInit {
-	private title:string = 'Researcher Login';
+	private title:string = 'Researcher Registration';
 	private email:string = '';
 	private pass:string = '';
 	private name:string = '';

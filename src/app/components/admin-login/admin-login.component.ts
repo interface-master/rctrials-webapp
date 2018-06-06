@@ -13,6 +13,20 @@ export class AdminLoginComponent implements OnInit {
 	private title:string = 'Researcher Login';
 	private email:string = '';
 	private pass:string = '';
+	private salt:string = '';
+	private hash:string = '';
+	private uid:string = null;
+	private name:string = '';
+	private role:string = '';
+	private access_token:string = '';
+	private refresh_token:string = '';
+
+	private API_CREDENTIALS = {
+		client_id: 'mrct',
+		client_secret: 'doascience',
+		scope: 'basic',
+		grant_type: 'password',
+	}
 
 	constructor() {
 	}
@@ -21,64 +35,64 @@ export class AdminLoginComponent implements OnInit {
 	}
 
 	async login(event) {
-		let data = {
-			client_id: 'mrct',
-			client_secret: 'doascience',
-			scope: 'basic',
-			grant_type: 'password',
-			username: this.email,
-			salt: undefined,
-			hash: undefined,
-			id: undefined,
-			name: undefined,
-			role: undefined
-		}
+		//
+		// let data = {
+		// 	username: this.email,
+		// 	salt: undefined,
+		// 	hash: undefined,
+		// 	id: undefined,
+		// 	name: undefined,
+		// 	role: undefined
+		// }
 		// fetch the salt
 		const dataEmail = {
-			username: data.username
+			username: this.email
 		};
 		await axios.post('http://localhost/validate/email', dataEmail )
 		.then( (response) => {
-			data.salt = response.data.salt;
-			data.hash = sha256( this.pass + data.salt ).toString();
+			this.salt = response.data.salt;
+			this.hash = sha256( this.pass + this.salt ).toString();
 		})
 		.catch( (error) => {
 			console.warn(error);
 		});
 		// fetch login
-		if( data.salt && data.hash ) {
+		if( this.salt && this.hash ) {
 			const dataLogin = {
-				client_id: data.client_id,
-				client_secret: data.client_secret,
-				scope: data.scope,
-				grant_type: data.grant_type,
-				username: data.username,
-				password: data.hash
+				client_id: this.API_CREDENTIALS.client_id,
+				client_secret: this.API_CREDENTIALS.client_secret,
+				scope: this.API_CREDENTIALS.scope,
+				grant_type: this.API_CREDENTIALS.grant_type,
+				username: this.email,
+				password: this.hash
 			};
 			await axios.post('http://localhost/validate/login', dataLogin)
 			.then( (response) => {
-				data.id = response.data.id;
-				data.name = response.data.name;
-				data.role = response.data.role;
+				this.uid = response.data.id;
+				this.name = response.data.name;
+				this.role = response.data.role;
+				this.access_token = response.data.access_token;
+				this.refresh_token = response.data.refresh_token;
 			})
 			.catch( (error) => {
 				console.warn(error);
 			});
 		}
 		// validate
-		if( data.id ) {
+		if( this.uid ) {
 			// logged in
 			const user = {
-				id: data.id,
-				name: data.name,
-				email: data.username,
-				role: data.role
+				id: this.uid,
+				name: this.name,
+				email: this.email,
+				role: this.role,
+				access_token: this.access_token,
+				refresh_token: this.refresh_token,
 			}
-			console.log("%cSUCCESS!","color:green;",data)
 			console.log("%cdestructured:","color:purple",user)
 		} else {
 			// error
-			console.log("%cFAIL!","color:red;",data)
+			console.log("%cFAIL!","color:red;",this)
 		}
 	}
 

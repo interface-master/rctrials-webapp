@@ -1,12 +1,14 @@
 <h2>Login</h2>
 
-<fieldset>
-	<label>email:
-		<input type='text' name='email' [value]='email' (input)='email = $event.target.value' />
-	</label>
-	<label>pass:
-		<input type='text' name='pass' [value]='pass' (input)='pass = $event.target.value' />
-	</label>
+<form>
+	<fieldset>
+		<label>email:
+			<input type='text' name='email' [value]='email' (input)='email = $event.target.value' />
+		</label>
+		<label>pass:
+			<input type='text' name='pass' [value]='pass' (input)='pass = $event.target.value' />
+		</label>
 
-	<button (click)='login($event)'>Login</button>
-</fieldset>
+		<button (click)='login($event)' type='button'>Login</button>
+	</fieldset>
+</form>
