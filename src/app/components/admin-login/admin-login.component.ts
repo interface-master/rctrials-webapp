@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+
+import { RegistrationService } from "../../services/registration.service";
 
 import axios from 'axios';
+import md5 from 'crypto-js/md5';
 import sha256 from 'crypto-js/sha256';
 
 
@@ -11,10 +15,7 @@ import sha256 from 'crypto-js/sha256';
 })
 export class AdminLoginComponent implements OnInit {
 	private title:string = 'Researcher Login';
-	private email:string = '';
-	private pass:string = '';
-	private salt:string = '';
-	private hash:string = '';
+
 	private uid:string = null;
 	private name:string = '';
 	private role:string = '';
@@ -28,12 +29,31 @@ export class AdminLoginComponent implements OnInit {
 		grant_type: 'password',
 	}
 
-	constructor() {
+	regform: FormGroup;
+
+	constructor(private reg: RegistrationService) {
 	}
 
 	ngOnInit() {
+		// set up form
+		this.regform = new FormGroup({
+			email: new FormControl(''),
+			pass: new FormControl('')
+		});
+		// set up data binding
+		this.reg.currentRegistrationForm.subscribe(
+			loginForm => {
+				console.log('login got data:',loginForm);
+				this.regform.setValue(loginForm.value);
+			}
+		)
 	}
 
+	changeInput(event: any) {
+		this.reg.updateRegistrationForm(this.regform)
+	}
+
+/*
 	async login(event) {
 		//
 		// let data = {
@@ -95,6 +115,6 @@ export class AdminLoginComponent implements OnInit {
 			console.log("%cFAIL!","color:red;",this)
 		}
 	}
-
+*/
 
 }

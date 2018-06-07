@@ -1,12 +1,22 @@
 <h2>Login</h2>
 
-<form>
+<form [formGroup]='regform'>
 	<fieldset>
 		<label>email:
-			<input type='text' name='email' [value]='email' (input)='email = $event.target.value' />
+			<input #email
+				type='text'
+				name='email'
+				formControlName='email'
+				(input)='changeInput($event)'
+			/>
 		</label>
 		<label>pass:
-			<input type='text' name='pass' [value]='pass' (input)='pass = $event.target.value' />
+			<input #pass
+				type='text'
+				name='pass'
+				formControlName='pass'
+				(input)='changeInput($event)'
+			/>
 		</label>
 
 		<button (click)='login($event)' type='button'>Login</button>

@@ -1,26 +1,46 @@
 <h2>Register</h2>
 
-<form>
+<form [formGroup]='regform'>
 	<fieldset>
 		<label>email:
-			<input type='text' name='email' [value]='email' (input)='email = $event.target.value' />
+			<input
+				type='text'
+				name='email'
+				formControlName='email'
+				(input)='changeInput($event)' />
 		</label>
 		<label>pass:
-			<input type='text' name='pass' [value]='pass' (input)='updateHash($event)' />
+			<input
+				type='text'
+				name='pass'
+				formControlName='pass'
+				(input)='updateHash($event)' />
 		</label>
 		<label>name:
-			<input type='text' name='name' [value]='name' (input)='name = $event.target.value' />
+			<input
+				type='text'
+				name='name'
+				[value]='name' (input)='name = $event.target.value' />
 		</label>
 
 		<div style='opacity:0.3'>
 			<label>role:
-				<input type='text' name='role' [value]='role' readonly />
+				<input
+					type='text'
+					name='role'
+					[value]='role' readonly />
 			</label>
 			<label>salt:
-				<input type='text' name='salt' value='{{ salt }}' />
+				<input
+					type='text'
+					name='salt'
+					value='{{ salt }}' />
 			</label>
 			<label>hash:
-				<input type='text' name='hash' value='{{ hash }}' />
+				<input
+					type='text'
+					name='hash'
+					value='{{ hash }}' />
 			</label>
 		</div>
 

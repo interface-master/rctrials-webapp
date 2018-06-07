@@ -6,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-	private title:string = 'MRCT';
-	private email:string = '';
 
 	constructor() {
 	}
@@ -15,8 +13,8 @@ export class HomeComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	receiveData( data ) {
-		this.email = data;
-	}
+	// receiveData( data ) {
+	// 	this.email = data;
+	// }
 
 }
