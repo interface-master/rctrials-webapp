@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
-import { RegistrationService } from "../../services/registration.service";
+import { SessionService } from '../../services/session.service';
 
-import axios from 'axios';
-import md5 from 'crypto-js/md5';
-import sha256 from 'crypto-js/sha256';
+import { User } from '../../models/user.model';
 
 
 @Component({
@@ -17,19 +15,11 @@ export class AdminRegistrationComponent implements OnInit {
 	private title:string = 'Researcher Registration';
 	private name:string = '';
 	private role:string = 'admin';
-	private salt:string = md5( new Date().getTime().toString() ).toString();
-	private hash:string = '';
 
 	regform: FormGroup;
+	userInfo: User;
 
-	// email: string = '';
-	// @Output() dataEvent = new EventEmitter<string>();
-
-	// sendData() {
-	// 	this.dataEvent.emit( this.email );
-	// }
-
-	constructor(private reg: RegistrationService) {
+	constructor(private session: SessionService) {
 	}
 
 	ngOnInit() {
@@ -37,45 +27,30 @@ export class AdminRegistrationComponent implements OnInit {
 		this.regform = new FormGroup({
 			email: new FormControl(''),
 			pass: new FormControl(''),
-			// salt: new FormControl(''),
-			// hash: new FormControl('')
+			salt: new FormControl(''),
+			hash: new FormControl('')
 		});
+		this.userInfo = new User();
 		// set up data binding
-		this.reg.currentRegistrationForm.subscribe(
+		this.session.currentRegistrationForm.subscribe(
 			loginForm => {
-				console.log('reg got data:',loginForm);
 				this.regform.setValue(loginForm.value);
 			}
 		)
 	}
 
-	changeInput(event: any) {
-		this.reg.updateRegistrationForm(this.regform)
+	changeInputReg(event: any) {
+		this.session.updateRegistrationForm(this.regform)
 	}
 
-	updateHash(event) {
-		this.regform.value.pass = event.target.value;
-		this.regform.value.hash = sha256( this.regform.value.pass + this.regform.value.salt ).toString();
+	changeInputUser(event: any) {
+		this.userInfo.name = this.name;
+		this.userInfo.role = this.role;
+		this.session.updateUserInfo(this.userInfo)
 	}
 
 	register(event) {
-		const data = {
-			email: this.regform.value.email,
-			pass: this.regform.value.pass,
-			// name: this.regform.value.name,
-			// role: this.regform.value.role,
-			salt: this.regform.value.salt,
-			hash: this.regform.value.hash,
-		};
-		console.log("Registering...",data);
-		axios.post('http://localhost/register', data)
-		.then( (response) => {
-			console.log(response);
-		})
-		.catch( (error) => {
-			console.warn(error);
-		});
+		this.session.register();
 	}
-
 
 }

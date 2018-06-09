@@ -3,7 +3,7 @@
 <form [formGroup]='regform'>
 	<fieldset>
 		<label>email:
-			<input #email
+			<input
 				type='text'
 				name='email'
 				formControlName='email'
@@ -11,11 +11,21 @@
 			/>
 		</label>
 		<label>pass:
-			<input #pass
-				type='text'
+			<input
+				type='password'
 				name='pass'
 				formControlName='pass'
 				(input)='changeInput($event)'
+			/>
+			<input
+				type='hidden'
+				name='salt'
+				formControlName='salt'
+			/>
+			<input
+				type='hidden'
+				name='hash'
+				formControlName='hash'
 			/>
 		</label>
 

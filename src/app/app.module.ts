@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminRegistrationComponent } from './components/admin-registration/admin-registration.component';
 import { HomeComponent } from './components/home/home.component';
-import { RegistrationService } from './services/registration.service';
+import { SessionService } from './services/session.service';
 
 @NgModule({
 	declarations: [
@@ -25,7 +25,7 @@ import { RegistrationService } from './services/registration.service';
 		ReactiveFormsModule
 	],
 	providers: [
-		RegistrationService
+		SessionService
 	],
 	bootstrap: [AppComponent]
 })

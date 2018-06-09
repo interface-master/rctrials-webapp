@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+
+import { SessionService } from "../../services/session.service";
+
 
 @Component({
 	selector: 'app-home',
@@ -7,14 +11,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-	constructor() {
+	constructor(private session: SessionService) {
 	}
 
 	ngOnInit() {
 	}
-
-	// receiveData( data ) {
-	// 	this.email = data;
-	// }
 
 }
