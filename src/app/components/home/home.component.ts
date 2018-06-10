@@ -11,10 +11,20 @@ import { SessionService } from "../../services/session.service";
 })
 export class HomeComponent implements OnInit {
 
+	private isLoggedIn: boolean = false;
+
 	constructor(private session: SessionService) {
 	}
 
 	ngOnInit() {
+		this.session.currentUserInfo.subscribe(
+			userInfo => {
+				this.isLoggedIn = ( userInfo.uid ) ? true : false;
+			}
+		)
+		console.log('session:',this.session);
 	}
+
+
 
 }

@@ -70,6 +70,21 @@ export class SessionService {
 		}
 		axios.post('http://localhost/register', data) // TODO: remove hard-coded URLs into a serivce
 		.then( (response) => {
+			// TODO
+			// you've successfully registered
+			// now you need to receive an email with a token
+			// validate your email by visiting a link
+			// then you can log in once the account is marked as active
+			// /TODO
+
+			// this.userInfo.next({
+			// 	uid: response.data.id,
+			// 	email: form.value.email,
+			// 	name: user.name,
+			// 	role: user.role,
+			// 	access_token: '?',
+			// 	refresh_token: '?'
+			// });
 			console.log(response);
 		})
 		.catch( (error) => {
@@ -125,12 +140,16 @@ export class SessionService {
 		// validate
 		if( this.userInfo.value.uid ) {
 			// logged in
+			this.saveCookie( 'access_token', this.userInfo.value.access_token );
+			this.saveCookie( 'refresh_token', this.userInfo.value.refresh_token );
+			console.log( this.parseCookie( 'access_token' ) );
 			console.log("%cdestructured:","color:purple",this.userInfo.value)
 		} else {
 			// error
 			console.log("%cFAIL!","color:red;",this)
 		}
 	}
+
 
 	/**
 	 * generates a hash out of password and salt
@@ -140,6 +159,32 @@ export class SessionService {
 		const salt = this.registrationForm.value.value.salt;
 		let hash = sha256(pass+salt).toString();
 		return hash;
+	}
+
+	/**
+	 * Sets cookies with an "mrct_" prefix to expire in 24 hours
+	 */
+	saveCookie(key: string, value: string) {
+		var date = new Date();
+		date.setTime( date.getTime() + (24*60*60*1000) );
+		window.document.cookie = 'mrct_'+key
+			+ '=' + value
+			+ '; expires='
+			+ date.toGMTString() +
+			+ '; path=/';
+	}
+
+	/**
+	 * Parses cookies with an "mrct_" prefix and returns the value
+	 */
+	parseCookie(key: string) {
+		let ary = [];
+		window.document.cookie.split(';').map( i => {
+			let k = i.split('=')[0].trim();
+			let v = i.split('=')[1].trim();
+			ary[k] = v;
+		} );
+		return ary['mrct_'+key];
 	}
 
 
