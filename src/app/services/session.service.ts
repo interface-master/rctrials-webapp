@@ -179,16 +179,60 @@ export class SessionService {
 	 */
 	parseCookie(key: string) {
 		let ary = [];
+		ary['mrct_'+key] = null;
 		window.document.cookie.split(';').map( i => {
-			let k = i.split('=')[0].trim();
-			let v = i.split('=')[1].trim();
-			ary[k] = v;
+			try {
+				let k = i.split('=')[0].trim();
+				let v = i.split('=')[1].trim();
+				if(k) ary[k] = v;
+			} catch(err) {}
 		} );
 		return ary['mrct_'+key];
 	}
 
 
+	/**
+	 * Check cookies to see if an access/refresh token exists
+	 * If so, use it to retrieve user info
+	 */
+	async validateUserSession() {
+		const access_token = this.parseCookie('access_token');
+		const refresh_token = this.parseCookie('refresh_token');
+		if( access_token && refresh_token ) {
+			// test access token
+			const header = {
+				headers: {
+					'Authorization' : `Bearer ${access_token}`
+				}
+			};
+			await axios.get('http://localhost/user/details', header ) // TODO: remove hard-coded URLs into a serivce
+			.then( (response) => {
+				// got user
+				console.log('validateUserSession.response:',response);
+				if( response.data.uid ) {
+					this.updateUserInfo({
+						uid: response.data.uid,
+						email: response.data.email,
+						name: response.data.name,
+						role: response.data.role,
+						access_token,
+						refresh_token
+					});
+				}
+			})
+			.catch( (error) => {
+				console.warn(error);
+			});
+		}
+	}
+
+
+	/**
+	 * When initializing validate if cookies have valid session tokens
+	 * If so, log in
+	 */
 	constructor() {
+		this.validateUserSession();
 		// console.log('session service:',this);
 	}
 
