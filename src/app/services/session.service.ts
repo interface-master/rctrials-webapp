@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { User } from '../models/user.model';
@@ -43,14 +44,14 @@ export class SessionService {
 	 */
 	updateRegistrationForm(formData: FormGroup) {
 		formData.controls.hash.setValue( this.generateHash() );
-		this.registrationForm.next(formData);
+		this.registrationForm.next( formData );
 	}
 
 	/**
 	 * updates user info
 	 */
 	updateUserInfo(userInfo: User) {
-		this.userInfo.next(userInfo)
+		this.userInfo.next( userInfo )
 	}
 
 
@@ -144,6 +145,7 @@ export class SessionService {
 			this.saveCookie( 'refresh_token', this.userInfo.value.refresh_token );
 			console.log( this.parseCookie( 'access_token' ) );
 			console.log("%cdestructured:","color:purple",this.userInfo.value)
+			// this.router.navigateByUrl('/dashboard');
 		} else {
 			// error
 			console.log("%cFAIL!","color:red;",this)
@@ -170,7 +172,7 @@ export class SessionService {
 		window.document.cookie = 'mrct_'+key
 			+ '=' + value
 			+ '; expires='
-			+ date.toGMTString() +
+			+ date.toUTCString() +
 			+ '; path=/';
 	}
 
@@ -196,6 +198,15 @@ export class SessionService {
 	 * If so, use it to retrieve user info
 	 */
 	async validateUserSession() {
+		const BLANK = {
+			uid: null,
+			email: null,
+			name: null,
+			role: null,
+			access_token: null,
+			refresh_token: null
+		};
+		// return await new Promise( (resolve) => {
 		const access_token = this.parseCookie('access_token');
 		const refresh_token = this.parseCookie('refresh_token');
 		if( access_token && refresh_token ) {
@@ -205,24 +216,34 @@ export class SessionService {
 					'Authorization' : `Bearer ${access_token}`
 				}
 			};
-			await axios.get('http://localhost/user/details', header ) // TODO: remove hard-coded URLs into a serivce
+			const user = await axios.get('http://localhost/user/details', header ) // TODO: remove hard-coded URLs into a serivce
 			.then( (response) => {
 				// got user
 				console.log('validateUserSession.response:',response);
 				if( response.data.uid ) {
-					this.updateUserInfo({
+					return {
 						uid: response.data.uid,
 						email: response.data.email,
 						name: response.data.name,
 						role: response.data.role,
 						access_token,
 						refresh_token
-					});
+					}
+				} else {
+					throw new Error('urr: no user details');
 				}
 			})
 			.catch( (error) => {
 				console.warn(error);
+				return BLANK;
 			});
+
+			this.updateUserInfo(user);
+			return user;
+		}
+		else {
+			// await new Promise( r => setTimeout( r, 2000 ) );
+			return BLANK;
 		}
 	}
 
@@ -231,9 +252,8 @@ export class SessionService {
 	 * When initializing validate if cookies have valid session tokens
 	 * If so, log in
 	 */
-	constructor() {
-		this.validateUserSession();
-		// console.log('session service:',this);
-	}
+	constructor(
+		private router: Router
+	) { }
 
 }

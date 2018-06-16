@@ -14,8 +14,9 @@ export class AdminLoginComponent implements OnInit {
 
 	regform: FormGroup;
 
-	constructor(private session: SessionService) {
-	}
+	constructor(
+		private session: SessionService
+	) { }
 
 	ngOnInit() {
 		// set up form

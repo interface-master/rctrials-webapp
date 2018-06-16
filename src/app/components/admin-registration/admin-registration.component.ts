@@ -19,8 +19,9 @@ export class AdminRegistrationComponent implements OnInit {
 	regform: FormGroup;
 	userInfo: User;
 
-	constructor(private session: SessionService) {
-	}
+	constructor(
+		private session: SessionService
+	) { }
 
 	ngOnInit() {
 		// set up the form
