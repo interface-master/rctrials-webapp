@@ -40,6 +40,13 @@ export class SessionService {
 
 
 	/**
+	* updates user info
+	*/
+	updateUserInfo(userInfo: User) {
+		this.userInfo.next( userInfo )
+	}
+
+	/**
 	 * updates registration form fields
 	 */
 	updateRegistrationForm(formData: FormGroup) {
@@ -47,16 +54,10 @@ export class SessionService {
 		this.registrationForm.next( formData );
 	}
 
-	/**
-	 * updates user info
-	 */
-	updateUserInfo(userInfo: User) {
-		this.userInfo.next( userInfo )
-	}
-
 
 	/**
-	 *
+	 * handles sending registration info to the API
+	 * // TODO: should return something?
 	 */
 	async register() {
 		const form = this.registrationForm.value;
@@ -145,7 +146,7 @@ export class SessionService {
 			this.saveCookie( 'refresh_token', this.userInfo.value.refresh_token );
 			console.log( this.parseCookie( 'access_token' ) );
 			console.log("%cdestructured:","color:purple",this.userInfo.value)
-			// this.router.navigateByUrl('/dashboard');
+			this.router.navigateByUrl('/dashboard');
 		} else {
 			// error
 			console.log("%cFAIL!","color:red;",this)

@@ -12,8 +12,6 @@ import { SpinnerService } from "./services/spinner.service";
 })
 export class AppComponent implements OnInit {
 
-	private loading: boolean = true;
-
 	constructor(
 		private router: Router,
 		private sessionService: SessionService,
@@ -21,13 +19,13 @@ export class AppComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		// validate user session
 		this.sessionService.validateUserSession().then( ret => {
 			console.log('validated user session',ret);
 			this.spinnerService.hide('main');
 			if( ret.uid ) {
-				// acquired user id from details, goto dashboard
 				this.router.navigateByUrl('/dashboard');
+			} else {
+				this.router.navigateByUrl('/home');
 			}
 		});
 	}

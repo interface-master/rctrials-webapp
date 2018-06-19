@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-// import { FormGroup, FormControl } from '@angular/forms';
 
-// import { SessionService } from "../../services/session.service";
 import { SpinnerService } from "../../services/spinner.service";
 
 
@@ -18,13 +16,11 @@ export class SpinnerComponent implements OnInit {
 
 	@Input()
 	get show(): boolean {
-		console.log('spinner',this.name,"is",this.isShowing);
 		return this.isShowing;
 	}
 
 	@Output() showChange = new EventEmitter();
 	set show(val: boolean) {
-		console.log('spinner',this.name,"setting to",val);
 		this.isShowing = val;
 		this.showChange.emit(this.isShowing);
 	}

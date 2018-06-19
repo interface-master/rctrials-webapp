@@ -21,7 +21,6 @@ export class AdminDashboardComponent implements OnInit {
 			userInfo => {
 				console.log("admin dashboard current user:", userInfo);
 				if( !userInfo.uid ) {
-					this.router.navigateByUrl('/home');
 				}
 			}
 		)
