@@ -24,10 +24,6 @@ export class AdminDashboardComponent implements OnInit {
 				}
 			}
 		)
-
-		// if( !this.session.currentUserInfo.source.value().uid ) {
-		// 	this.router.navigateByUrl('/home');
-		// }
 	}
 
 }
