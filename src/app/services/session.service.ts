@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-
-import { User } from '../models/user.model';
 
 import axios from 'axios';
 import md5 from 'crypto-js/md5';
 import sha256 from 'crypto-js/sha256';
+
+import { User } from '../models/user.model';
+
+import { DialogModalComponent } from '../components/dialog-modal/dialog-modal.component';
 
 
 @Injectable()
@@ -139,6 +142,7 @@ export class SessionService {
 				console.warn(error);
 			});
 		}
+		console.log('session service . login . user:',this.userInfo.value,this.currentUserInfo.source.value);
 		// validate
 		if( this.userInfo.value.uid ) {
 			// logged in
@@ -149,6 +153,7 @@ export class SessionService {
 			this.router.navigateByUrl('/dashboard');
 		} else {
 			// error
+			this.openDialog("Login Failed","Hmm. Are you sure you have the righ username and password?");
 			console.log("%cFAIL!","color:red;",this)
 		}
 	}
@@ -193,6 +198,18 @@ export class SessionService {
 		return ary['mrct_'+key];
 	}
 
+
+	openDialog(title: string, text: string): void {
+		let dialogRef = this.dialog.open( DialogModalComponent, {
+			width: '250px',
+			data: { title, text }
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log('The dialog was closed');
+			// this.animal = result;
+		});
+	}
 
 	/**
 	 * Check cookies to see if an access/refresh token exists
@@ -254,7 +271,8 @@ export class SessionService {
 	 * If so, log in
 	 */
 	constructor(
-		private router: Router
+		private router: Router,
+		public dialog: MatDialog,
 	) { }
 
 }
