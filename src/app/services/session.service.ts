@@ -36,6 +36,7 @@ export class SessionService {
 
 
 	private registrationForm = new BehaviorSubject( this.REGISTRATION_FORM );
+	public getRegistrationForm = () => this.registrationForm.getValue();
 	currentRegistrationForm = this.registrationForm.asObservable();
 
 	private userInfo = new BehaviorSubject( this.USER );
@@ -82,6 +83,7 @@ export class SessionService {
 			// then you can log in once the account is marked as active
 			// /TODO
 
+
 			// if there's an error during registration
 			if( response.data.status !== 200 ) {
 				let message = response.data.message || "No error message was specified.";
@@ -90,6 +92,7 @@ export class SessionService {
 			// otherwise, all is well
 			else {
 				console.log( "%cRegistration Successful", "color:green", response.data.id );
+				this.openDialog( "Registration Successful", `Your account has been created. Please note down your ID: ${response.data.id}\nJust kidding. We'll send you an email to validate your account. Once you've confirmed your email, you can log in and create your trials.` );
 			}
 
 			// this.userInfo.next({
@@ -154,7 +157,7 @@ export class SessionService {
 				console.warn(error);
 			});
 		}
-		console.log('session service . login . user:',this.userInfo.value,this.currentUserInfo.source.value);
+		// console.log('session service . login . user:',this.userInfo.value,this.currentUserInfo.source.value);
 		// validate
 		if( this.userInfo.value.uid ) {
 			// logged in
@@ -165,7 +168,7 @@ export class SessionService {
 			this.router.navigateByUrl('/dashboard');
 		} else {
 			// error
-			this.openDialog("Login Failed","Hmm. Are you sure you have the righ username and password?");
+			this.openDialog("Login Failed","Hmm. Are you sure you have the right username and password?");
 			form.controls.salt.setValue( this.rnd );
 			console.log("%cFAIL!","color:red;",this)
 		}
@@ -214,7 +217,7 @@ export class SessionService {
 
 	openDialog(title: string, text: string): void {
 		let dialogRef = this.dialog.open( DialogModalComponent, {
-			width: '250px',
+			width: '350px',
 			data: { title, text }
 		});
 

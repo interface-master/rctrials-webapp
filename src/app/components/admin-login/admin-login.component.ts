@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 import { SessionService } from "../../services/session.service";
 
@@ -20,7 +20,7 @@ export class AdminLoginComponent implements OnInit {
 
 	ngOnInit() {
 		// set up form
-		this.regform = this.session.currentRegistrationForm.source.value;
+		this.regform = this.session.getRegistrationForm();
 		// set up data binding
 		this.session.currentRegistrationForm.subscribe(
 			loginForm => {
