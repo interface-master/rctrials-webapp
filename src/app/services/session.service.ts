@@ -82,6 +82,16 @@ export class SessionService {
 			// then you can log in once the account is marked as active
 			// /TODO
 
+			// if there's an error during registration
+			if( response.data.status !== 200 ) {
+				let message = response.data.message || "No error message was specified.";
+				this.openDialog( "Registration Failed", message );
+			}
+			// otherwise, all is well
+			else {
+				console.log( "%cRegistration Successful", "color:green", response.data.id );
+			}
+
 			// this.userInfo.next({
 			// 	uid: response.data.id,
 			// 	email: form.value.email,
