@@ -20,11 +20,12 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this.sessionService.validateUserSession().then( ret => {
-			console.log('validated user session',ret);
 			this.spinnerService.hide('main');
 			if( ret.uid ) {
+				console.log('validated user session',ret);
 				this.router.navigateByUrl('/dashboard');
 			} else {
+				console.log('invalid user session',ret);
 				this.router.navigateByUrl('/home');
 			}
 		});
