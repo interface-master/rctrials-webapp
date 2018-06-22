@@ -20,12 +20,7 @@ export class AdminLoginComponent implements OnInit {
 
 	ngOnInit() {
 		// set up form
-		this.regform = new FormGroup({
-			email: new FormControl(''),
-			pass: new FormControl(''),
-			salt: new FormControl(''),
-			hash: new FormControl('')
-		});
+		this.regform = this.session.currentRegistrationForm.source.value;
 		// set up data binding
 		this.session.currentRegistrationForm.subscribe(
 			loginForm => {

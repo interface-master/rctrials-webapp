@@ -111,8 +111,10 @@ export class SessionService {
 		};
 		await axios.post('http://localhost/validate/email', dataEmail ) // TODO: remove hard-coded URLs into a serivce
 		.then( (response) => {
-			form.controls.salt.setValue( response.data.salt );
-			form.controls.hash.setValue( this.generateHash() );
+			if( response.data.salt ) {
+				form.controls.salt.setValue( response.data.salt );
+				form.controls.hash.setValue( this.generateHash() );
+			}
 		})
 		.catch( (error) => {
 			console.warn(error);
@@ -154,6 +156,7 @@ export class SessionService {
 		} else {
 			// error
 			this.openDialog("Login Failed","Hmm. Are you sure you have the righ username and password?");
+			form.controls.salt.setValue( this.rnd );
 			console.log("%cFAIL!","color:red;",this)
 		}
 	}
@@ -207,7 +210,7 @@ export class SessionService {
 
 		dialogRef.afterClosed().subscribe(result => {
 			console.log('The dialog was closed');
-			// this.animal = result;
+			// this.dataFromDialog = result;
 		});
 	}
 
