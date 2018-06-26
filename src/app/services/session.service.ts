@@ -271,6 +271,10 @@ export class SessionService {
 				console.warn(error);
 				return BLANK;
 			});
+			// if access token didn't work, try refresh token
+			if( user === BLANK ) {
+				// TODO : send refresh_token to get new access_token
+			}
 
 			this.updateUserInfo(user);
 			return user;
