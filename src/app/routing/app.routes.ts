@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { AdminDashboardComponent } from '../components/admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from '../components/admin-login/admin-login.component';
+import { AdminNewTrialComponent } from '../components/admin-new-trial/admin-new-trial.component';
 import { AdminRegistrationComponent } from '../components/admin-registration/admin-registration.component';
 import { HomeComponent } from '../components/home/home.component';
 
@@ -38,6 +39,13 @@ export const routes: Routes = [
 		component: AdminDashboardComponent,
 		data: [{
 			pageName: 'MRCT'
+		}]
+	},
+	{
+		path: 'new-trial',
+		component: AdminNewTrialComponent,
+		data: [{
+			pageName: 'New Trial'
 		}]
 	}
 ]

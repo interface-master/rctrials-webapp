@@ -1,0 +1,139 @@
+<h2>Register</h2>
+
+<form [formGroup]='newTrialForm'>
+	<fieldset>
+		<legend>Basic Info</legend>
+		<label>Trial title:
+			<input
+				type='text'
+				name='title'
+				formControlName='title'
+				(input)='changeInput($event)' />
+		</label>
+		<label>Registration Opens:
+			<input
+				type='date'
+				name='regopen'
+				formControlName='regopen'
+				(input)='changeInput($event)' />
+		</label>
+		<label>Registration Closes:
+			<input
+				type='date'
+				name='regclose'
+				formControlName='regclose'
+				(input)='changeInput($event)' />
+		</label>
+		<label>Trial Starts:
+			<input
+				type='date'
+				name='trialstart'
+				formControlName='trialstart'
+				(input)='changeInput($event)' />
+		</label>
+		<label>Trial Ends:
+			<input
+				type='date'
+				name='trialend'
+				formControlName='trialend'
+				(input)='changeInput($event)' />
+		</label>
+	</fieldset>
+
+	<fieldset>
+		<legend>Experiment Design</legend>
+		<label>Number of groups:
+			<input
+				type='number'
+				name='ngroups'
+				formControlName='ngroups'
+				(input)='changeInput($event)' />
+		</label>
+		<label>Trial Type:
+			<select
+				name='trialtype'
+				formControlName='trialtype'
+				(input)='changeInput($event)'>
+					<option value='simple'>Simple</option>
+					<option value='rotaion' disabled=''>Rotation</option>
+					<option value='factorial' disabled=''>Factorial</option>
+					<option value='phasein' disabled=''>Phase-In</option>
+					<option value='encouragement' disabled=''>Encouragement</option>
+			</select>
+		</label>
+	</fieldset>
+
+	<fieldset>
+		<legend>Groups</legend>
+		<label>Group {{n}} Name:
+			<input
+				type='text'
+				placeholder='group name'
+				name='grp_n_name'
+				formControlName='grp_n_name'
+				(input)='changeInput($event)' />
+		</label>
+		<label>Group {{n}} Size:
+			<select name='grp_n_size'>
+				<option value='auto'>Auto</option>
+				<option value='manual'>Manual</option>
+			</select>
+			<input
+				type='number'
+				placeholder='group size'
+				name='grp_n_size_n'
+				formControlName='grp_n_size_n'
+				(input)='changeInput($event)' />
+			</label>
+	</fieldset>
+
+	<fieldset>
+		<legend>Features</legend>
+		<input
+			type='text'
+			placeholder='feature id'
+			name='feat_n_id'
+			formControlName='feat_n_id'
+			(input)='changeInput($event)' />
+		<input
+			type='text'
+			placeholder='feature name'
+			name='feat_n_name'
+			formControlName='feat_n_name'
+			(input)='changeInput($event)' />
+		<label>Group N
+			<input
+				type='checkbox'
+				name='feat_n_grp_n'
+				formControlName='feat_n_grp_n'
+				(input)='changeInput($event)' />
+		</label>
+		<label>Group N
+			<input
+				type='checkbox'
+				name='feat_n_grp_n'
+				formControlName='feat_n_grp_n'
+				(input)='changeInput($event)' />
+		</label>
+	</fieldset>
+
+	<fieldset>
+		<legend>Surveys</legend>
+	</fieldset>
+
+	<fieldset>
+		<legend>Questions</legend>
+	</fieldset>
+
+	<fieldset>
+		<label>name:
+			<input
+				type='text'
+				name='name'
+				[value]='name'
+				(input)='name = $event.target.value; changeInput($event);' />
+		</label>
+
+		<button (click)='newTrial($event)' type='button'>New Trial</button>
+	</fieldset>
+</form>
