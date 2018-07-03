@@ -17,13 +17,6 @@ export class AdminDashboardComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.session.currentUserInfo.subscribe(
-			userInfo => {
-				console.log("admin dashboard current user:", userInfo);
-				if( !userInfo.uid ) {
-				}
-			}
-		)
 	}
 
 }
