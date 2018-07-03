@@ -19,16 +19,17 @@ export class AppComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.sessionService.validateUserSession().then( ret => {
+		this.sessionService.validateUserSession().then( (user: any) => {
 			this.spinnerService.hide('main');
-			if( ret.uid ) {
-				console.log('validated user session',ret);
-				console.log("ROUTE:",this.router.url);
+			if( user.uid ) {
+				// TODO: set user details here from
+				console.log('%cvalidated user session','color:purple',user);
+				console.log("%cROUTE:",'color:purple',this.router.url);
 				if( this.router.url == '/home' ) {
 					this.router.navigateByUrl('/dashboard');
 				}
 			} else {
-				console.log('invalid user session',ret);
+				console.log('invalid user session',user);
 				this.router.navigateByUrl('/home');
 			}
 		});
