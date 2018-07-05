@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SessionService } from "./services/session.service";
@@ -10,7 +10,9 @@ import { SpinnerService } from "./services/spinner.service";
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+
+	// private showSpinner: boolean = true;
 
 	constructor(
 		private router: Router,
@@ -18,9 +20,14 @@ export class AppComponent implements OnInit {
 		private spinnerService: SpinnerService,
 	) { }
 
+	ngAfterViewInit() {
+		console.log("THERE")
+		this.spinnerService.show('main');
+	}
+
 	ngOnInit() {
+		console.log("HERE")
 		this.sessionService.validateUserSession().then( (user: any) => {
-			this.spinnerService.hide('main');
 			if( user.uid ) {
 				// TODO: set user details here from
 				console.log('%cvalidated user session','color:purple',user);
@@ -32,6 +39,9 @@ export class AppComponent implements OnInit {
 				console.log('invalid user session',user);
 				this.router.navigateByUrl('/home');
 			}
+			console.log('finished with spinner:')
+			this.spinnerService.hide('main');
+			console.log('spinner service:',this.spinnerService);
 		});
 	}
 

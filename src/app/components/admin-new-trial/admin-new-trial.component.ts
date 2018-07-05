@@ -10,10 +10,13 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class AdminNewTrialComponent implements OnInit {
 	private title:string = 'New Trial';
 
+	groups:any[] = [];
+
 	newTrialForm: FormGroup;
 
 	constructor(
 		// private session: SessionService
+		// private spinnerService: SpinnerService
 	) { }
 
 	ngOnInit() {
@@ -24,6 +27,7 @@ export class AdminNewTrialComponent implements OnInit {
 			regclose: new FormControl(''),
 			trialstart: new FormControl(''),
 			trialend: new FormControl(''),
+			ngroups: new FormControl(''),
 		});
 		// set up data binding
 		// this.session.currentRegistrationForm.subscribe(
@@ -33,8 +37,26 @@ export class AdminNewTrialComponent implements OnInit {
 		// )
 	}
 
-	changeInputReg(event: any) {
-		// this.session.updateNewTrialForm(this.newTrialForm)
+	changeInput(event: any) {
+		console.log('event:',event);
+		console.log("this.groups:",this.groups);
+		switch( event.target.name ) {
+			case 'ngroups':
+				let n = event.target.value;
+				for( let i = this.groups.length; i < n; i++ ) {
+					this.groups.push({});
+				}
+				if( n < this.groups.length ) {
+					this.groups.splice(n);
+				}
+				console.log('groups:', this.groups );
+				console.log('this:',this);
+				break;
+
+			default:
+				// update form group
+				// this.session.updateNewTrialForm(this.newTrialForm)
+		}
 	}
 
 	newTrial(event) {
