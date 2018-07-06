@@ -67,25 +67,25 @@
 	<fieldset>
 		<legend>Groups</legend>
 		<div
-			*ngFor="let group of groups; let i = index">
+			*ngFor="let group of groups.controls; index as i">
 			<label>Group {{i+1}} Name:
 				<input
 					type='text'
 					placeholder='group name'
-					name='grp_{{i}}_name'
-					formControlName='grp_{{i}}_name'
+					name='grp_n_name'
+					formControlName='grp_n_name'
 					(input)='changeInput($event)' />
 			</label>
 			<label>Size:
-				<select name='grp_{{i}}_size'>
+				<select name='grp_n_size'>
 					<option value='auto'>Auto</option>
 					<option value='manual'>Manual</option>
 				</select>
 				<input
 					type='number'
 					placeholder='group size'
-					name='grp_{{i}}_size_n'
-					formControlName='grp_{{i}}_size_n'
+					name='grp_n_size_n'
+					formControlName='grp_n_size_n'
 					(input)='changeInput($event)' />
 			</label>
 		</div>

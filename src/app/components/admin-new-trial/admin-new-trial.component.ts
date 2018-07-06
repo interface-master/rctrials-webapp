@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 
 
 @Component({
@@ -10,13 +10,13 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class AdminNewTrialComponent implements OnInit {
 	private title:string = 'New Trial';
 
-	groups:any[] = [];
-
 	newTrialForm: FormGroup;
+	groups: FormArray;
 
 	constructor(
 		// private session: SessionService
 		// private spinnerService: SpinnerService
+		private formBuilder: FormBuilder
 	) { }
 
 	ngOnInit() {
@@ -27,7 +27,8 @@ export class AdminNewTrialComponent implements OnInit {
 			regclose: new FormControl(''),
 			trialstart: new FormControl(''),
 			trialend: new FormControl(''),
-			ngroups: new FormControl(''),
+			trialtype: new FormControl('simple'),
+			groups: this.formBuilder.array([ this.createItem() ]),
 		});
 		// set up data binding
 		// this.session.currentRegistrationForm.subscribe(
@@ -39,18 +40,20 @@ export class AdminNewTrialComponent implements OnInit {
 
 	changeInput(event: any) {
 		console.log('event:',event);
-		console.log("this.groups:",this.groups);
+		this.groups = this.newTrialForm.get('groups') as FormArray;
+		console.log("groups1:",this.groups);
 		switch( event.target.name ) {
 			case 'ngroups':
 				let n = event.target.value;
 				for( let i = this.groups.length; i < n; i++ ) {
-					this.groups.push({});
+					console.log('pushing')
+					this.groups.push( this.createItem() );
 				}
-				if( n < this.groups.length ) {
-					this.groups.splice(n);
+				for( let i = this.groups.length; i >= n; i-- ) {
+					console.log('removing',i)
+					this.groups.removeAt(i);
 				}
-				console.log('groups:', this.groups );
-				console.log('this:',this);
+				console.log('groups2:', this.groups );
 				break;
 
 			default:
@@ -59,9 +62,18 @@ export class AdminNewTrialComponent implements OnInit {
 		}
 	}
 
+	createItem(): FormGroup {
+		return this.formBuilder.group({
+			name: '',
+			size: '',
+			sizen: '',
+			experiments: [],
+			surveys: []
+		});
+	}
+
 	newTrial(event) {
-		console.log('creating a new trial...');
-	// 	this.session.register();
+		console.log('creating a new trial...',this.newTrialForm.value);
 	}
 
 }
