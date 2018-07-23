@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -10,50 +11,101 @@ import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 export class AdminNewTrialComponent implements OnInit {
 	private title:string = 'New Trial';
 
-	newTrialForm: FormGroup;
-	groups: FormArray;
+	public newTrialForm: FormGroup;
+	public groups: FormArray;
+	public features: FormArray;
 
 	constructor(
+		private route: ActivatedRoute,
 		// private session: SessionService
 		// private spinnerService: SpinnerService
 		private formBuilder: FormBuilder
-	) { }
+	) {
+		this.title = this.route.snapshot.data[0].pageName;
+	}
 
 	ngOnInit() {
 		// set up the form
-		this.newTrialForm = new FormGroup({
-			title: new FormControl(''),
-			regopen: new FormControl(''),
-			regclose: new FormControl(''),
-			trialstart: new FormControl(''),
-			trialend: new FormControl(''),
-			trialtype: new FormControl('simple'),
-			groups: this.formBuilder.array([ this.createItem() ]),
+		this.groups = this.formBuilder.array([ this.createGroup(0) ]);
+		this.features = this.formBuilder.array([ this.createFeature(0) ]);
+		this.newTrialForm = this.formBuilder.group({
+			title: [''],
+			regopen: [''],
+			regclose: [''],
+			trialstart: [''],
+			trialend: [''],
+			trialtype: ['simple'],
+			groups: this.groups,
+			features: this.features,
 		});
-		// set up data binding
-		// this.session.currentRegistrationForm.subscribe(
-		// 	loginForm => {
-		// 		this.regform.setValue(loginForm.value);
-		// 	}
-		// )
 	}
 
-	changeInput(event: any) {
-		console.log('event:',event);
+	createGroup(id: number): FormGroup {
+		return this.formBuilder.group({
+			grp_n_id: [id],
+			grp_n_name: [''],
+			grp_n_size: ['auto'],
+			grp_n_size_n: [''],
+			// grp_n_features: [''],
+			// grp_n_surveys: ['']
+		});
+	}
+
+	createFeature(id: number): FormGroup {
+		return this.formBuilder.group({
+			feat_n_id: [id],
+			feat_n_name: [''],
+			feat_n_grp_n: [[]],
+		});
+	}
+
+	changeInput(event: any, index?: number) {
+		// console.log('event:',event);
 		this.groups = this.newTrialForm.get('groups') as FormArray;
-		console.log("groups1:",this.groups);
+		this.features = this.newTrialForm.get('features') as FormArray;
+
 		switch( event.target.name ) {
+			// when changing the number of groups:
 			case 'ngroups':
 				let n = event.target.value;
 				for( let i = this.groups.length; i < n; i++ ) {
-					console.log('pushing')
-					this.groups.push( this.createItem() );
+					this.groups.push( this.createGroup( this.groups.length ) );
 				}
 				for( let i = this.groups.length; i >= n; i-- ) {
-					console.log('removing',i)
 					this.groups.removeAt(i);
 				}
-				console.log('groups2:', this.groups );
+				break;
+
+			// when changing group size:
+			case 'grp_n_size_n':
+				let t = event.target;
+				let this_group = <FormGroup>this.groups.controls[index];
+				const this_group_size = <FormControl>this_group.controls['grp_n_size'];
+				if( this_group_size ) {
+					if( !isNaN(parseInt(t.value)) ) {
+						// set to manual
+						this_group_size.setValue('manual');
+					} else {
+						// set to auto
+						this_group_size.setValue('auto');
+					}
+				}
+				break;
+
+			case 'feat_n_name':
+				let ary = [];
+				this.features.value.forEach( i => {
+					(i['feat_n_name'].trim().length > 0) ? ary.push(1) : ary.push(0);
+				});
+				if( ary[ary.length-1] == 1 ) {
+					this.features.push( this.createFeature(this.features.length) );
+				}
+				if( ary.length > 2
+					&& ary[ary.length-1] == 0
+					&& ary[ary.length-2] == 0
+				) {
+					this.features.removeAt( this.features.length-1 );
+				}
 				break;
 
 			default:
@@ -62,18 +114,23 @@ export class AdminNewTrialComponent implements OnInit {
 		}
 	}
 
-	createItem(): FormGroup {
-		return this.formBuilder.group({
-			name: '',
-			size: '',
-			sizen: '',
-			experiments: [],
-			surveys: []
-		});
+	changeFeatureGroup(event: any, idx_feature?: number, idx_group?: number) {
+		// console.log(idx_feature, idx_group, 'assignFeatures:', event);
+		// console.log('features:',this.features.value[idx_feature]['feat_n_grp_n']);
+		const ary = this.features.value[idx_feature]['feat_n_grp_n'];
+		if( event.target.checked == true ) {
+			ary.push( idx_group );
+		} else {
+			ary.splice( ary.indexOf(idx_group), 1 );
+		}
 	}
 
 	newTrial(event) {
-		console.log('creating a new trial...',this.newTrialForm.value);
+		let trial = this.newTrialForm.value;
+		// remove auto-generated blank feature
+		trial.features = trial.features.filter( i => i.feat_n_name.length > 0 );
+		// output
+		console.log('creating a new trial...',trial);
 	}
 
 }

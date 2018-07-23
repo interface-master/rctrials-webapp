@@ -3,7 +3,29 @@ fieldset {
 	margin: 20px 0;
 	padding: 10px;
 
+	&.done {
+		border: 2px solid green;
+	}
+
+	&.wip {
+		border: 2px solid orange;
+	}
+
 	legend {
 		width: auto;
+	}
+
+	.feature_group_row {
+		display: flex;
+
+		.feature_group_cell {
+			padding: 0 10px;
+
+			label {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+		}
 	}
 }
