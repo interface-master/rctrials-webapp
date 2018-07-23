@@ -12,18 +12,13 @@ import { SpinnerService } from "./services/spinner.service";
 })
 export class AppComponent implements OnInit, AfterViewInit {
 
-	// private showSpinner: boolean = true;
+	private showSpinner: boolean = true;
 
 	constructor(
 		private router: Router,
 		private sessionService: SessionService,
 		private spinnerService: SpinnerService,
 	) { }
-
-	ngAfterViewInit() {
-		console.log("THERE")
-		this.spinnerService.show('main');
-	}
 
 	ngOnInit() {
 		console.log("HERE")
@@ -43,6 +38,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 			this.spinnerService.hide('main');
 			console.log('spinner service:',this.spinnerService);
 		});
+	}
+
+	ngAfterViewInit() {
+		console.log("THERE")
+		this.spinnerService.show('main');
 	}
 
 }
