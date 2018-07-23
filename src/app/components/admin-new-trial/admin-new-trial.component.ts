@@ -14,6 +14,7 @@ export class AdminNewTrialComponent implements OnInit {
 	public newTrialForm: FormGroup;
 	public groups: FormArray;
 	public features: FormArray;
+	public surveys: FormArray;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -28,6 +29,7 @@ export class AdminNewTrialComponent implements OnInit {
 		// set up the form
 		this.groups = this.formBuilder.array([ this.createGroup(0) ]);
 		this.features = this.formBuilder.array([ this.createFeature(0) ]);
+		this.surveys = this.formBuilder.array([ this.createSurvey(0) ]);
 		this.newTrialForm = this.formBuilder.group({
 			title: [''],
 			regopen: [''],
@@ -37,15 +39,16 @@ export class AdminNewTrialComponent implements OnInit {
 			trialtype: ['simple'],
 			groups: this.groups,
 			features: this.features,
+			surveys: this.surveys,
 		});
 	}
 
 	createGroup(id: number): FormGroup {
 		return this.formBuilder.group({
-			grp_n_id: [id],
-			grp_n_name: [''],
-			grp_n_size: ['auto'],
-			grp_n_size_n: [''],
+			group_id: [id],
+			group_name: [''],
+			group_size: ['auto'],
+			group_size_n: [''],
 			// grp_n_features: [''],
 			// grp_n_surveys: ['']
 		});
@@ -53,10 +56,18 @@ export class AdminNewTrialComponent implements OnInit {
 
 	createFeature(id: number): FormGroup {
 		return this.formBuilder.group({
-			feat_n_id: [id],
-			feat_n_name: [''],
-			feat_n_grp_n: [[]],
+			feature_id: [id],
+			feature_name: [''],
+			feature_groups: [[]],
 		});
+	}
+
+	createSurvey(id: number): FormGroup {
+		return this.formBuilder.group({
+			survey_id: [id],
+			survey_name: [''],
+			survey_groups: [[]],
+		})
 	}
 
 	changeInput(event: any, index?: number) {
@@ -72,15 +83,15 @@ export class AdminNewTrialComponent implements OnInit {
 					this.groups.push( this.createGroup( this.groups.length ) );
 				}
 				for( let i = this.groups.length; i >= n; i-- ) {
-					this.groups.removeAt(i);
+					this.groups.removeAt( i );
 				}
 				break;
 
 			// when changing group size:
-			case 'grp_n_size_n':
+			case 'group_size_n':
 				let t = event.target;
 				let this_group = <FormGroup>this.groups.controls[index];
-				const this_group_size = <FormControl>this_group.controls['grp_n_size'];
+				const this_group_size = <FormControl>this_group.controls['group_size'];
 				if( this_group_size ) {
 					if( !isNaN(parseInt(t.value)) ) {
 						// set to manual
@@ -92,13 +103,13 @@ export class AdminNewTrialComponent implements OnInit {
 				}
 				break;
 
-			case 'feat_n_name':
-				let ary = [];
+			case 'feature_name':
+				var ary = [];
 				this.features.value.forEach( i => {
-					(i['feat_n_name'].trim().length > 0) ? ary.push(1) : ary.push(0);
+					(i['feature_name'].trim().length > 0) ? ary.push(1) : ary.push(0);
 				});
 				if( ary[ary.length-1] == 1 ) {
-					this.features.push( this.createFeature(this.features.length) );
+					this.features.push( this.createFeature( this.features.length ) );
 				}
 				if( ary.length > 2
 					&& ary[ary.length-1] == 0
@@ -108,27 +119,44 @@ export class AdminNewTrialComponent implements OnInit {
 				}
 				break;
 
+			case 'survey_name':
+				var ary = [];
+				this.surveys.value.forEach( i => {
+					(i['survey_name'].trim().length > 0) ? ary.push(1) : ary.push(0);
+				});
+				if( ary[ary.length-1] == 1 ) {
+					this.surveys.push( this.createSurvey( this.surveys.length ) );
+				}
+				if( ary.length > 2
+					&& ary[ary.length-1] == 0
+					&& ary[ary.length-2] == 0
+				) {
+					this.surveys.removeAt( this.surveys.length-1 );
+				}
+				break;
+
 			default:
 				// update form group
 				// this.session.updateNewTrialForm(this.newTrialForm)
 		}
 	}
 
-	changeFeatureGroup(event: any, idx_feature?: number, idx_group?: number) {
-		// console.log(idx_feature, idx_group, 'assignFeatures:', event);
-		// console.log('features:',this.features.value[idx_feature]['feat_n_grp_n']);
-		const ary = this.features.value[idx_feature]['feat_n_grp_n'];
+	changeGroupAssignment(event: any, ary: FormControl, idx_group: number) {
+		// const ary = this.features.value[idx_feature]['feat_n_grp_n'];
 		if( event.target.checked == true ) {
-			ary.push( idx_group );
+			ary.value.push( idx_group );
+			ary.value.sort();
 		} else {
-			ary.splice( ary.indexOf(idx_group), 1 );
+			ary.value.splice( ary.value.indexOf(idx_group), 1 );
 		}
 	}
 
 	newTrial(event) {
 		let trial = this.newTrialForm.value;
-		// remove auto-generated blank feature
-		trial.features = trial.features.filter( i => i.feat_n_name.length > 0 );
+		// remove auto-generated blank FEATURE
+		trial.features = trial.features.filter( i => i.feature_name.length > 0 );
+		// remove auto-generated blank SURVEY
+		trial.surveys = trial.surveys.filter( i => i.survey_name.length > 0 );
 		// output
 		console.log('creating a new trial...',trial);
 	}

@@ -74,23 +74,23 @@
 						tabindex='-1'
 						type='text'
 						placeholder='group id'
-						name='grp_n_id'
-						formControlName='grp_n_id' />
+						name='group_id'
+						formControlName='group_id' />
 				</label>
 				<label>Group {{i+1}} Name:
 					<input
 						tabindex='0'
 						type='text'
 						placeholder='group name'
-						name='grp_n_name'
-						formControlName='grp_n_name'
+						name='group_name'
+						formControlName='group_name'
 						(input)='changeInput($event)' />
 				</label>
 				<label>Size:
 					<select
 						tabindex='1'
-						name='grp_n_size'
-						formControlName='grp_n_size'>
+						name='group_size'
+						formControlName='group_size'>
 						<option value='auto'>Automatic</option>
 						<option value='manual'>Manual</option>
 					</select>
@@ -98,8 +98,8 @@
 						tabindex='1'
 						type='number'
 						placeholder='group size'
-						name='grp_n_size_n'
-						formControlName='grp_n_size_n'
+						name='group_size_n'
+						formControlName='group_size_n'
 						(input)='changeInput($event, i)' />
 				</label>
 			</div>
@@ -110,29 +110,29 @@
 		<legend>Features</legend>
 		<div formArrayName="features"
 			*ngFor="let feature of features.controls; index as j">
-			<div [formGroupName]="j" class="feature_group_row">
+			<div [formGroupName]="j" class="item_group_row">
 				<input
 					tabindex='-1'
 					type='text'
 					placeholder='feature id'
-					name='feat_n_id'
-					formControlName='feat_n_id' />
+					name='feature_id'
+					formControlName='feature_id' />
 				<input
 					tabindex='0'
 					type='text'
 					placeholder='feature name'
-					name='feat_n_name'
-					formControlName='feat_n_name'
+					name='feature_name'
+					formControlName='feature_name'
 					(input)='changeInput($event)' />
 				<div
-					class='feature_group_cell'
+					class='item_group_cell'
 					*ngFor="let group of groups.controls; index as k">
-					<label>{{ group.controls['grp_n_name'].value }}
+					<label>{{ group.controls['group_name'].value }}
 						<input
 							tabindex='1'
 							type='checkbox'
-							name='feat_n_grp_n'
-							(input)='changeFeatureGroup($event, j, k)' />
+							name='feature_groups'
+							(input)='changeGroupAssignment($event, feature.controls["feature_groups"], k)' />
 					</label>
 				</div>
 			</div>
@@ -141,6 +141,35 @@
 
 	<fieldset class='wip'>
 		<legend>Surveys</legend>
+		<div formArrayName="surveys"
+			*ngFor="let survey of surveys.controls; index as s">
+			<div [formGroupName]="s" class="item_group_row">
+				<input
+					tabindex='-1'
+					type='text'
+					placeholder='survey id'
+					name='survey_id'
+					formControlName='survey_id' />
+				<input
+					tabindex='0'
+					type='text'
+					placeholder='survey name'
+					name='survey_name'
+					formControlName='survey_name'
+					(input)='changeInput($event)' />
+				<div
+					class='item_group_cell'
+					*ngFor="let group of groups.controls; index as t">
+					<label>{{ group.controls['group_name'].value }}
+						<input
+							tabindex='1'
+							type='checkbox'
+							name='survey_groups'
+							(input)='changeGroupAssignment($event, survey.controls["survey_groups"], t)' />
+					</label>
+				</div>
+			</div>
+		</div>
 	</fieldset>
 
 	<fieldset>
