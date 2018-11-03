@@ -75,6 +75,7 @@
 						type='text'
 						placeholder='group id'
 						name='group_id'
+						class='input_id'
 						formControlName='group_id' />
 				</label>
 				<label>Group {{i+1}} Name:
@@ -116,6 +117,7 @@
 					type='text'
 					placeholder='feature id'
 					name='feature_id'
+					class='input_id'
 					formControlName='feature_id' />
 				<input
 					tabindex='0'
@@ -139,16 +141,17 @@
 		</div>
 	</fieldset>
 
-	<fieldset class='wip'>
+	<fieldset class='done'>
 		<legend>Surveys</legend>
-		<div formArrayName="surveys"
-			*ngFor="let survey of surveys.controls; index as s">
-			<div [formGroupName]="s" class="item_group_row">
+		<div formArrayName='surveys'
+			*ngFor='let survey of surveys.controls; index as s'>
+			<div [formGroupName]='s' class='item_group_row'>
 				<input
 					tabindex='-1'
 					type='text'
 					placeholder='survey id'
 					name='survey_id'
+					class='input_id'
 					formControlName='survey_id' />
 				<input
 					tabindex='0'
@@ -159,7 +162,7 @@
 					(input)='changeInput($event)' />
 				<div
 					class='item_group_cell'
-					*ngFor="let group of groups.controls; index as t">
+					*ngFor='let group of groups.controls; index as t'>
 					<label>{{ group.controls['group_name'].value }}
 						<input
 							tabindex='1'
@@ -169,10 +172,39 @@
 					</label>
 				</div>
 			</div>
+			<div [formGroupName]='s' class='questions'>
+				<div>Questions</div>
+				<div formArrayName='survey_questions'
+					*ngFor='let question of survey.controls["survey_questions"].controls; index as q'>
+					<div [formGroupName]='q'>
+						<label>
+							<input
+								tabindex='0'
+								type='text'
+								placeholder='enter question'
+								name='question_text'
+								/>
+						</label>
+						<label>
+							<select
+								tabindex='1'
+								name='question_type'
+								formControlName='question_type'>
+								<option>text</option>
+								<option>likert</option>
+							</select>
+							<input
+								type='text'
+								/>
+						</label>
+					</div>
+				</div>
+			</div>
+			<!-- /formArrayName="surveys" -->
 		</div>
 	</fieldset>
 
-	<fieldset>
+	<fieldset class='wip'>
 		<legend>Questions</legend>
 	</fieldset>
 

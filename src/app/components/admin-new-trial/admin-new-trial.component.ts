@@ -49,8 +49,6 @@ export class AdminNewTrialComponent implements OnInit {
 			group_name: [''],
 			group_size: ['auto'],
 			group_size_n: [''],
-			// grp_n_features: [''],
-			// grp_n_surveys: ['']
 		});
 	}
 
@@ -67,6 +65,16 @@ export class AdminNewTrialComponent implements OnInit {
 			survey_id: [id],
 			survey_name: [''],
 			survey_groups: [[]],
+			survey_questions: this.formBuilder.array([ this.createSurveyQuestion(0) ]),
+		})
+	}
+
+	createSurveyQuestion(id: number): FormGroup {
+		return this.formBuilder.group({
+			question_id: [id],
+			question_text: [''],
+			question_type: [''],
+			question_options: [''],
 		})
 	}
 
