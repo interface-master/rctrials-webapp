@@ -107,6 +107,7 @@
 		</div>
 	</fieldset>
 
+<!--
 	<fieldset class='done'>
 		<legend>Features</legend>
 		<div formArrayName="features"
@@ -140,9 +141,100 @@
 			</div>
 		</div>
 	</fieldset>
+-->
 
 	<fieldset class='done'>
 		<legend>Surveys</legend>
+
+		<mat-accordion>
+			<mat-expansion-panel
+				formArrayName='surveys'
+				*ngFor='let survey of surveys.controls; index as s'
+				(opened)="setEditingSurvey(s)"
+			>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						<mat-icon *ngIf="!survey.get('survey_name').value">add_circle</mat-icon>
+						{{ survey.get('survey_name').value || 'add new survey' }}
+					</mat-panel-title>
+					<mat-panel-description>
+					</mat-panel-description>
+				</mat-expansion-panel-header>
+
+				<div [formGroupName]='s'>
+					<input
+						tabindex='-1'
+						type='text'
+						placeholder='survey id'
+						name='survey_id'
+						class='input_id'
+						formControlName='survey_id'
+					/>
+					<input
+						tabindex='0'
+						type='text'
+						placeholder='survey name'
+						name='survey_name'
+						formControlName='survey_name'
+						(input)='changeInput($event)'
+					/>
+					<div>Apply survey to the following Groups:</div>
+					<div
+						class='item_group_cell'
+						*ngFor='let group of groups.controls; index as t'>
+						<label>
+							<input
+								tabindex='1'
+								type='checkbox'
+								name='survey_groups'
+								(input)='changeGroupAssignment($event, survey.controls["survey_groups"], group.controls["group_id"].value )'
+							/>
+							{{ group.controls['group_name'].value || 'Group '+(group.controls['group_id'].value+1) }}
+						</label>
+					</div>
+				</div>
+
+				<div [formGroupName]='s' class='questions'>
+					<div>Questions:</div>
+					<div formArrayName='survey_questions'
+						*ngFor='let question of survey.controls["survey_questions"].controls; index as q'>
+						<div [formGroupName]='q'>
+							<label>
+								<input
+									tabindex='0'
+									type='text'
+									placeholder='enter question'
+									name='question_text'
+									formControlName='question_text'
+									(input)='changeInput($event)'
+									/>
+							</label>
+							<label>
+								<select
+									tabindex='1'
+									name='question_type'
+									formControlName='question_type'>
+									<option value='text'>Text</option>
+									<option value='mc'>Multiple Choice</option>
+								</select>
+							</label>
+							<label>
+								<input
+									type='text'
+									placeholder='enter pipe-delimited (|) options'
+									name='question_options'
+									formControlName='question_options'
+									/>
+							</label>
+						</div>
+					</div>
+				</div>
+
+
+			</mat-expansion-panel>
+		</mat-accordion>
+
+		<!--
 		<div formArrayName='surveys'
 			*ngFor='let survey of surveys.controls; index as s'>
 			<div [formGroupName]='s' class='item_group_row'>
@@ -183,6 +275,8 @@
 								type='text'
 								placeholder='enter question'
 								name='question_text'
+								formControlName='question_text'
+								(input)='changeInput($event)'
 								/>
 						</label>
 						<label>
@@ -190,18 +284,24 @@
 								tabindex='1'
 								name='question_type'
 								formControlName='question_type'>
-								<option>text</option>
-								<option>likert</option>
+								<option value='text'>Text</option>
+								<option value='mc'>Multiple Choice</option>
 							</select>
+						</label>
+						<label>
 							<input
 								type='text'
+								placeholder='enter pipe-delimited (|) options'
+								name='question_options'
+								formControlName='question_options'
 								/>
 						</label>
 					</div>
 				</div>
 			</div>
-			<!-- /formArrayName="surveys" -->
 		</div>
+		-->
+
 	</fieldset>
 
 	<fieldset class='wip'>

@@ -1,15 +1,24 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 
 import {
+	MatButtonModule,
+	MatCardModule,
+	MatCheckboxModule,
+	MatDatepickerModule,
 	MatDialogModule,
+	MatExpansionModule,
+	MatFormFieldModule,
+	MatIconModule,
+	MatInputModule,
+	MatNativeDateModule,
 	MatProgressSpinnerModule,
+	MatSelectModule
 } from '@angular/material';
 
 import { OverlayModule } from "@angular/cdk/overlay";
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './routing/app-routing.module';
 
@@ -38,13 +47,24 @@ import { SpinnerService } from './services/spinner.service';
 	],
 	imports: [
 		BrowserModule,
-		AppRoutingModule,
+		BrowserAnimationsModule,
 		FormsModule,
 		ReactiveFormsModule,
-		BrowserAnimationsModule,
 		OverlayModule,
+		AppRoutingModule,
+
+		MatButtonModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatDatepickerModule,
 		MatDialogModule,
+		MatExpansionModule,
+		MatFormFieldModule,
+		MatIconModule,
+		MatInputModule,
+		MatNativeDateModule,
 		MatProgressSpinnerModule,
+		MatSelectModule,
 	],
 	entryComponents: [
 		HomeComponent,

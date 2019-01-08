@@ -16,6 +16,8 @@ export class AdminNewTrialComponent implements OnInit {
 	public features: FormArray;
 	public surveys: FormArray;
 
+	private _editingSurvey: number;
+
 	constructor(
 		private route: ActivatedRoute,
 		// private session: SessionService
@@ -80,8 +82,9 @@ export class AdminNewTrialComponent implements OnInit {
 
 	changeInput(event: any, index?: number) {
 		// console.log('event:',event);
-		this.groups = this.newTrialForm.get('groups') as FormArray;
-		this.features = this.newTrialForm.get('features') as FormArray;
+		// this.groups = this.newTrialForm.get('groups') as FormArray;
+		// this.features = this.newTrialForm.get('features') as FormArray;
+		// this.surveys = this.newTrialForm.get('surveys') as FormArray;
 
 		switch( event.target.name ) {
 			// when changing the number of groups:
@@ -143,6 +146,25 @@ export class AdminNewTrialComponent implements OnInit {
 				}
 				break;
 
+			case 'question_text':
+				var ary = [];
+				// figure out which survey is being edited
+				let questions = this.surveys.controls[ this._editingSurvey ].get('survey_questions');
+				questions.controls.forEach( q => {
+					(q.get('question_text').value.trim().length > 0) ? ary.push(1) : ary.push(0);
+				});
+				if( ary[ary.length-1] == 1 ) {
+					questions.push( this.createSurveyQuestion() );
+				}
+				console.log('questions:',questions);
+				if( ary.length > 2
+					&& ary[ary.length-1] == 0
+					&& ary[ary.length-2] == 0
+				) {
+					questions.removeAt( questions.length-1 );
+				}
+				break;
+
 			default:
 				// update form group
 				// this.session.updateNewTrialForm(this.newTrialForm)
@@ -165,8 +187,17 @@ export class AdminNewTrialComponent implements OnInit {
 		trial.features = trial.features.filter( i => i.feature_name.length > 0 );
 		// remove auto-generated blank SURVEY
 		trial.surveys = trial.surveys.filter( i => i.survey_name.length > 0 );
+		// remove auto-generated blank QUESTIONS
+		trial.surveys.map( s =>
+			s.survey_questions = s.survey_questions.filter( i => i.question_text.length > 0 )
+		);
 		// output
 		console.log('creating a new trial...',trial);
+	}
+
+	setEditingSurvey( n: number ) {
+		console.log('survey opened',n);
+		this._editingSurvey = n;
 	}
 
 }
