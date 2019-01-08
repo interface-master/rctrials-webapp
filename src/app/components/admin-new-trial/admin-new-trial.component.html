@@ -1,166 +1,153 @@
 <h2>{{ title }}</h2>
 
 <form [formGroup]='newTrialForm'>
-	<fieldset>
-		<legend>Basic Info</legend>
-		<label>Trial title:
-			<input
-				type='text'
-				name='title'
-				formControlName='title'
-				(input)='changeInput($event)' />
-		</label>
-		<label>Registration Opens:
-			<input
-				type='date'
-				name='regopen'
-				formControlName='regopen'
-				(input)='changeInput($event)' />
-		</label>
-		<label>Registration Closes:
-			<input
-				type='date'
-				name='regclose'
-				formControlName='regclose'
-				(input)='changeInput($event)' />
-		</label>
-		<label>Trial Starts:
-			<input
-				type='date'
-				name='trialstart'
-				formControlName='trialstart'
-				(input)='changeInput($event)' />
-		</label>
-		<label>Trial Ends:
-			<input
-				type='date'
-				name='trialend'
-				formControlName='trialend'
-				(input)='changeInput($event)' />
-		</label>
-	</fieldset>
 
-	<fieldset class='done'>
-		<legend>Experiment Design</legend>
-		<label>Number of groups:
-			<input
-				type='number'
-				name='ngroups'
-				min=1
-				value=1
-				(input)='changeInput($event)' />
-		</label>
-		<label>Trial Type:
-			<select
-				name='trialtype'
-				formControlName='trialtype'
-				(input)='changeInput($event)'>
-					<option value='simple'>Simple</option>
-					<option value='rotaion' disabled=''>Rotation</option>
-					<option value='factorial' disabled=''>Factorial</option>
-					<option value='phasein' disabled=''>Phase-In</option>
-					<option value='encouragement' disabled=''>Encouragement</option>
-			</select>
-		</label>
-	</fieldset>
-
-	<fieldset class='done'>
-		<legend>Groups</legend>
-		<div formArrayName="groups"
-			*ngFor="let group of groups.controls; index as i">
-			<div [formGroupName]="i">
-				<label>Group {{i+1}} ID:
-					<input
-						tabindex='-1'
-						type='text'
-						placeholder='group id'
-						name='group_id'
-						class='input_id'
-						formControlName='group_id' />
-				</label>
-				<label>Group {{i+1}} Name:
-					<input
-						tabindex='0'
-						type='text'
-						placeholder='group name'
-						name='group_name'
-						formControlName='group_name'
-						(input)='changeInput($event)' />
-				</label>
-				<label>Size:
-					<select
-						tabindex='1'
-						name='group_size'
-						formControlName='group_size'>
-						<option value='auto'>Automatic</option>
-						<option value='manual'>Manual</option>
-					</select>
-					<input
-						tabindex='1'
-						type='number'
-						placeholder='group size'
-						name='group_size_n'
-						formControlName='group_size_n'
-						(input)='changeInput($event, i)' />
-				</label>
-			</div>
-		</div>
-	</fieldset>
-
-<!--
-	<fieldset class='done'>
-		<legend>Features</legend>
-		<div formArrayName="features"
-			*ngFor="let feature of features.controls; index as j">
-			<div [formGroupName]="j" class="item_group_row">
+	<div class='mat-headline'>Basic Info</div>
+	<mat-card>
+		<mat-card-title>
+		</mat-card-title>
+		<mat-card-content>
+			<label>Trial title:
 				<input
-					tabindex='-1'
 					type='text'
-					placeholder='feature id'
-					name='feature_id'
-					class='input_id'
-					formControlName='feature_id' />
-				<input
-					tabindex='0'
-					type='text'
-					placeholder='feature name'
-					name='feature_name'
-					formControlName='feature_name'
+					name='title'
+					formControlName='title'
 					(input)='changeInput($event)' />
-				<div
-					class='item_group_cell'
-					*ngFor="let group of groups.controls; index as k">
-					<label>{{ group.controls['group_name'].value }}
+			</label>
+			<label>Registration Opens:
+				<input
+					type='date'
+					name='regopen'
+					formControlName='regopen'
+					(input)='changeInput($event)' />
+			</label>
+			<label>Registration Closes:
+				<input
+					type='date'
+					name='regclose'
+					formControlName='regclose'
+					(input)='changeInput($event)' />
+			</label>
+			<label>Trial Starts:
+				<input
+					type='date'
+					name='trialstart'
+					formControlName='trialstart'
+					(input)='changeInput($event)' />
+			</label>
+			<label>Trial Ends:
+				<input
+					type='date'
+					name='trialend'
+					formControlName='trialend'
+					(input)='changeInput($event)' />
+			</label>
+		</mat-card-content>
+		<mat-card-actions align='end'>
+			<button mat-raised-button color='primary'>Next <mat-icon>navigate_next</mat-icon></button>
+		</mat-card-actions>
+	</mat-card>
+
+	<div class='mat-headline'>Experiment Design</div>
+	<mat-card>
+		<mat-card-title>
+		</mat-card-title>
+		<mat-card-content>
+			<label>Number of groups:
+				<input
+					type='number'
+					name='ngroups'
+					min=1
+					value=1
+					(input)='changeInput($event)' />
+			</label>
+			<label>Trial Type:
+				<select
+					name='trialtype'
+					formControlName='trialtype'
+					(input)='changeInput($event)'>
+						<option value='simple'>Simple</option>
+						<option value='rotaion' disabled=''>Rotation</option>
+						<option value='factorial' disabled=''>Factorial</option>
+						<option value='phasein' disabled=''>Phase-In</option>
+						<option value='encouragement' disabled=''>Encouragement</option>
+				</select>
+			</label>
+		</mat-card-content>
+		<mat-card-actions align='end'>
+			<button mat-button><mat-icon>navigate_before</mat-icon> Previous</button>
+			<button mat-flat-button color='primary'>Next <mat-icon>navigate_next</mat-icon></button>
+		</mat-card-actions>
+	</mat-card>
+
+	<div class='mat-headline'>Groups</div>
+	<mat-card>
+		<mat-card-title>
+		</mat-card-title>
+		<mat-card-content>
+			<div formArrayName="groups"
+				*ngFor="let group of groups.controls; index as i">
+				<div [formGroupName]="i">
+					<label>Group {{i+1}} ID:
+						<input
+							tabindex='-1'
+							type='text'
+							placeholder='group id'
+							name='group_id'
+							class='input_id'
+							formControlName='group_id' />
+					</label>
+					<label>Group {{i+1}} Name:
+						<input
+							tabindex='0'
+							type='text'
+							placeholder='group name'
+							name='group_name'
+							formControlName='group_name'
+							(input)='changeInput($event)' />
+					</label>
+					<label>Size:
+						<select
+							tabindex='1'
+							name='group_size'
+							formControlName='group_size'>
+							<option value='auto'>Automatic</option>
+							<option value='manual'>Manual</option>
+						</select>
 						<input
 							tabindex='1'
-							type='checkbox'
-							name='feature_groups'
-							(input)='changeGroupAssignment($event, feature.controls["feature_groups"], k)' />
+							type='number'
+							placeholder='group size'
+							name='group_size_n'
+							formControlName='group_size_n'
+							(input)='changeInput($event, i)' />
 					</label>
 				</div>
 			</div>
-		</div>
-	</fieldset>
--->
+		</mat-card-content>
+		<mat-card-actions align='end'>
+			<button mat-button><mat-icon>navigate_before</mat-icon> Previous</button>
+			<button mat-flat-button color='primary'>Next <mat-icon>navigate_next</mat-icon></button>
+		</mat-card-actions>
+	</mat-card>
 
-	<fieldset class='done'>
-		<legend>Surveys</legend>
-
-		<mat-accordion>
-			<mat-expansion-panel
-				formArrayName='surveys'
-				*ngFor='let survey of surveys.controls; index as s'
-				(opened)="setEditingSurvey(s)"
-			>
-				<mat-expansion-panel-header>
-					<mat-panel-title>
-						<mat-icon *ngIf="!survey.get('survey_name').value">add_circle</mat-icon>
-						{{ survey.get('survey_name').value || 'add new survey' }}
-					</mat-panel-title>
-					<mat-panel-description>
-					</mat-panel-description>
-				</mat-expansion-panel-header>
-
+	<div class='mat-headline'>Surveys</div>
+	<mat-accordion>
+		<mat-expansion-panel
+			formArrayName='surveys'
+			*ngFor='let survey of surveys.controls; index as s'
+			(opened)="setEditingSurvey(s)"
+		>
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					<mat-icon *ngIf="!survey.get('survey_name').value">add_circle</mat-icon>
+					{{ survey.get('survey_name').value || 'add new survey' }}
+				</mat-panel-title>
+				<mat-panel-description>
+					{{ (survey.get('survey_questions').value.length > 1) ? (survey.get('survey_questions').value.length-1) + ' question'+(survey.get('survey_questions').value.length>2?'s':'') : '' }}
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+			<ng-template matExpansionPanelContent>
 				<div [formGroupName]='s'>
 					<input
 						tabindex='-1'
@@ -193,7 +180,6 @@
 						</label>
 					</div>
 				</div>
-
 				<div [formGroupName]='s' class='questions'>
 					<div>Questions:</div>
 					<div formArrayName='survey_questions'
@@ -229,80 +215,114 @@
 						</div>
 					</div>
 				</div>
+			</ng-template>
+		</mat-expansion-panel>
+	</mat-accordion>
 
 
-			</mat-expansion-panel>
-		</mat-accordion>
-
-		<!--
-		<div formArrayName='surveys'
-			*ngFor='let survey of surveys.controls; index as s'>
-			<div [formGroupName]='s' class='item_group_row'>
+	<!--
+	<fieldset class='done'>
+		<legend>Features</legend>
+		<div formArrayName="features"
+			*ngFor="let feature of features.controls; index as j">
+			<div [formGroupName]="j" class="item_group_row">
 				<input
 					tabindex='-1'
 					type='text'
-					placeholder='survey id'
-					name='survey_id'
+					placeholder='feature id'
+					name='feature_id'
 					class='input_id'
-					formControlName='survey_id' />
+					formControlName='feature_id' />
 				<input
 					tabindex='0'
 					type='text'
-					placeholder='survey name'
-					name='survey_name'
-					formControlName='survey_name'
+					placeholder='feature name'
+					name='feature_name'
+					formControlName='feature_name'
 					(input)='changeInput($event)' />
 				<div
 					class='item_group_cell'
-					*ngFor='let group of groups.controls; index as t'>
+					*ngFor="let group of groups.controls; index as k">
 					<label>{{ group.controls['group_name'].value }}
 						<input
 							tabindex='1'
 							type='checkbox'
-							name='survey_groups'
-							(input)='changeGroupAssignment($event, survey.controls["survey_groups"], t)' />
+							name='feature_groups'
+							(input)='changeGroupAssignment($event, feature.controls["feature_groups"], k)' />
 					</label>
 				</div>
 			</div>
-			<div [formGroupName]='s' class='questions'>
-				<div>Questions</div>
-				<div formArrayName='survey_questions'
-					*ngFor='let question of survey.controls["survey_questions"].controls; index as q'>
-					<div [formGroupName]='q'>
-						<label>
-							<input
-								tabindex='0'
-								type='text'
-								placeholder='enter question'
-								name='question_text'
-								formControlName='question_text'
-								(input)='changeInput($event)'
-								/>
-						</label>
-						<label>
-							<select
-								tabindex='1'
-								name='question_type'
-								formControlName='question_type'>
-								<option value='text'>Text</option>
-								<option value='mc'>Multiple Choice</option>
-							</select>
-						</label>
-						<label>
-							<input
-								type='text'
-								placeholder='enter pipe-delimited (|) options'
-								name='question_options'
-								formControlName='question_options'
-								/>
-						</label>
-					</div>
+		</div>
+	</fieldset>
+	-->
+
+	<!--
+	<div formArrayName='surveys'
+		*ngFor='let survey of surveys.controls; index as s'>
+		<div [formGroupName]='s' class='item_group_row'>
+			<input
+				tabindex='-1'
+				type='text'
+				placeholder='survey id'
+				name='survey_id'
+				class='input_id'
+				formControlName='survey_id' />
+			<input
+				tabindex='0'
+				type='text'
+				placeholder='survey name'
+				name='survey_name'
+				formControlName='survey_name'
+				(input)='changeInput($event)' />
+			<div
+				class='item_group_cell'
+				*ngFor='let group of groups.controls; index as t'>
+				<label>{{ group.controls['group_name'].value }}
+					<input
+						tabindex='1'
+						type='checkbox'
+						name='survey_groups'
+						(input)='changeGroupAssignment($event, survey.controls["survey_groups"], t)' />
+				</label>
+			</div>
+		</div>
+		<div [formGroupName]='s' class='questions'>
+			<div>Questions</div>
+			<div formArrayName='survey_questions'
+				*ngFor='let question of survey.controls["survey_questions"].controls; index as q'>
+				<div [formGroupName]='q'>
+					<label>
+						<input
+							tabindex='0'
+							type='text'
+							placeholder='enter question'
+							name='question_text'
+							formControlName='question_text'
+							(input)='changeInput($event)'
+							/>
+					</label>
+					<label>
+						<select
+							tabindex='1'
+							name='question_type'
+							formControlName='question_type'>
+							<option value='text'>Text</option>
+							<option value='mc'>Multiple Choice</option>
+						</select>
+					</label>
+					<label>
+						<input
+							type='text'
+							placeholder='enter pipe-delimited (|) options'
+							name='question_options'
+							formControlName='question_options'
+							/>
+					</label>
 				</div>
 			</div>
 		</div>
-		-->
-
-	</fieldset>
+	</div>
+	-->
 
 	<fieldset class='wip'>
 		<legend>Questions</legend>
