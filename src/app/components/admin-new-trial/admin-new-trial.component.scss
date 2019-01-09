@@ -1,3 +1,23 @@
+.col {
+	display: flex;
+	flex-direction: column;
+}
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+form.newTrialForm {
+	position: relative;
+	min-height: 500px;
+
+	mat-form-field {
+		margin-right: 20px;
+		.mat-form-field-wrapper {
+		}
+	}
+}
+
 fieldset {
 	border: 1px solid black;
 	margin: 20px 0;

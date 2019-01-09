@@ -1,223 +1,250 @@
 <h2>{{ title }}</h2>
 
-<form [formGroup]='newTrialForm'>
+<form [formGroup]='newTrialForm' class='newTrialForm'>
 
-	<div class='mat-headline'>Basic Info</div>
-	<mat-card>
-		<mat-card-title>
-		</mat-card-title>
-		<mat-card-content>
-			<label>Trial title:
-				<input
+	<admin-new-trial-card title='Basic Info' [animationState]='_animationStates[0]'>
+		<mat-card>
+			<mat-card-content class='col'>
+				<mat-form-field>
+					<input
+					matInput
 					type='text'
 					name='title'
 					formControlName='title'
+					placeholder='Trial Title'
 					(input)='changeInput($event)' />
-			</label>
-			<label>Registration Opens:
-				<input
-					type='date'
-					name='regopen'
-					formControlName='regopen'
-					(input)='changeInput($event)' />
-			</label>
-			<label>Registration Closes:
-				<input
-					type='date'
-					name='regclose'
-					formControlName='regclose'
-					(input)='changeInput($event)' />
-			</label>
-			<label>Trial Starts:
-				<input
-					type='date'
-					name='trialstart'
-					formControlName='trialstart'
-					(input)='changeInput($event)' />
-			</label>
-			<label>Trial Ends:
-				<input
-					type='date'
-					name='trialend'
-					formControlName='trialend'
-					(input)='changeInput($event)' />
-			</label>
-		</mat-card-content>
-		<mat-card-actions align='end'>
-			<button mat-raised-button color='primary'>Next <mat-icon>navigate_next</mat-icon></button>
-		</mat-card-actions>
-	</mat-card>
-
-	<div class='mat-headline'>Experiment Design</div>
-	<mat-card>
-		<mat-card-title>
-		</mat-card-title>
-		<mat-card-content>
-			<label>Number of groups:
-				<input
-					type='number'
-					name='ngroups'
-					min=1
-					value=1
-					(input)='changeInput($event)' />
-			</label>
-			<label>Trial Type:
-				<select
-					name='trialtype'
-					formControlName='trialtype'
-					(input)='changeInput($event)'>
-						<option value='simple'>Simple</option>
-						<option value='rotaion' disabled=''>Rotation</option>
-						<option value='factorial' disabled=''>Factorial</option>
-						<option value='phasein' disabled=''>Phase-In</option>
-						<option value='encouragement' disabled=''>Encouragement</option>
-				</select>
-			</label>
-		</mat-card-content>
-		<mat-card-actions align='end'>
-			<button mat-button><mat-icon>navigate_before</mat-icon> Previous</button>
-			<button mat-flat-button color='primary'>Next <mat-icon>navigate_next</mat-icon></button>
-		</mat-card-actions>
-	</mat-card>
-
-	<div class='mat-headline'>Groups</div>
-	<mat-card>
-		<mat-card-title>
-		</mat-card-title>
-		<mat-card-content>
-			<div formArrayName="groups"
-				*ngFor="let group of groups.controls; index as i">
-				<div [formGroupName]="i">
-					<label>Group {{i+1}} ID:
+				</mat-form-field>
+				<div class='row'>
+					<mat-form-field>
 						<input
-							tabindex='-1'
-							type='text'
-							placeholder='group id'
-							name='group_id'
-							class='input_id'
-							formControlName='group_id' />
-					</label>
-					<label>Group {{i+1}} Name:
+						matInput
+						type='date'
+						name='regopen'
+						formControlName='regopen'
+						placeholder='Registration Opens:'
+						[matDatepicker]='pickerRO'
+						(input)='changeInput($event)' />
+						<mat-datepicker-toggle matSuffix [for]='pickerRO'></mat-datepicker-toggle>
+						<mat-datepicker #pickerRO></mat-datepicker>
+					</mat-form-field>
+					<mat-form-field>
 						<input
-							tabindex='0'
-							type='text'
-							placeholder='group name'
-							name='group_name'
-							formControlName='group_name'
-							(input)='changeInput($event)' />
-					</label>
-					<label>Size:
-						<select
-							tabindex='1'
-							name='group_size'
-							formControlName='group_size'>
-							<option value='auto'>Automatic</option>
-							<option value='manual'>Manual</option>
-						</select>
-						<input
-							tabindex='1'
-							type='number'
-							placeholder='group size'
-							name='group_size_n'
-							formControlName='group_size_n'
-							(input)='changeInput($event, i)' />
-					</label>
+						matInput
+						type='date'
+						name='regclose'
+						formControlName='regclose'
+						placeholder='Registration Closes:'
+						[matDatepicker]='pickerRC'
+						(input)='changeInput($event)' />
+						<mat-datepicker-toggle matSuffix [for]='pickerRC'></mat-datepicker-toggle>
+						<mat-datepicker #pickerRC></mat-datepicker>
+					</mat-form-field>
 				</div>
-			</div>
-		</mat-card-content>
-		<mat-card-actions align='end'>
-			<button mat-button><mat-icon>navigate_before</mat-icon> Previous</button>
-			<button mat-flat-button color='primary'>Next <mat-icon>navigate_next</mat-icon></button>
-		</mat-card-actions>
-	</mat-card>
+				<div class='row'>
+					<mat-form-field>
+						<input
+						matInput
+						type='date'
+						name='trialstart'
+						formControlName='trialstart'
+						placeholder='Trial Starts:'
+						[matDatepicker]='pickerTS'
+						(input)='changeInput($event)' />
+						<mat-datepicker-toggle matSuffix [for]='pickerTS'></mat-datepicker-toggle>
+						<mat-datepicker #pickerTS></mat-datepicker>
+					</mat-form-field>
+					<mat-form-field>
+						<input
+						matInput
+						type='date'
+						name='trialend'
+						formControlName='trialend'
+						placeholder='Trial Ends:'
+						[matDatepicker]='pickerTF'
+						(input)='changeInput($event)' />
+						<mat-datepicker-toggle matSuffix [for]='pickerTF'></mat-datepicker-toggle>
+						<mat-datepicker #pickerTF></mat-datepicker>
+					</mat-form-field>
+				</div>
+			</mat-card-content>
+			<mat-card-actions align='end'>
+				<button mat-raised-button color='primary'>Next <mat-icon>navigate_next</mat-icon></button>
+				<button (click)="_animationStates[0]='left';_animationStates[1]='center';" mat-raised-button color='primary'>Animate <mat-icon>navigate_next</mat-icon></button>
+			</mat-card-actions>
+		</mat-card>
+	</admin-new-trial-card>
 
-	<div class='mat-headline'>Surveys</div>
-	<mat-accordion>
-		<mat-expansion-panel
-			formArrayName='surveys'
-			*ngFor='let survey of surveys.controls; index as s'
-			(opened)="setEditingSurvey(s)"
-		>
-			<mat-expansion-panel-header>
-				<mat-panel-title>
-					<mat-icon *ngIf="!survey.get('survey_name').value">add_circle</mat-icon>
-					{{ survey.get('survey_name').value || 'add new survey' }}
-				</mat-panel-title>
-				<mat-panel-description>
-					{{ (survey.get('survey_questions').value.length > 1) ? (survey.get('survey_questions').value.length-1) + ' question'+(survey.get('survey_questions').value.length>2?'s':'') : '' }}
-				</mat-panel-description>
-			</mat-expansion-panel-header>
-			<ng-template matExpansionPanelContent>
-				<div [formGroupName]='s'>
+	<admin-new-trial-card title='Experiment Design' [animationState]='_animationStates[1]'>
+		<mat-card>
+			<mat-card-content>
+				<label>Number of groups:
 					<input
-						tabindex='-1'
-						type='text'
-						placeholder='survey id'
-						name='survey_id'
-						class='input_id'
-						formControlName='survey_id'
-					/>
-					<input
-						tabindex='0'
-						type='text'
-						placeholder='survey name'
-						name='survey_name'
-						formControlName='survey_name'
-						(input)='changeInput($event)'
-					/>
-					<div>Apply survey to the following Groups:</div>
-					<div
-						class='item_group_cell'
-						*ngFor='let group of groups.controls; index as t'>
-						<label>
+						type='number'
+						name='ngroups'
+						min=1
+						value=1
+						(input)='changeInput($event)' />
+				</label>
+				<label>Trial Type:
+					<select
+						name='trialtype'
+						formControlName='trialtype'
+						(input)='changeInput($event)'>
+							<option value='simple'>Simple</option>
+							<option value='rotaion' disabled=''>Rotation</option>
+							<option value='factorial' disabled=''>Factorial</option>
+							<option value='phasein' disabled=''>Phase-In</option>
+							<option value='encouragement' disabled=''>Encouragement</option>
+					</select>
+				</label>
+			</mat-card-content>
+			<mat-card-actions align='end'>
+				<button (click)="_animationStates[0]='center';_animationStates[1]='right';" mat-button><mat-icon>navigate_before</mat-icon> Previous</button>
+				<button mat-flat-button color='primary'>Next <mat-icon>navigate_next</mat-icon></button>
+			</mat-card-actions>
+		</mat-card>
+	</admin-new-trial-card>
+
+	<admin-new-trial-card title='Groups' [animationState]='_animationStates[2]'>
+		<mat-card>
+			<mat-card-title>
+			</mat-card-title>
+			<mat-card-content>
+				<div formArrayName="groups"
+					*ngFor="let group of groups.controls; index as i">
+					<div [formGroupName]="i">
+						<label>Group {{i+1}} ID:
+							<input
+								tabindex='-1'
+								type='text'
+								placeholder='group id'
+								name='group_id'
+								class='input_id'
+								formControlName='group_id' />
+						</label>
+						<label>Group {{i+1}} Name:
+							<input
+								tabindex='0'
+								type='text'
+								placeholder='group name'
+								name='group_name'
+								formControlName='group_name'
+								(input)='changeInput($event)' />
+						</label>
+						<label>Size:
+							<select
+								tabindex='1'
+								name='group_size'
+								formControlName='group_size'>
+								<option value='auto'>Automatic</option>
+								<option value='manual'>Manual</option>
+							</select>
 							<input
 								tabindex='1'
-								type='checkbox'
-								name='survey_groups'
-								(input)='changeGroupAssignment($event, survey.controls["survey_groups"], group.controls["group_id"].value )'
-							/>
-							{{ group.controls['group_name'].value || 'Group '+(group.controls['group_id'].value+1) }}
+								type='number'
+								placeholder='group size'
+								name='group_size_n'
+								formControlName='group_size_n'
+								(input)='changeInput($event, i)' />
 						</label>
 					</div>
 				</div>
-				<div [formGroupName]='s' class='questions'>
-					<div>Questions:</div>
-					<div formArrayName='survey_questions'
-						*ngFor='let question of survey.controls["survey_questions"].controls; index as q'>
-						<div [formGroupName]='q'>
+			</mat-card-content>
+			<mat-card-actions align='end'>
+				<button mat-button><mat-icon>navigate_before</mat-icon> Previous</button>
+				<button mat-flat-button color='primary'>Next <mat-icon>navigate_next</mat-icon></button>
+			</mat-card-actions>
+		</mat-card>
+	</admin-new-trial-card>
+
+	<admin-new-trial-card title='Surveys' [animationState]='_animationStates[3]'>
+		<mat-accordion>
+			<mat-expansion-panel
+				formArrayName='surveys'
+				*ngFor='let survey of surveys.controls; index as s'
+				(opened)="setEditingSurvey(s)"
+			>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						<mat-icon *ngIf="!survey.get('survey_name').value">add_circle</mat-icon>
+						{{ survey.get('survey_name').value || 'add new survey' }}
+					</mat-panel-title>
+					<mat-panel-description>
+						{{ (survey.get('survey_questions').value.length > 1) ? (survey.get('survey_questions').value.length-1) + ' question'+(survey.get('survey_questions').value.length>2?'s':'') : '' }}
+					</mat-panel-description>
+				</mat-expansion-panel-header>
+				<ng-template matExpansionPanelContent>
+					<div [formGroupName]='s'>
+						<input
+							tabindex='-1'
+							type='text'
+							placeholder='survey id'
+							name='survey_id'
+							class='input_id'
+							formControlName='survey_id'
+						/>
+						<input
+							tabindex='0'
+							type='text'
+							placeholder='survey name'
+							name='survey_name'
+							formControlName='survey_name'
+							(input)='changeInput($event)'
+						/>
+						<div>Apply survey to the following Groups:</div>
+						<div
+							class='item_group_cell'
+							*ngFor='let group of groups.controls; index as t'>
 							<label>
 								<input
-									tabindex='0'
-									type='text'
-									placeholder='enter question'
-									name='question_text'
-									formControlName='question_text'
-									(input)='changeInput($event)'
-									/>
-							</label>
-							<label>
-								<select
 									tabindex='1'
-									name='question_type'
-									formControlName='question_type'>
-									<option value='text'>Text</option>
-									<option value='mc'>Multiple Choice</option>
-								</select>
-							</label>
-							<label>
-								<input
-									type='text'
-									placeholder='enter pipe-delimited (|) options'
-									name='question_options'
-									formControlName='question_options'
-									/>
+									type='checkbox'
+									name='survey_groups'
+									(input)='changeGroupAssignment($event, survey.controls["survey_groups"], group.controls["group_id"].value )'
+								/>
+								{{ group.controls['group_name'].value || 'Group '+(group.controls['group_id'].value+1) }}
 							</label>
 						</div>
 					</div>
-				</div>
-			</ng-template>
-		</mat-expansion-panel>
-	</mat-accordion>
+					<div [formGroupName]='s' class='questions'>
+						<div>Questions:</div>
+						<div formArrayName='survey_questions'
+							*ngFor='let question of survey.controls["survey_questions"].controls; index as q'>
+							<div [formGroupName]='q'>
+								<label>
+									<input
+										tabindex='0'
+										type='text'
+										placeholder='enter question'
+										name='question_text'
+										formControlName='question_text'
+										(input)='changeInput($event)'
+										/>
+								</label>
+								<label>
+									<select
+										tabindex='1'
+										name='question_type'
+										formControlName='question_type'>
+										<option value='text'>Text</option>
+										<option value='mc'>Multiple Choice</option>
+									</select>
+								</label>
+								<label>
+									<input
+										type='text'
+										placeholder='enter pipe-delimited (|) options'
+										name='question_options'
+										formControlName='question_options'
+										/>
+								</label>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</mat-expansion-panel>
+		</mat-accordion>
+	</admin-new-trial-card>
 
 
 	<!--
@@ -324,11 +351,7 @@
 	</div>
 	-->
 
-	<fieldset class='wip'>
-		<legend>Questions</legend>
-	</fieldset>
-
-	<fieldset>
+	<admin-new-trial-card title='Confirm' [animationState]='_animationStates[4]'>
 		<label>name:
 			<input
 				type='text'
@@ -338,5 +361,5 @@
 		</label>
 
 		<button (click)='newTrial($event)' type='button'>New Trial</button>
-	</fieldset>
+	</admin-new-trial-card>
 </form>

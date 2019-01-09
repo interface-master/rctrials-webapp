@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
+import { SlideInOutAnimation } from '../../../assets/animations';
 
 @Component({
 	selector: 'admin-new-trial',
 	templateUrl: './admin-new-trial.component.html',
-	styleUrls: ['./admin-new-trial.component.scss']
+	styleUrls: ['./admin-new-trial.component.scss'],
+	animations: [SlideInOutAnimation]
 })
 export class AdminNewTrialComponent implements OnInit {
 	private title:string = 'New Trial';
@@ -17,6 +19,7 @@ export class AdminNewTrialComponent implements OnInit {
 	public surveys: FormArray;
 
 	private _editingSurvey: number;
+	private _animationStates: string[] = [ 'center', 'right', 'right', 'right', 'right' ];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -67,7 +70,7 @@ export class AdminNewTrialComponent implements OnInit {
 			survey_id: [id],
 			survey_name: [''],
 			survey_groups: [[]],
-			survey_questions: this.formBuilder.array([ this.createSurveyQuestion(0) ]),
+			survey_questions: this.formBuilder.array([ this.createSurveyQuestion( this.getNextQuestionID() ) ]),
 		})
 	}
 
@@ -78,6 +81,18 @@ export class AdminNewTrialComponent implements OnInit {
 			question_type: [''],
 			question_options: [''],
 		})
+	}
+
+	getNextQuestionID(): number {
+		console.log('getting next question id:', this.surveys );
+		if( !this.surveys || this.surveys.controls.length <= 0) return 0;
+		let allIds = this.surveys.value
+			.map( survey => survey['survey_questions'].map( q => q.question_id ) )
+			.reduce( (a,c) => [...a, ...c] )
+			.filter( i => i===0||i );
+		console.log('all ids:',allIds);
+		console.log('next id:', Math.max(...allIds)+1 );
+		return Math.max( ...allIds ) + 1;
 	}
 
 	changeInput(event: any, index?: number) {
@@ -149,12 +164,13 @@ export class AdminNewTrialComponent implements OnInit {
 			case 'question_text':
 				var ary = [];
 				// figure out which survey is being edited
-				let questions = this.surveys.controls[ this._editingSurvey ].get('survey_questions');
+				let survey = <FormGroup>this.surveys.controls[ this._editingSurvey ];
+				let questions = <FormArray>survey.get('survey_questions');
 				questions.controls.forEach( q => {
 					(q.get('question_text').value.trim().length > 0) ? ary.push(1) : ary.push(0);
 				});
 				if( ary[ary.length-1] == 1 ) {
-					questions.push( this.createSurveyQuestion() );
+					questions.push( this.createSurveyQuestion( this.getNextQuestionID() ) );
 				}
 				console.log('questions:',questions);
 				if( ary.length > 2
@@ -198,6 +214,12 @@ export class AdminNewTrialComponent implements OnInit {
 	setEditingSurvey( n: number ) {
 		console.log('survey opened',n);
 		this._editingSurvey = n;
+	}
+
+	toggleShowDiv() {
+		console.log('animating', this._animationStates[0]);
+		this._animationStates[0] = "out";
+		console.log('animating done', this._animationStates[0]);
 	}
 
 }
