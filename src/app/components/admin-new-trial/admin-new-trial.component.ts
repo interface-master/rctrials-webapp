@@ -2,13 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { SlideInOutAnimation } from '../../../assets/animations';
-
 @Component({
 	selector: 'admin-new-trial',
 	templateUrl: './admin-new-trial.component.html',
-	styleUrls: ['./admin-new-trial.component.scss'],
-	animations: [SlideInOutAnimation]
+	styleUrls: ['./admin-new-trial.component.scss']
 })
 export class AdminNewTrialComponent implements OnInit {
 	private title:string = 'New Trial';
@@ -19,7 +16,8 @@ export class AdminNewTrialComponent implements OnInit {
 	public surveys: FormArray;
 
 	private _editingSurvey: number;
-	private _animationStates: string[] = [ 'center', 'right', 'right', 'right', 'right' ];
+	// private _currentStep: number = 0;
+	// private _animationStates: string[] = [ 'center', 'right', 'right', 'right' ];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -45,6 +43,7 @@ export class AdminNewTrialComponent implements OnInit {
 			groups: this.groups,
 			features: this.features,
 			surveys: this.surveys,
+			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		});
 	}
 
@@ -78,20 +77,25 @@ export class AdminNewTrialComponent implements OnInit {
 		return this.formBuilder.group({
 			question_id: [id],
 			question_text: [''],
-			question_type: [''],
+			question_type: ['text'],
 			question_options: [''],
 		})
 	}
 
+	getNextSurveyID(): number {
+		if( !this.surveys || this.surveys.controls.length <= 0) return 0;
+		let allIds = this.surveys.value
+			.map( survey => survey.survey_id )
+			.filter( i => i===0||i );
+		return Math.max( ...allIds ) + 1;
+	}
+
 	getNextQuestionID(): number {
-		console.log('getting next question id:', this.surveys );
 		if( !this.surveys || this.surveys.controls.length <= 0) return 0;
 		let allIds = this.surveys.value
 			.map( survey => survey['survey_questions'].map( q => q.question_id ) )
 			.reduce( (a,c) => [...a, ...c] )
 			.filter( i => i===0||i );
-		console.log('all ids:',allIds);
-		console.log('next id:', Math.max(...allIds)+1 );
 		return Math.max( ...allIds ) + 1;
 	}
 
@@ -151,7 +155,7 @@ export class AdminNewTrialComponent implements OnInit {
 					(i['survey_name'].trim().length > 0) ? ary.push(1) : ary.push(0);
 				});
 				if( ary[ary.length-1] == 1 ) {
-					this.surveys.push( this.createSurvey( this.surveys.length ) );
+					this.surveys.push( this.createSurvey( this.getNextSurveyID() ) );
 				}
 				if( ary.length > 2
 					&& ary[ary.length-1] == 0
@@ -172,7 +176,6 @@ export class AdminNewTrialComponent implements OnInit {
 				if( ary[ary.length-1] == 1 ) {
 					questions.push( this.createSurveyQuestion( this.getNextQuestionID() ) );
 				}
-				console.log('questions:',questions);
 				if( ary.length > 2
 					&& ary[ary.length-1] == 0
 					&& ary[ary.length-2] == 0
@@ -216,10 +219,14 @@ export class AdminNewTrialComponent implements OnInit {
 		this._editingSurvey = n;
 	}
 
-	toggleShowDiv() {
-		console.log('animating', this._animationStates[0]);
-		this._animationStates[0] = "out";
-		console.log('animating done', this._animationStates[0]);
-	}
-
+	// toggleNextCard() {
+	// 	this._animationStates[this._currentStep]='left';
+	// 	this._animationStates[this._currentStep+1]='center';
+	// 	this._currentStep++;
+	// }
+	// togglePrevCard() {
+	// 	this._animationStates[this._currentStep]='right';
+	// 	this._animationStates[this._currentStep-1]='center';
+	// 	this._currentStep--;
+	// }
 }
