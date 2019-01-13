@@ -9,13 +9,15 @@ import {
 	MatCheckboxModule,
 	MatDatepickerModule,
 	MatDialogModule,
+	MatDividerModule,
 	MatExpansionModule,
 	MatFormFieldModule,
 	MatIconModule,
 	MatInputModule,
 	MatNativeDateModule,
 	MatProgressSpinnerModule,
-	MatSelectModule
+	MatSelectModule,
+	MatStepperModule
 } from '@angular/material';
 
 import { OverlayModule } from "@angular/cdk/overlay";
@@ -60,6 +62,7 @@ import { SpinnerService } from './services/spinner.service';
 		MatCheckboxModule,
 		MatDatepickerModule,
 		MatDialogModule,
+		MatDividerModule,
 		MatExpansionModule,
 		MatFormFieldModule,
 		MatIconModule,
@@ -67,6 +70,7 @@ import { SpinnerService } from './services/spinner.service';
 		MatNativeDateModule,
 		MatProgressSpinnerModule,
 		MatSelectModule,
+		MatStepperModule
 	],
 	entryComponents: [
 		HomeComponent,
