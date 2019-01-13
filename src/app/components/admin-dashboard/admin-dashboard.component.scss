@@ -6,3 +6,10 @@
 	justify-content: center;
 	align-items: center;
 }
+
+.mat-list-item:hover,
+.mat-list-item:active,
+.mat-list-item:visited {
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
