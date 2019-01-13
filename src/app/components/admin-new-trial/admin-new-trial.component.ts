@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
+import { SessionService } from '../../services/session.service';
+
+import axios from 'axios';
+
 @Component({
 	selector: 'admin-new-trial',
 	templateUrl: './admin-new-trial.component.html',
@@ -21,8 +25,8 @@ export class AdminNewTrialComponent implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		// private session: SessionService
-		// private spinnerService: SpinnerService
+		private session: SessionService,
+		// private spinnerService: SpinnerService,
 		private formBuilder: FormBuilder
 	) {
 		this.title = this.route.snapshot.data[0].pageName;
@@ -210,6 +214,26 @@ export class AdminNewTrialComponent implements OnInit {
 		trial.surveys.map( s =>
 			s.survey_questions = s.survey_questions.filter( i => i.question_text.length > 0 )
 		);
+		// send data
+		const config = {
+			headers: {'Authorization': `Bearer ${ this.session.parseCookie( 'access_token' ) }`}
+		};
+		const data = {
+			trial: JSON.stringify(trial)
+		};
+		axios.post('http://localhost/new/trial', data, config) // TODO: remove hard-coded URLs into a service
+		.then( (response) => {
+			if( response.data.status !== 200 ) {
+				let message = response.data.message || "No error message was specified.";
+				this.session.openDialog( "Creating New Trial Failed", message );
+			} else {
+				this.session.openDialog( "New Trial Created", `Your trial has been created. The ID of your trial is: ${response.data.tid}.\nIt has ${response.data.groups} groups, ${response.data.surveys} surveys, and ${response.data.questions} questions.` );
+			}
+			console.log(response);
+		})
+		.catch( (error) => {
+			console.warn(error);
+		});
 		// output
 		console.log('creating a new trial...',trial);
 	}
