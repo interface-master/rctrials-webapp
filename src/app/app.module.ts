@@ -17,6 +17,7 @@ import {
 	MatListModule,
 	MatNativeDateModule,
 	MatProgressSpinnerModule,
+	MatRadioModule,
 	MatSelectModule,
 	MatStepperModule
 } from '@angular/material';
@@ -30,7 +31,6 @@ import { AppComponent } from './app.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminNewTrialComponent } from './components/admin-new-trial/admin-new-trial.component';
-import { AdminNewTrialCardComponent } from './components/admin-new-trial/admin-new-trial-card.component';
 import { AdminRegistrationComponent } from './components/admin-registration/admin-registration.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { HomeComponent } from './components/home/home.component';
@@ -48,7 +48,6 @@ import { SpinnerService } from './services/spinner.service';
 		AdminLoginComponent,
 		AdminDashboardComponent,
 		AdminNewTrialComponent,
-		AdminNewTrialCardComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -71,6 +70,7 @@ import { SpinnerService } from './services/spinner.service';
 		MatInputModule,
 		MatNativeDateModule,
 		MatProgressSpinnerModule,
+		MatRadioModule,
 		MatSelectModule,
 		MatStepperModule
 	],
