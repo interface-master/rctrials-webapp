@@ -1,15 +1,27 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 
 import {
+	MatButtonModule,
+	MatCardModule,
+	MatCheckboxModule,
+	MatDatepickerModule,
 	MatDialogModule,
+	MatDividerModule,
+	MatExpansionModule,
+	MatFormFieldModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatNativeDateModule,
 	MatProgressSpinnerModule,
+	MatSelectModule,
+	MatStepperModule
 } from '@angular/material';
 
 import { OverlayModule } from "@angular/cdk/overlay";
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './routing/app-routing.module';
 
@@ -18,6 +30,7 @@ import { AppComponent } from './app.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminNewTrialComponent } from './components/admin-new-trial/admin-new-trial.component';
+import { AdminNewTrialCardComponent } from './components/admin-new-trial/admin-new-trial-card.component';
 import { AdminRegistrationComponent } from './components/admin-registration/admin-registration.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { HomeComponent } from './components/home/home.component';
@@ -35,16 +48,31 @@ import { SpinnerService } from './services/spinner.service';
 		AdminLoginComponent,
 		AdminDashboardComponent,
 		AdminNewTrialComponent,
+		AdminNewTrialCardComponent,
 	],
 	imports: [
 		BrowserModule,
-		AppRoutingModule,
+		BrowserAnimationsModule,
 		FormsModule,
 		ReactiveFormsModule,
-		BrowserAnimationsModule,
 		OverlayModule,
+		AppRoutingModule,
+
+		MatButtonModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatDatepickerModule,
 		MatDialogModule,
+		MatDividerModule,
+		MatExpansionModule,
+		MatFormFieldModule,
+		MatIconModule,
+		MatListModule,
+		MatInputModule,
+		MatNativeDateModule,
 		MatProgressSpinnerModule,
+		MatSelectModule,
+		MatStepperModule
 	],
 	entryComponents: [
 		HomeComponent,

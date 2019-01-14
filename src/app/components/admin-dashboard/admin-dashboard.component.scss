@@ -2,7 +2,15 @@
 	background-color: grey;
 	border-radius: 5px;
 	font-size: 16px;
+	padding: 10px 10px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.mat-list-item:hover,
+.mat-list-item:active,
+.mat-list-item:visited {
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
 }
