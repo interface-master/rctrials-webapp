@@ -12,81 +12,83 @@
 
 form.newTrialForm {
 
-	admin-new-trial-card {
+	mat-card-content {
+		position: relative;
+		// height: 320px;
+		// overflow-y: scroll;
 
-		mat-card-content {
-			position: relative;
-			// height: 320px;
-			// overflow-y: scroll;
-
-			*[formarrayname="groups"] {
-				.mat-form-field-type-mat-select {
-					width: 100px;
-				}
-			}
-
-			.mono {
-				font-family: monospace;
-				font-weight: bold;
-				font-size: 16px;
-				padding-left: 7px;
-
-				&:first-child {
-					padding-left: 0;
-				}
-			}
-
-			.section {
-				border-top: 1px solid rgba(0,0,0,.12);
-				margin-bottom: 20px;
-
-				.subsection {
-					border-top: 1px solid rgba(0,0,0,.12);
-					margin-bottom: 10px;
-				}
-
-				h5 {
-					margin-top: 0;
-					margin-bottom: 10px;
-					font-size: 18px;
-				}
+		*[formarrayname="groups"] {
+			.mat-form-field-type-mat-select {
+				width: 100px;
 			}
 		}
 
-		mat-divider {
-			position: relative;
-			margin-top: 20px;
+		.mono {
+			font-family: monospace;
+			font-weight: bold;
+			font-size: 16px;
+			padding-left: 7px;
+
+			&:first-child {
+				padding-left: 0;
+			}
+		}
+
+		.section {
+			border-top: 1px solid rgba(0,0,0,.12);
 			margin-bottom: 20px;
-		}
 
-		mat-form-field {
-			margin-right: 20px;
-			.mat-form-field-wrapper {
+			.subsection {
+				border-top: 1px solid rgba(0,0,0,.12);
+				margin-bottom: 10px;
+			}
+
+			h5 {
+				margin-top: 0;
+				margin-bottom: 10px;
+				font-size: 18px;
 			}
 		}
+	}
 
-		mat-panel-title {
-			span.survey {
-				margin-top: 2px;
-				margin-left: 5px;
-			}
-		}
+	mat-divider {
+		position: relative;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
 
-		.bottomMargin {
-			margin-bottom: 10px;
+	mat-form-field {
+		margin-right: 20px;
+		.mat-form-field-wrapper {
 		}
+	}
 
-		.formFieldLabel {
-			justify-self: flex-start;
-			font-size: 14px;
-			color: rgba(0,0,0,0.54);
-			transform: translateY(-0.78125em) scale(.75) perspective(100px) translateZ(.001px);
-			width: 30px;
+	mat-panel-title {
+		span.survey {
+			margin-top: 2px;
+			margin-left: 5px;
 		}
-		.h3Indent {
-			margin-left: 30px;
-		}
+	}
 
+	.mat-subheading-2 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.formFieldLabel {
+		justify-self: flex-start;
+		font-size: 14px;
+		color: rgba(0,0,0,0.54);
+		transform: translateY(-0.78125em) scale(.75) perspective(100px) translateZ(.001px);
+		width: 30px;
+	}
+	.h3Indent {
+		margin-left: 30px;
+	}
+	.surveyFrequency {
+		width: 260px;
+		margin-left: 20px;
+		margin-top: 11px;
 	}
 
 }

@@ -73,6 +73,11 @@ export class AdminNewTrialComponent implements OnInit {
 			survey_id: [id],
 			survey_name: [''],
 			survey_groups: [[]],
+			survey_pre: [false], // is pre-test
+			survey_during: [false], // is during-test
+			survey_post: [false], // is post-test
+			survey_interval: [1], // interval
+			survey_frequency: ['days'], // days, weeks, months
 			survey_questions: this.formBuilder.array([ this.createSurveyQuestion( this.getNextQuestionID() ) ]),
 		})
 	}
