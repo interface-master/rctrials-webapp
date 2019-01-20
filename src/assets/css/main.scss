@@ -1,18 +1,17 @@
 html, body {
-	width: 100%;
+	box-sizing: border-box;
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box;
-	// overflow: hidden;
+	width: 100%;
 }
 
 .mrct-wrapper {
-	width: 100%;
+	box-sizing: border-box;
 	height: 100%;
 	margin: 0 auto;
 	padding: 0 20px;
-	box-sizing: border-box;
+	width: 100%;
 	// transition: opacity 300ms ease-out;
 
 	// & > * {

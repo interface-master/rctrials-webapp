@@ -10,12 +10,17 @@ import { SessionService } from "../../services/session.service";
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+	private _state:string = 'login';
 
 	constructor(
 		private session: SessionService
 	) { }
 
 	ngOnInit() {
+	}
+
+	toggleState() {
+		this._state = (this._state=='login') ? 'register' : 'login';
 	}
 
 }

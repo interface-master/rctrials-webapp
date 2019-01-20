@@ -1,3 +1,30 @@
+mat-card {
+	margin: 20px auto;
+	max-width: 800px;
+	max-height: 430px;
+
+	.mat-display-3 {
+		margin-bottom: 10px;
+	}
+
+	button {
+		background: none !important;
+		border: none;
+		color: #00f;
+		cursor: pointer;
+		font: inherit;
+		min-width: auto;
+		padding: 0 3px !important;
+	}
+}
+
+admin-login, admin-registration, .description {
+	visibility: hidden;
+	&.visible {
+		visibility: visible;
+	}
+}
+
 .row {
 	display: flex;
 	flex-direction: row;
