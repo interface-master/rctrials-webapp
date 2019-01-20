@@ -19,7 +19,8 @@ import {
 	MatProgressSpinnerModule,
 	MatRadioModule,
 	MatSelectModule,
-	MatStepperModule
+	MatStepperModule,
+	MatTabsModule
 } from '@angular/material';
 
 import { OverlayModule } from "@angular/cdk/overlay";
@@ -72,7 +73,8 @@ import { SpinnerService } from './services/spinner.service';
 		MatProgressSpinnerModule,
 		MatRadioModule,
 		MatSelectModule,
-		MatStepperModule
+		MatStepperModule,
+		MatTabsModule
 	],
 	entryComponents: [
 		HomeComponent,

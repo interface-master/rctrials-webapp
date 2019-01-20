@@ -1,34 +1,25 @@
 <h2>Login</h2>
 
 <form [formGroup]='regform'>
-	<fieldset>
-		<label>email:
-			<input
-				type='text'
-				name='email'
-				formControlName='email'
-				(input)='changeInput($event)'
-			/>
-		</label>
-		<label>pass:
-			<input
-				type='password'
-				name='pass'
-				formControlName='pass'
-				(input)='changeInput($event)'
-			/>
-			<input
-				type='hidden'
-				name='salt'
-				formControlName='salt'
-			/>
-			<input
-				type='hidden'
-				name='hash'
-				formControlName='hash'
-			/>
-		</label>
-
-		<button (click)='login($event)' type='button'>Login</button>
-	</fieldset>
+	<mat-form-field>
+		<input
+			matInput
+			placeholder='Email:'
+			type='text'
+			name='email'
+			formControlName='email'
+			(input)='changeInput($event)'
+		/>
+	</mat-form-field>
+	<mat-form-field>
+		<input
+			matInput
+			placeholder='Password:'
+			type='password'
+			name='pass'
+			formControlName='pass'
+			(input)='changeInput($event)'
+		/>
+	</mat-form-field>
+	<button mat-stroked-button (click)='login($event)' type='button' color='primary'>Login</button>
 </form>

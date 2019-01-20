@@ -1,16 +1,19 @@
-<div class="content">
-	<div class="jumbotron">
-		<h1 class="display-3">Welcome</h1>
-		<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		<hr class="my-4">
-
-		<span class='row'>
-			<admin-login></admin-login>
-			<admin-registration></admin-registration>
-		</span>
-
-		<!-- <span *ngIf="isLoggedIn">
-			<admin-dashboard></admin-dashboard>
-		</span> -->
-	</div>
-</div>
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>MRCTT</mat-card-title>
+		<mat-card-subtitle>Mobile Randomized Controlled Trial Tool</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<h1 class='mat-display-3'>Welcome</h1>
+		<p>This tool is designed to assist researchers with creating mobile-based randomized controlled trials.</p>
+		<div class='row'>
+			<p class='mat-body description' [ngClass]="{ 'visible' : (_state == 'login') }">If you have an account you can login using the form below. If you do not yet have an account you can <button (click)='toggleState();' tabindex='1'>register</button> for one.</p>
+			<p class='mat-body description' [ngClass]="{ 'visible' : (_state == 'register') }">If you do not have an account you can create one using the form below. If you do have one you can <button (click)='toggleState();' tabindex='1'>login</button>.</p>
+		</div>
+		<mat-divider></mat-divider>
+		<div class='row'>
+			<admin-login [ngClass]="{ 'visible' : (_state == 'login') }"></admin-login>
+			<admin-registration [ngClass]="{ 'visible' : (_state == 'register') }"></admin-registration>
+		</div>
+	</mat-card-content>
+</mat-card>
