@@ -10,7 +10,14 @@
 	flex: 1;
 }
 
+mat-card {
+	margin: 20px auto;
+	max-width: 800px;
+}
+
 form.newTrialForm {
+	margin: 20px auto auto;
+	max-width: 800px;
 
 	mat-card-content {
 		position: relative;
@@ -64,7 +71,7 @@ form.newTrialForm {
 	}
 
 	mat-panel-title {
-		span.survey {
+		div.survey {
 			margin-top: 2px;
 			margin-left: 5px;
 		}
@@ -86,7 +93,7 @@ form.newTrialForm {
 		margin-left: 30px;
 	}
 	.surveyFrequency {
-		width: 260px;
+		width: 190px;
 		margin-left: 20px;
 		margin-top: 11px;
 	}

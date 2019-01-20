@@ -1,16 +1,19 @@
-<div class='jumbotron'>
-	<h1 class='display-3'>Dashboard</h1>
-	<p class='lead'>Here you can see your studies at a glance.</p>
-	<hr class='my-4'>
-	<mat-list>
-		<mat-list-item *ngFor='let trial of trials' role='listitem'>
-			<mat-icon mat-list-icon>assignment</mat-icon>
-			<h4 mat-line>{{trial.title}}</h4>
-			<p mat-line> {{trial.created}} </p>
-		</mat-list-item>
-	</mat-list>
-	<div>
-		<a routerLink='/new-trial' class='new'>+ New Trial</a>
-		<a href='#' class='blank'></a>
-	</div>
-</div>
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>MRCTT</mat-card-title>
+		<mat-card-subtitle>Mobile Randomized Controlled Trial Tool</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<h1 class='mat-display-3'>Dashboard</h1>
+		<p>Here you can see your trials at a glance.</p>
+		<mat-divider></mat-divider>
+		<button mat-raised-button routerLink='/new-trial' class='new' color='primary'>+ New Trial</button>
+		<mat-list>
+			<mat-list-item *ngFor='let trial of trials' role='listitem'>
+				<mat-icon mat-list-icon>assignment</mat-icon>
+				<h4 mat-line>{{trial.title}}</h4>
+				<p mat-line> {{trial.created}} </p>
+			</mat-list-item>
+		</mat-list>
+	</mat-card-content>
+</mat-card>
