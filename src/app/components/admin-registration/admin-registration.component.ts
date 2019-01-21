@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { SessionService } from '../../services/session.service';
 
@@ -13,10 +13,9 @@ import { User } from '../../models/user.model';
 })
 export class AdminRegistrationComponent implements OnInit {
 	private title:string = 'Researcher Registration';
-	private name:string = '';
-	private role:string = 'admin';
 
-	regform: FormGroup;
+	private regform:FormGroup;
+	private nameform:FormGroup;
 	userInfo: User;
 
 	constructor(
@@ -25,11 +24,9 @@ export class AdminRegistrationComponent implements OnInit {
 
 	ngOnInit() {
 		// set up the form
-		this.regform = new FormGroup({
-			email: new FormControl(''),
-			pass: new FormControl(''),
-			salt: new FormControl(''),
-			hash: new FormControl('')
+		this.regform = this.session.getRegistrationForm();
+		this.nameform = new FormGroup({
+			name: new FormControl('',Validators.required)
 		});
 		this.userInfo = new User();
 		// set up data binding
@@ -45,13 +42,21 @@ export class AdminRegistrationComponent implements OnInit {
 	}
 
 	changeInputUser(event: any) {
-		this.userInfo.name = this.name;
-		this.userInfo.role = this.role;
+		this.userInfo.name = this.nameform.value;
 		this.session.updateUserInfo(this.userInfo)
 	}
 
 	register(event) {
-		this.session.register();
+		// update all fields
+		this.nameform.controls.name.markAsTouched({onlySelf:true});
+		Object.keys( this.regform.controls ).forEach( key => {
+		  let control = this.regform.get(key);
+		  control.markAsTouched({onlySelf:true});
+		});
+		// submit if valid
+		if( this.nameform.valid && this.regform.valid ) {
+			this.session.register();
+		}
 	}
 
 }

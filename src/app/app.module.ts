@@ -36,6 +36,7 @@ import { AdminRegistrationComponent } from './components/admin-registration/admi
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { HomeComponent } from './components/home/home.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ApiService } from './services/api.service';
 import { SessionService } from './services/session.service';
 import { SpinnerService } from './services/spinner.service';
 
@@ -74,13 +75,14 @@ import { SpinnerService } from './services/spinner.service';
 		MatRadioModule,
 		MatSelectModule,
 		MatStepperModule,
-		MatTabsModule
+		MatTabsModule,
 	],
 	entryComponents: [
 		HomeComponent,
 		DialogModalComponent,
 	],
 	providers: [
+		ApiService,
 		SessionService,
 		SpinnerService,
 	],

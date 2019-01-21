@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import axios from 'axios';
-import md5 from 'crypto-js/md5';
-import sha256 from 'crypto-js/sha256';
 
+import { ApiService } from './api.service';
 import { User } from '../models/user.model';
 
 import { DialogModalComponent } from '../components/dialog-modal/dialog-modal.component';
-
 
 @Injectable()
 export class SessionService {
@@ -32,13 +30,12 @@ export class SessionService {
 		grant_type: 'password',
 	}
 
-	private rnd = md5( new Date().getTime().toString() ).toString();
-
 	REGISTRATION_FORM: FormGroup = new FormGroup({
-		email: new FormControl(''),
-		pass: new FormControl(''),
-		salt: new FormControl(this.rnd),
-		hash: new FormControl('')
+		email: new FormControl('',Validators.compose([
+			Validators.required,
+			Validators.pattern('^^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+		])),
+		pass: new FormControl('',Validators.required)
 	});
 
 	USER: User = new User();
@@ -53,6 +50,15 @@ export class SessionService {
 
 
 	/**
+	 */
+	constructor(
+		private api: ApiService,
+		private router: Router,
+		public dialog: MatDialog,
+	) { }
+
+
+	/**
 	* updates user info
 	*/
 	updateUserInfo(userInfo: User) {
@@ -63,7 +69,6 @@ export class SessionService {
 	 * updates registration form fields
 	 */
 	updateRegistrationForm(formData: FormGroup) {
-		formData.controls.hash.setValue( this.generateHash() );
 		this.registrationForm.next( formData );
 	}
 
@@ -76,14 +81,11 @@ export class SessionService {
 		const form = this.registrationForm.value;
 		const user = this.userInfo.value;
 		const data = {
-			salt: form.value.salt,
-			hash: form.value.hash,
 			email: form.value.email,
-			pass: form.value.pass, // TODO: do not save this
-			name: user.name,
-			role: user.role
+			pass: form.value.pass,
+			name: user.name
 		}
-		axios.post('http://localhost/register', data) // TODO: remove hard-coded URLs into a serivce
+		axios.post( this.api.register, data )
 		.then( (response) => {
 			// TODO
 			// you've successfully registered
@@ -94,8 +96,8 @@ export class SessionService {
 
 
 			// if there's an error during registration
-			if( response.data.status !== 200 ) {
-				let message = response.data.message || "No error message was specified.";
+			if( response.data.error ) {
+				let message = response.data.error || "No error message was specified.";
 				this.openDialog( "Registration Failed", message );
 			}
 			// otherwise, all is well
@@ -115,7 +117,18 @@ export class SessionService {
 			console.log(response);
 		})
 		.catch( (error) => {
-			console.warn(error);
+			let title = "Registration Failed";
+			let message = "No error message was specified.";
+			if (error.response) {
+				title += ` (${error.response.status})`;
+				message = error.response.data.error;
+			} else if (error.request) {
+				message = error.request;
+			} else {
+				message = error.message || error;
+			}
+			this.openDialog( title, message );
+			// console.warn(error);
 		});
 	}
 
@@ -127,41 +140,25 @@ export class SessionService {
 	 */
 	async login() {
 		const form = this.registrationForm.value;
-		// fetch the salt
-		const dataEmail = {
-			username: form.value.email
-		};
-		await axios.post('http://localhost/validate/email', dataEmail ) // TODO: remove hard-coded URLs into a serivce
-		.then( (response) => {
-			if( response.data.salt ) {
-				form.controls.salt.setValue( response.data.salt );
-				form.controls.hash.setValue( this.generateHash() );
+		// fetch login
+		const dataLogin = Object.assign(
+			{},
+			this.API_CREDENTIALS,
+			{
+				username: form.value.email,
+				password: form.value.pass
 			}
+		);
+		await axios.post( this.api.login, dataLogin )
+		.then( async (response) => {
+			this.saveCookie( 'access_token', response.data.access_token );
+			this.saveCookie( 'refresh_token', response.data.refresh_token );
+			const user = await this.fetchUserDetails();
+			this.userInfo.next(user);
 		})
 		.catch( (error) => {
 			console.warn(error);
 		});
-		// fetch login
-		if( form.value.salt && form.value.hash ) {
-			const dataLogin = Object.assign(
-				{},
-				this.API_CREDENTIALS,
-				{
-					username: form.value.email,
-					password: form.value.hash
-				}
-			);
-			await axios.post('http://localhost/validate/login', dataLogin) // TODO: remove hard-coded URLs into a serivce
-			.then( async (response) => {
-				this.saveCookie( 'access_token', response.data.access_token );
-				this.saveCookie( 'refresh_token', response.data.refresh_token );
-				const user = await this.fetchUserDetails();
-				this.userInfo.next(user);
-			})
-			.catch( (error) => {
-				console.warn(error);
-			});
-		}
 		// console.log('session service . login . user:',this.userInfo.value,this.currentUserInfo.source.value);
 		// validate
 		if( this.userInfo.value.access_token ) {
@@ -174,20 +171,8 @@ export class SessionService {
 		} else {
 			// error
 			this.openDialog("Login Failed","Hmm. Are you sure you have the right username and password?");
-			form.controls.salt.setValue( this.rnd );
 			console.log("%cFAIL!","color:red;",this)
 		}
-	}
-
-
-	/**
-	 * generates a hash out of password and salt
-	 */
-	generateHash() {
-		const pass = this.registrationForm.value.value.pass;
-		const salt = this.registrationForm.value.value.salt;
-		let hash = sha256(pass+salt).toString();
-		return hash;
 	}
 
 	/**
@@ -241,7 +226,7 @@ export class SessionService {
 				'Authorization' : `Bearer ${access_token}`
 			}
 		};
-		return axios.get('http://localhost/user/details', header ) // TODO: remove hard-coded URLs into a serivce
+		return axios.get( this.api.userDetails, header )
 		.then( (response) => {
 			// got user
 			if( response.data.uid ) {
@@ -286,7 +271,7 @@ export class SessionService {
 				refresh_token
 			}
 		);
-		return axios.post('http://localhost/validate/login', header) // TODO: remove hard-coded URLs into a serivce
+		return axios.post( this.api.login, header)
 		.then( (response) => {
 			this.saveCookie( 'access_token', response.data.access_token );
 			this.saveCookie( 'refresh_token', response.data.refresh_token );
@@ -320,14 +305,5 @@ export class SessionService {
 			return this.BLANK;
 		}
 	}
-
-	/**
-	 * When initializing validate if cookies have valid session tokens
-	 * If so, log in
-	 */
-	constructor(
-		private router: Router,
-		public dialog: MatDialog,
-	) { }
 
 }

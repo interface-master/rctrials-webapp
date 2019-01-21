@@ -34,7 +34,15 @@ export class AdminLoginComponent implements OnInit {
 	}
 
 	login(event) {
-		this.session.login();
+		// update all fields
+		Object.keys( this.regform.controls ).forEach( key => {
+		  let control = this.regform.get(key);
+		  control.markAsTouched({onlySelf:true});
+		});
+		// submit if valid
+		if( this.regform.valid ) {
+			this.session.login();
+		}
 	}
 
 }

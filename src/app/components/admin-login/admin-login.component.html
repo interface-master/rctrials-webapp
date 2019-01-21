@@ -10,6 +10,12 @@
 			formControlName='email'
 			(input)='changeInput($event)'
 		/>
+		<mat-error *ngIf="regform.controls.email.hasError('required')">
+			Email is <strong>required</strong>
+		</mat-error>
+		<mat-error *ngIf="regform.controls.email.hasError('pattern')">
+			Please enter a <strong>valid</strong> email
+		</mat-error>
 	</mat-form-field>
 	<mat-form-field>
 		<input
@@ -20,6 +26,9 @@
 			formControlName='pass'
 			(input)='changeInput($event)'
 		/>
+		<mat-error *ngIf="regform.controls.pass.hasError('required')">
+			Password is <strong>required</strong>
+		</mat-error>
 	</mat-form-field>
 	<button mat-raised-button (click)='login($event)' type='button' color='primary'>Login</button>
 </form>
