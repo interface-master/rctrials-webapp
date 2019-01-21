@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { ApiService } from '../../services/api.service';
 import { SessionService } from '../../services/session.service';
 
 import axios from 'axios';
@@ -15,6 +16,7 @@ export class AdminDashboardComponent implements OnInit {
 	private trials: Trial[];
 
 	constructor(
+		private api: ApiService,
 		private session: SessionService
 		// private router: Router
 	) { }
@@ -29,7 +31,7 @@ export class AdminDashboardComponent implements OnInit {
 		const config = {
 			headers: {'Authorization': `Bearer ${ this.session.parseCookie( 'access_token' ) }`}
 		};
-		return await axios.get('http://localhost/user/trials', config) // TODO: remove hard-coded URLs into a service
+		return await axios.get( this.api.userTrials, config) // TODO: remove hard-coded URLs into a service
 		.then( (response) => {
 			return response.data;
 			// if( response.data.status !== 200 ) {
