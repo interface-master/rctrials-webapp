@@ -9,10 +9,22 @@
 		<mat-divider></mat-divider>
 		<button mat-raised-button routerLink='/new-trial' class='new' color='primary'>+ New Trial</button>
 		<mat-list>
-			<mat-list-item *ngFor='let trial of trials' role='listitem'>
+			<mat-list-item *ngFor='let trial of trials; index as t' role='listitem'>
 				<mat-icon mat-list-icon>assignment</mat-icon>
-				<h4 mat-line>{{trial.title}}</h4>
-				<p mat-line> {{trial.created}} </p>
+				<h4 class='mat-h4' mat-line><span class='fixed'>{{trial.tid}}</span> : {{trial.title}}</h4>
+				<div mat-line>
+					<div class='row'>
+						<div>{{trial.regopen.substr(0,10)}} &mdash; {{trial.regclose.substr(0,10)}} - <span class='mat-body-strong'>Registration {{trial.status.registration}}</span></div>
+						<div>Subjects: <span class='mat-body-strong'>{{trial.subjects || 0}}</span></div>
+					</div>
+				</div>
+				<div mat-line>
+					<div class='row'>
+						<div>{{trial.trialstart.substr(0,10)}} &mdash; {{trial.trialend.substr(0,10)}} - <span class='mat-body-strong'>Trial {{trial.status.trial}}</span></div>
+						<div>Answers: <span class='mat-body-strong'>{{trial.answers || 0}}</span></div>
+					</div>
+				</div>
+				<mat-divider *ngIf='t < trials.length-1'></mat-divider>
 			</mat-list-item>
 		</mat-list>
 	</mat-card-content>

@@ -33,7 +33,29 @@ export class AdminDashboardComponent implements OnInit {
 		};
 		return await axios.get( this.api.userTrials, config) // TODO: remove hard-coded URLs into a service
 		.then( (response) => {
-			return response.data;
+			console.log('response',response);
+			if( response.status == 200 ) {
+				return response.data.map( trial => {
+					let now = Date.parse(Date());
+					let state = { registration:null, trial:null, overall:'Unknown' };
+					if( Date.parse(trial.regopen) > now ) {
+						state.registration = 'Pending';
+					} else if ( Date.parse(trial.regopen) < now && Date.parse(trial.regclose) > now ) {
+						state.registration = 'Open';
+					} else if ( Date.parse(trial.regclose) < now ) {
+						state.registration = 'Closed';
+					}
+					if( Date.parse(trial.trialstart) > now ) {
+						state.trial = 'Pending';
+					} else if( Date.parse(trial.trialstart) < now && Date.parse(trial.trialend) > now ) {
+						state.trial = 'Running';
+					} else if( Date.parse(trial.trialend) < now ) {
+						state.trial = 'Finished';
+					}
+					trial.status = state;
+					return trial;
+				});
+			}
 			// if( response.data.status !== 200 ) {
 			// 	let message = response.data.message || "No error message was specified.";
 			// 	this.session.openDialog( "Creating New Trial Failed", message );
