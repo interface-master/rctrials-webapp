@@ -1,17 +1,20 @@
 <h2>Register</h2>
 
+<div [formGroup]='nameform'>
+	<mat-form-field>
+		<input
+			matInput
+			placeholder='Your Name:'
+			type='text'
+			name='name'
+			formControlName='name'
+			(input)='changeInputUser($event);' />
+		<mat-error *ngIf="nameform.controls.name.hasError('required')">
+			Name is <strong>required</strong>
+		</mat-error>
+	</mat-form-field>
+</div>
 <form [formGroup]='regform'>
-	<div>
-		<mat-form-field>
-			<input
-				matInput
-				placeholder='Your Name:'
-				type='text'
-				name='name'
-				[value]='name'
-				(input)='name = $event.target.value; changeInputUser($event);' />
-		</mat-form-field>
-	</div>
 	<div>
 		<mat-form-field>
 			<input
@@ -21,6 +24,12 @@
 				name='email'
 				formControlName='email'
 				(input)='changeInputReg($event)' />
+			<mat-error *ngIf="regform.controls.email.hasError('required')">
+				Email is <strong>required</strong>
+			</mat-error>
+			<mat-error *ngIf="regform.controls.email.hasError('pattern')">
+				Please enter a <strong>valid</strong> email
+			</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<input
@@ -30,6 +39,9 @@
 				name='pass'
 				formControlName='pass'
 				(input)='changeInputReg($event)' />
+			<mat-error *ngIf="regform.controls.pass.hasError('required')">
+				Password is <strong>required</strong>
+			</mat-error>
 		</mat-form-field>
 	</div>
 	<button mat-raised-button (click)='register($event)' type='button' color='primary'>Register</button>
