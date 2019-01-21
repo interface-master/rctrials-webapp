@@ -47,7 +47,6 @@ export class AdminRegistrationComponent implements OnInit {
 	}
 
 	register(event) {
-		console.log('this.regform:',this.regform);
 		// update all fields
 		this.nameform.controls.name.markAsTouched({onlySelf:true});
 		Object.keys( this.regform.controls ).forEach( key => {

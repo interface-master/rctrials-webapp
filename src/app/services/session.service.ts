@@ -171,7 +171,6 @@ export class SessionService {
 		} else {
 			// error
 			this.openDialog("Login Failed","Hmm. Are you sure you have the right username and password?");
-			// form.controls.salt.setValue( this.rnd );
 			console.log("%cFAIL!","color:red;",this)
 		}
 	}
