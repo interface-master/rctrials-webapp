@@ -33,6 +33,7 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminNewTrialComponent } from './components/admin-new-trial/admin-new-trial.component';
 import { AdminRegistrationComponent } from './components/admin-registration/admin-registration.component';
+import { AdminTrialDetailsComponent } from './components/admin-trial-details/admin-trial-details.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { HomeComponent } from './components/home/home.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
@@ -50,6 +51,7 @@ import { SpinnerService } from './services/spinner.service';
 		AdminLoginComponent,
 		AdminDashboardComponent,
 		AdminNewTrialComponent,
+		AdminTrialDetailsComponent,
 	],
 	imports: [
 		BrowserModule,

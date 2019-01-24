@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Trial } from '../../models/trial.model';
 import { ApiService } from '../../services/api.service';
 import { SessionService } from '../../services/session.service';
 
@@ -31,7 +32,7 @@ export class AdminDashboardComponent implements OnInit {
 		const config = {
 			headers: {'Authorization': `Bearer ${ this.session.parseCookie( 'access_token' ) }`}
 		};
-		return await axios.get( this.api.userTrials, config) // TODO: remove hard-coded URLs into a service
+		return await axios.get( this.api.userTrials, config)
 		.then( (response) => {
 			console.log('response',response);
 			if( response.status == 200 ) {
@@ -70,17 +71,4 @@ export class AdminDashboardComponent implements OnInit {
 		});
 	}
 
-}
-
-type Trial = {
-	tid: string,
-	title: string,
-	regopen: Date,
-	regclose: Date,
-	trialstart: Date,
-	trialend: Date,
-	trialtype: string,
-	timezone: string,
-	created: Date,
-	updated: Date
 }

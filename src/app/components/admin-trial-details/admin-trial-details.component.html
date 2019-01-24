@@ -1,0 +1,35 @@
+<mat-card>
+	<mat-card-header>
+		<div mat-card-avatar class="example-header-image"><a mat-icon-button routerLink='/dashboard' title='Back'><mat-icon>arrow_back</mat-icon></a></div>
+		<mat-card-title>MRCTT</mat-card-title>
+		<mat-card-subtitle>Mobile Randomized Controlled Trial Tool</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content *ngIf='trial'>
+		<h1 class='mat-display-3'>{{trial.title}}</h1>
+		<div>
+			{{ trial.regopen }} &mdash; {{ trial.regclose }}  - <span class='mat-body-strong'>Registration {{ trial.status ? trial.status.registration : '' }}</span>
+			<br/>
+			{{ trial.trialstart }} &mdash; {{ trial.trialend }} - <span class='mat-body-strong'>Trial {{ trial.status ? trial.status.trial : '' }}</span>
+		</div>
+		<div>
+			Subjects: {{ trial.totalSubjects }}
+		</div>
+		<div>
+			Answers: {{ trial.totalAnswers }}
+		</div>
+		<div>
+			Groups: {{ trial.groups ? trial.groups.length : 0 }}
+			<div *ngFor='let group of trial.groups; index as g'>
+				gid:{{group.gid}}; name:{{group.name}}; size:{{group.size}};
+				subjects:{{group.subjects}}
+			</div>
+		</div>
+		<div>
+			Surveys: {{ trial.surveys ? trial.surveys.length : 0 }}
+			<div *ngFor='let survey of trial.surveys; index as s'>
+				sid:{{survey.sid}}; name:{{survey.name}};
+			</div>
+		</div>
+		<mat-divider></mat-divider>
+	</mat-card-content>
+</mat-card>

@@ -9,7 +9,8 @@
 		<mat-divider></mat-divider>
 		<button mat-raised-button routerLink='/new-trial' class='new' color='primary'>+ New Trial</button>
 		<mat-list>
-			<mat-list-item *ngFor='let trial of trials; index as t' role='listitem'>
+			<mat-list-item *ngFor='let trial of trials; index as t' role='listitem'
+				[routerLink]="['/trial-details', trial.tid]">
 				<mat-icon mat-list-icon>assignment</mat-icon>
 				<h4 class='mat-h4' mat-line><span class='fixed'>{{trial.tid}}</span> : {{trial.title}}</h4>
 				<div mat-line>

@@ -6,6 +6,7 @@ export class ApiService {
 
 	public login:string = `${this._apiRoot}validate/login`;
 	public register:string = `${this._apiRoot}register`;
+	public trialDetails:string = `${this._apiRoot}trial/:tid`;
 	public userDetails:string = `${this._apiRoot}user/details`;
 	public userTrials:string = `${this._apiRoot}user/trials`;
 }
