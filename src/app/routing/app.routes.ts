@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 
+import { AboutComponent } from '../components/about/about.component';
 import { AdminDashboardComponent } from '../components/admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from '../components/admin-login/admin-login.component';
 import { AdminNewTrialComponent } from '../components/admin-new-trial/admin-new-trial.component';
 import { AdminTrialDetailsComponent } from '../components/admin-trial-details/admin-trial-details.component';
 import { AdminRegistrationComponent } from '../components/admin-registration/admin-registration.component';
+import { DocumentationComponent } from '../components/documentation/documentation.component';
 import { HomeComponent } from '../components/home/home.component';
 
 
@@ -18,7 +20,21 @@ export const routes: Routes = [
 		path: 'home',
 		component: HomeComponent,
 		data: [{
-			pageName: 'MRCT'
+			pageName: 'RCTrials'
+		}]
+	},
+	{
+		path: 'about',
+		component: AboutComponent,
+		data: [{
+			pageName: 'About the Project'
+		}]
+	},
+	{
+		path: 'docs',
+		component: DocumentationComponent,
+		data: [{
+			pageName: 'Project Documentation'
 		}]
 	},
 	{
@@ -39,7 +55,7 @@ export const routes: Routes = [
 		path: 'dashboard',
 		component: AdminDashboardComponent,
 		data: [{
-			pageName: 'MRCT'
+			pageName: 'RCTrials Dashboard'
 		}]
 	},
 	{
