@@ -6,12 +6,28 @@ html, body {
 	width: 100%;
 }
 
+body {
+	background-color: #e5e5e5;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 .mrct-wrapper {
 	box-sizing: border-box;
-	height: 100%;
 	margin: 0 auto;
-	padding: 0 20px;
+	padding: 0;
 	width: 100%;
+	// background-image: url('../img/martin-adams-1062002-unsplash.jpg');
+	// background-image: url('../img/janko-ferlic-174927-unsplash.jpg');
+	background-image: url('../img/chuttersnap-348302-unsplash.jpg');
+	background-size: cover;
+	background-position: center top;
+	background-repeat: no-repeat;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	-webkit-background-size: cover;
+	-ms-content-zooming: none;
+	// box-shadow: inset 0px 0px 0px 1000px rgba(229,229,229,0.6);
+	box-shadow: inset 0px 0px 0px 1000px rgba(255,255,255,0.6);
 	// transition: opacity 300ms ease-out;
 
 	// & > * {
