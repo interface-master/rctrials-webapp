@@ -1,34 +1,38 @@
-<h2>Login</h2>
+<mat-card>
+  <mat-card-content>
+    <h2>Login</h2>
 
-<form [formGroup]='regform'>
-	<mat-form-field>
-		<input
-			matInput
-			placeholder='Email:'
-			type='text'
-			name='email'
-			formControlName='email'
-			(input)='changeInput($event)'
-		/>
-		<mat-error *ngIf="regform.controls.email.hasError('required')">
-			Email is <strong>required</strong>
-		</mat-error>
-		<mat-error *ngIf="regform.controls.email.hasError('pattern')">
-			Please enter a <strong>valid</strong> email
-		</mat-error>
-	</mat-form-field>
-	<mat-form-field>
-		<input
-			matInput
-			placeholder='Password:'
-			type='password'
-			name='pass'
-			formControlName='pass'
-			(input)='changeInput($event)'
-		/>
-		<mat-error *ngIf="regform.controls.pass.hasError('required')">
-			Password is <strong>required</strong>
-		</mat-error>
-	</mat-form-field>
-	<button mat-raised-button (click)='login($event)' type='button' color='primary'>Login</button>
-</form>
+    <form [formGroup]='regform'>
+    	<mat-form-field>
+    		<input
+    			matInput
+    			placeholder='Email:'
+    			type='text'
+    			name='email'
+    			formControlName='email'
+    			(input)='changeInput($event)'
+    		/>
+    		<mat-error *ngIf="regform.controls.email.hasError('required')">
+    			Email is <strong>required</strong>
+    		</mat-error>
+    		<mat-error *ngIf="regform.controls.email.hasError('pattern')">
+    			Please enter a <strong>valid</strong> email
+    		</mat-error>
+    	</mat-form-field>
+    	<mat-form-field>
+    		<input
+    			matInput
+    			placeholder='Password:'
+    			type='password'
+    			name='pass'
+    			formControlName='pass'
+    			(input)='changeInput($event)'
+    		/>
+    		<mat-error *ngIf="regform.controls.pass.hasError('required')">
+    			Password is <strong>required</strong>
+    		</mat-error>
+    	</mat-form-field>
+    	<button mat-raised-button (click)='login($event)' type='button' color='primary'>Login</button>
+    </form>
+  </mat-card-content>
+</mat-card>
