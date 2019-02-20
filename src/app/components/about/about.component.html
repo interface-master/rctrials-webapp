@@ -1,17 +1,38 @@
 <mat-card>
 	<mat-card-content>
 		<h1 class='mat-display-4'>About the Project</h1>
-		<h3>A Tool for Researchers</h3>
-		<p><em>RCTrials</em> was developed to help researchers gather survey data from trial participants. It is completely double-blinded because no personally identifying information (PII) is ever gathered from any participant. It can support multiple groups, pre/during/post intervention surveys, and CSV exporting for statistical analysis.</p>
+		<div class='polyptych'>
+			<div>
+				<div class='img-research-tool'></div>
+				<h3>A Tool for Researchers</h3>
+				<p><em>RCTrials</em> was developed to help researchers gather survey responses from trial participants. It does not gather any personally identifying information (PII) from participants so it is completely double-blinded. It can support multiple groups, pre/during/post trial surveys, and CSV exporting for statistical analysis.</p>
+			</div>
+			<div>
+				<div class='img-dev-tool'></div>
+				<h3>A Tool for Developers</h3>
+				<p>The tool can also be used by app developers to integrate with the <em>RCTrials API</em> and add a randomized controlled trial (RCT) to their mobile app. The users can be divided into multiple groups, each group can be assigned specific app features for A/B testing and surveyed for feedback. Read more about the API here.</p>
+			</div>
+		</div>
+
+		<p>There are three different ways to use the <em>RCTrials</em> project &mdash; &#9312; by using the online hosted solution at <a href='#'>RCTrials.tk</a> along with the free <a href='#'>Surveyor</a> app; &#9313; by using the hosted solution with your own app, and integrating with the <a href='#'>RCTrials API</a>; or &#9314; by using the source code and hosting your own server with your own app.</p>
+
+		<div class='polyptych'>
+			<div>
+				<h2>Hosted Solution</h2>
+				<p>register; create trial; create groups; create surveys & questions; inform participants of TID to use when registering and where to download the app; execute trial; observe data; export for statistical analysis;</p>
+			</div>
+			<div>
+				<h2>Integrated</h2>
+				<p>read the api to make sure the system can facilitate your needs; register-&gt;create...get TID; use TID in your code;</p>
+			</div>
+			<div>
+				<h2>Custom Solution</h2>
+				<p>fork repo (either research server or app); customize; deploy; follow steps in the hosted solution but on your own server and/or your own app.</p>
+			</div>
+		</div>
+
 		<p>The tool allows the researcher to define the parameters of the study - the start and end dates for the registration and trial, how many groups, to what features each group is entitled, and what surveys each group needs to complete. The system generates a four-digit code which the researcher then gives to the trial participants. When the participants submit survey answers the researcher is able to see aggregate information on the survey responses from all participants in each group.</p>
 		<p>The participants download the free <em>Surveyor</em> app and join the trial with the given four-digit code. The app will ask all participants to fill out the pre-test surveys, and when the trial begins split the participants into the defined groups. During and after the trial other surveys can be requested and will appear in the app for the participants in that group.</p>
-		<h3>A Tool for Developers</h3>
-		<p>The tool can also be used by app developers to integrate with the <em>RCTrials API</em> and add a randomized controlled trial (RCT) to their mobile app. The users can be divided into multiple groups for A/B testing and surveyed for feedback. Read more about the API here.</p>
-		<h2>Hosted Solution</h2>
-		<p>register; create trial; create groups; create surveys & questions; inform participants of TID to use when registering and where to download the app; execute trial; observe data; export for statistical analysis;</p>
-		<h2>Integrated</h2>
-		<p>read the api to make sure the system can facilitate your needs; register-&gt;create...get TID; use TID in your code;</p>
-		<h2>Custom Solution</h2>
-		<p>fork repo (either research server or app); customize; deploy; follow steps in the hosted solution but on your own server and/or your own app.</p>
+
 	</mat-card-content>
 </mat-card>

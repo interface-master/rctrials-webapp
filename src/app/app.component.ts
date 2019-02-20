@@ -31,9 +31,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 		console.log("HERE")
 		// preload images
 		let imgs = [
-			'chuttersnap-348302-unsplash.jpg',
-			'martin-adams-1062002-unsplash.jpg',
-			'janko-ferlic-174927-unsplash.jpg',
+			'/assets/img/chuttersnap-348302-unsplash.jpg',
+			'/assets/img/martin-adams-1062002-unsplash.jpg',
+			'/assets/img/janko-ferlic-174927-unsplash.jpg',
+			'/assets/img/adult-analysis-banking-1549000.jpg'
 		];
 		for( let i = 0; i < imgs.length; i++ ) {
 			let x = new Image();
