@@ -1,36 +1,12 @@
 @import '../../../assets/css/variables';
 
 mat-card {
-	.mat-display-3 {
-		margin-bottom: 10px;
-	}
-
 	mat-card-content {
 		font-weight: 300;
-		& > h1 {
-			font-size: 2.775rem;
-			line-height: 3.3rem;
-			margin-bottom: 0px;
-			@media screen and (max-width: $break-sm) {
-				font-size: 6rem;
-			}
-		}
 		& > p {
 			font-size: 2rem;
 		}
-		em {
-			font-weight: 500;
-		}
 	}
-	// button {
-	// 	background: none !important;
-	// 	border: none;
-	// 	color: #00f;
-	// 	cursor: pointer;
-	// 	font: inherit;
-	// 	min-width: auto;
-	// 	padding: 0 3px !important;
-	// }
 }
 
 admin-login, admin-registration, .description {

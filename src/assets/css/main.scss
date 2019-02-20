@@ -16,7 +16,7 @@ body {
 	margin: 0 auto;
 	padding: 0;
 	width: 100%;
-  background-image: url('../img/chuttersnap-348302-unsplash.jpg');
+	background-image: url('../img/chuttersnap-348302-unsplash.jpg');
 	background-size: cover;
 	background-position: center top;
 	background-repeat: no-repeat;
@@ -28,13 +28,13 @@ body {
 	box-shadow: inset 0px 0px 0px 1000px rgba(255,255,255,0.4);
 	// transition: opacity 300ms ease-out;
 
-  &.about {
-    background-image: url('../img/martin-adams-1062002-unsplash.jpg');
-  }
+	&.about {
+		background-image: url('../img/martin-adams-1062002-unsplash.jpg');
+	}
 
-  &.docs {
-    background-image: url('../img/janko-ferlic-174927-unsplash.jpg');
-  }
+	&.docs {
+		background-image: url('../img/janko-ferlic-174927-unsplash.jpg');
+	}
 
 	// & > * {
 	// 	display: block;
@@ -50,6 +50,22 @@ body {
 		padding: 50px;
 		max-width: 800px;
 		min-height: 430px;
+
+		mat-card-content {
+			& > h1 {
+				font-size: 2.775rem;
+				line-height: 3.3rem;
+				margin-bottom: 0px;
+				@media screen and (max-width: $break-sm) {
+					font-size: 6rem;
+				}
+			}
+			& > p {
+			}
+			em {
+				font-weight: 500;
+			}
+		}
 	}
 
 }
