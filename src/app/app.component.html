@@ -1,4 +1,7 @@
-<div class="mrct-wrapper">
+<div class="mrct-wrapper" [ngClass]="[
+  route === 'about' ? 'about' : '',
+  route === 'docs' ? 'docs' : ''
+]">
 	<app-spinner name="main" [(show)]="showSpinner"></app-spinner>
 	<app-header></app-header>
   <div class='header_spacer'>SPACE</div>

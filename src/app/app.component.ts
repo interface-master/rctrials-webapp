@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { SessionService } from "./services/session.service";
 import { SpinnerService } from "./services/spinner.service";
@@ -13,12 +13,19 @@ import { SpinnerService } from "./services/spinner.service";
 export class AppComponent implements OnInit, AfterViewInit {
 
 	private showSpinner: boolean = true;
+	private route: String = "home";
 
 	constructor(
 		private router: Router,
 		private sessionService: SessionService,
 		private spinnerService: SpinnerService,
-	) { }
+	) {
+		router.events.subscribe((val) => {
+			if( val instanceof NavigationEnd ) {
+				this.route = val.url.replace(/\//g,'');
+			}
+		});
+	}
 
 	ngOnInit() {
 		console.log("HERE")
