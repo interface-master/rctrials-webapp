@@ -31,8 +31,16 @@ export class AppComponent implements OnInit, AfterViewInit {
 					this.router.navigateByUrl('/dashboard');
 				}
 			} else {
-				console.log('invalid user session',user);
-				this.router.navigateByUrl('/home');
+				console.log('response:',user);
+				console.log('this.router',this.router);
+				if( location.pathname !== '/about'
+						&& location.pathname !== '/docs'
+						&& location.pathname !== '/register'
+						&& location.pathname !== '/login'
+					) {
+						console.log('invalid user session',user);
+						this.router.navigateByUrl('/home');
+					}
 			}
 			console.log('finished with spinner:')
 			this.spinnerService.hide('main');
