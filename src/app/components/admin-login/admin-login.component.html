@@ -10,6 +10,7 @@
 					type='text'
 					name='email'
 					formControlName='email'
+					autocomplete='email'
 					(input)='changeInput($event)'
 				/>
 				<mat-error *ngIf="regform.controls.email.hasError('required')">
@@ -26,6 +27,7 @@
 					type='password'
 					name='pass'
 					formControlName='pass'
+					autocomplete='current-password'
 					(input)='changeInput($event)'
 				/>
 				<mat-error *ngIf="regform.controls.pass.hasError('required')">
