@@ -1,6 +1,8 @@
 <div class="mrct-wrapper" [ngClass]="[
-  route === 'about' ? 'about' : '',
-  route === 'docs' ? 'docs' : ''
+  route === 'about'   ? 'about' : '',
+  route === 'docs'    ? 'docs'  : '',
+  route === 'privacy' ? 'legal' : '',
+  route === 'terms'   ? 'legal' : ''
 ]">
 	<app-spinner name="main" [(show)]="showSpinner"></app-spinner>
 	<app-header></app-header>

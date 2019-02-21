@@ -35,7 +35,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 			'/assets/img/martin-adams-1062002-unsplash.jpg',
 			'/assets/img/janko-ferlic-174927-unsplash.jpg',
 			'/assets/img/adult-analysis-banking-1549000.jpg',
-			'/assets/img/accounting-alone-application-938965.jpg'
+			'/assets/img/accounting-alone-application-938965.jpg',
+			'/assets/img/abstract-black-and-white-blur-261763.jpg'
 		];
 		for( let i = 0; i < imgs.length; i++ ) {
 			let x = new Image();
@@ -57,6 +58,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 						&& location.pathname !== '/docs'
 						&& location.pathname !== '/register'
 						&& location.pathname !== '/login'
+						&& location.pathname !== '/privacy'
+						&& location.pathname !== '/terms'
 					) {
 						console.log('invalid user session',user);
 						this.router.navigateByUrl('/home');

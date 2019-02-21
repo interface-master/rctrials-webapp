@@ -36,6 +36,13 @@ body {
 		background-image: url('../img/janko-ferlic-174927-unsplash.jpg');
 	}
 
+  &.legal {
+    background-image: url('../img/abstract-black-and-white-blur-261763.jpg');
+    background-size: contain;
+    background-position: center top;
+    background-repeat: repeat-y;
+  }
+
 	// & > * {
 	// 	display: block;
 	// 	opacity: 1;
