@@ -94,7 +94,6 @@ export class SessionService {
 			// then you can log in once the account is marked as active
 			// /TODO
 
-
 			// if there's an error during registration
 			if( response.data.error ) {
 				let message = response.data.error || "No error message was specified.";
@@ -122,13 +121,12 @@ export class SessionService {
 			if (error.response) {
 				title += ` (${error.response.status})`;
 				message = error.response.data.error;
-			} else if (error.request) {
-				message = error.request;
+			// } else if (error.request) {
+			// 	message = error.request;
 			} else {
-				message = error.message || error;
+				message = error.message || message;
 			}
 			this.openDialog( title, message );
-			// console.warn(error);
 		});
 	}
 
