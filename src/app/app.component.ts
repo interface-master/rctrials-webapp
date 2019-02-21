@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 	) {
 		router.events.subscribe((val) => {
 			if( val instanceof NavigationEnd ) {
-				this.route = val.url.replace(/\//g,'');
+				this.route = val.url.split('/')[1];
 			}
 		});
 	}
@@ -55,11 +55,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 				console.log('response:',user);
 				console.log('this.router',this.router);
 				if( location.pathname !== '/about'
-						&& location.pathname !== '/docs'
 						&& location.pathname !== '/register'
 						&& location.pathname !== '/login'
 						&& location.pathname !== '/privacy'
 						&& location.pathname !== '/terms'
+						&& location.pathname.split('/')[1] !== 'docs'
 					) {
 						console.log('invalid user session',user);
 						this.router.navigateByUrl('/home');

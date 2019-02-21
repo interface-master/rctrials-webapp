@@ -40,6 +40,9 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { DocumentationComponent } from './components/documentation/documentation.component';
+import { DocDevelopersComponent } from './components/documentation/doc.developers.component';
+import { DocParticipantsComponent } from './components/documentation/doc.participants.component';
+import { DocResearchersComponent } from './components/documentation/doc.researchers.component';
 import { HomeComponent } from './components/home/home.component';
 import { PrivacyComponent } from './components/legal/privacy.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
@@ -62,10 +65,13 @@ import { SpinnerService } from './services/spinner.service';
 		AppFooterComponent,
 		DialogModalComponent,
 		DocumentationComponent,
+		DocDevelopersComponent,
+		DocParticipantsComponent,
+		DocResearchersComponent,
 		HomeComponent,
-    PrivacyComponent,
+		PrivacyComponent,
 		SpinnerComponent,
-    TermsComponent,
+		TermsComponent,
 	],
 	imports: [
 		BrowserModule,
