@@ -1,6 +1,12 @@
-h2 {
-	margin-bottom: 10px;
-}
-button {
-	margin-top: 20px;
+mat-card {
+	max-width: 240px;
+	min-height: 310px;
+
+	h1 {
+		margin-bottom: 30px;
+	}
+
+	mat-form-field {
+		width: 240px;
+	}
 }

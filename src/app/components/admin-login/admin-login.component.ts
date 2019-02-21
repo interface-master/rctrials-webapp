@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SessionService } from "../../services/session.service";
@@ -36,8 +36,8 @@ export class AdminLoginComponent implements OnInit {
 	login(event) {
 		// update all fields
 		Object.keys( this.regform.controls ).forEach( key => {
-		  let control = this.regform.get(key);
-		  control.markAsTouched({onlySelf:true});
+			let control = this.regform.get(key);
+			control.markAsTouched({onlySelf:true});
 		});
 		// submit if valid
 		if( this.regform.valid ) {
@@ -45,4 +45,12 @@ export class AdminLoginComponent implements OnInit {
 		}
 	}
 
+	// @HostListener('window:resize', ['$event'])
+	// onResize(event) {
+	// 	// background image: 2500x1629
+	// 	let ratio = 1629 / 2500;
+	// 	let width = event.target.innerWidth;
+	// 	let height = width * ratio;
+	// 	document.querySelector('mat-card#form').style.height = height+'px';
+	// }
 }
