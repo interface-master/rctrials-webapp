@@ -8,6 +8,8 @@ import { AdminTrialDetailsComponent } from '../components/admin-trial-details/ad
 import { AdminRegistrationComponent } from '../components/admin-registration/admin-registration.component';
 import { DocumentationComponent } from '../components/documentation/documentation.component';
 import { HomeComponent } from '../components/home/home.component';
+import { PrivacyComponent } from '../components/legal/privacy.component';
+import { TermsComponent } from '../components/legal/terms.component';
 
 
 export const routes: Routes = [
@@ -35,6 +37,20 @@ export const routes: Routes = [
 		component: DocumentationComponent,
 		data: [{
 			pageName: 'Project Documentation'
+		}]
+	},
+	{
+		path: 'privacy',
+		component: PrivacyComponent,
+		data: [{
+			pageName: 'Privacy Policy'
+		}]
+	},
+	{
+		path: 'terms',
+		component: TermsComponent,
+		data: [{
+			pageName: 'Terms and Conditions'
 		}]
 	},
 	{

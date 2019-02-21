@@ -41,7 +41,10 @@ import { AppFooterComponent } from './components/app-footer/app-footer.component
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { DocumentationComponent } from './components/documentation/documentation.component';
 import { HomeComponent } from './components/home/home.component';
+import { PrivacyComponent } from './components/legal/privacy.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { TermsComponent } from './components/legal/terms.component';
+
 import { ApiService } from './services/api.service';
 import { SessionService } from './services/session.service';
 import { SpinnerService } from './services/spinner.service';
@@ -60,7 +63,9 @@ import { SpinnerService } from './services/spinner.service';
 		DialogModalComponent,
 		DocumentationComponent,
 		HomeComponent,
+    PrivacyComponent,
 		SpinnerComponent,
+    TermsComponent,
 	],
 	imports: [
 		BrowserModule,
