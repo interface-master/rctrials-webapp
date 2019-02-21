@@ -37,7 +37,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 			'/assets/img/adult-analysis-banking-1549000.jpg',
 			'/assets/img/accounting-alone-application-938965.jpg',
 			'/assets/img/abstract-black-and-white-blur-261763.jpg',
-			'/assets/img/cell-phone-close-up-contemporary-905873.jpg'
 		];
 		for( let i = 0; i < imgs.length; i++ ) {
 			let x = new Image();
