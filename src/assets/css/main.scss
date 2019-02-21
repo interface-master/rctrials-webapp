@@ -58,10 +58,18 @@ body {
 				margin-bottom: 0px;
 				letter-spacing: 0.1px;
 				@media screen and (max-width: $break-sm) {
-					font-size: 6rem;
+					font-size: 2rem;
 				}
 			}
-			& > p {
+			& > h2 {
+				font-size: 2.5rem;
+				line-height: 3rem;
+				font-weight: 300;
+				margin-bottom: 0px;
+				letter-spacing: 0.1px;
+			}
+			p {
+				line-height: 120%;
 			}
 			em {
 				font-weight: 500;
