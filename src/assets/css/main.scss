@@ -16,7 +16,7 @@ body {
 	margin: 0 auto;
 	padding: 0;
 	width: 100%;
-	background-image: url('../img/chuttersnap-348302-unsplash.jpg');
+	background-image: url('/assets/img/chuttersnap-348302-unsplash.jpg');
 	background-size: cover;
 	background-position: center top;
 	background-repeat: no-repeat;
@@ -29,19 +29,23 @@ body {
 	// transition: opacity 300ms ease-out;
 
 	&.about {
-		background-image: url('../img/martin-adams-1062002-unsplash.jpg');
+		background-image: url('/assets/img/martin-adams-1062002-unsplash.jpg');
 	}
 
 	&.docs {
-		background-image: url('../img/janko-ferlic-174927-unsplash.jpg');
+		background-image: url('/assets/img/janko-ferlic-174927-unsplash.jpg');
 	}
 
-  &.legal {
-    background-image: url('../img/abstract-black-and-white-blur-261763.jpg');
-    background-size: contain;
-    background-position: center top;
-    background-repeat: repeat-y;
-  }
+	&.login {
+		background-image: url('/assets/img/cell-phone-close-up-contemporary-905873.jpg');
+	}
+
+	&.legal {
+		background-image: url('/assets/img/abstract-black-and-white-blur-261763.jpg');
+		background-size: contain;
+		background-position: center top;
+		background-repeat: repeat-y;
+	}
 
 	// & > * {
 	// 	display: block;
