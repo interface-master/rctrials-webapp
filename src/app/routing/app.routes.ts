@@ -7,6 +7,10 @@ import { AdminNewTrialComponent } from '../components/admin-new-trial/admin-new-
 import { AdminTrialDetailsComponent } from '../components/admin-trial-details/admin-trial-details.component';
 import { AdminRegistrationComponent } from '../components/admin-registration/admin-registration.component';
 import { DocumentationComponent } from '../components/documentation/documentation.component';
+import { DocumentationTOCComponent } from '../components/documentation/documentation.toc.component';
+import { DocDevelopersComponent } from '../components/documentation/doc.developers.component';
+import { DocParticipantsComponent } from '../components/documentation/doc.participants.component';
+import { DocResearchersComponent } from '../components/documentation/doc.researchers.component';
 import { HomeComponent } from '../components/home/home.component';
 import { PrivacyComponent } from '../components/legal/privacy.component';
 import { TermsComponent } from '../components/legal/terms.component';
@@ -35,9 +39,28 @@ export const routes: Routes = [
 	{
 		path: 'docs',
 		component: DocumentationComponent,
-		data: [{
-			pageName: 'Project Documentation'
-		}]
+		children: [
+			{
+				path: '',
+				component: DocumentationTOCComponent,
+				data: [{ pageName: 'Project Documentation' }]
+			},
+			{
+				path: 'researchers',
+				component: DocResearchersComponent,
+				data: [{ pageName: 'Documentation for Researchers' }]
+			},
+			{
+				path: 'participants',
+				component: DocParticipantsComponent,
+				data: [{ pageName: 'Documentation for Participants' }]
+			},
+			{
+				path: 'developers',
+				component: DocDevelopersComponent,
+				data: [{ pageName: 'Documentation for Developers' }]
+			},
+		]
 	},
 	{
 		path: 'privacy',
