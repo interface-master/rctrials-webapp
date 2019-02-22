@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { SessionService } from "../../services/session.service";
-
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
 	selector: 'app-header',
@@ -9,12 +7,28 @@ import { SessionService } from "../../services/session.service";
 	styleUrls: ['./app-header.component.scss']
 })
 export class AppHeaderComponent implements OnInit {
+	private _menu:boolean = false;
 
 	constructor(
-		private session: SessionService
-	) { }
+		private router: Router
+	) {
+		const self = this;
+		router.events.subscribe((val) => {
+			if( val instanceof NavigationEnd ) {
+				self.closeMenu();
+			}
+		});
+	}
 
 	ngOnInit() {
+	}
+
+	toggleState() {
+		this._menu = !this._menu;
+	}
+
+	closeMenu() {
+		this._menu = false;
 	}
 
 }
