@@ -7,14 +7,14 @@ export class SpinnerService {
 	private spinnerCache = new Set<SpinnerComponent>();
 
 	_register( spinner: SpinnerComponent ): void {
-		console.log('%cregistering','color:green',spinner)
+		// console.log('%cregistering','color:green',spinner)
 		this.spinnerCache.add(spinner);
 	}
 
 	show( spinnerName: string ): void {
 		this.spinnerCache.forEach(spinner => {
 			if ( spinner.name === spinnerName ) {
-				console.log("%cshowing spinner","color:green",spinnerName);
+				// console.log("%cshowing spinner","color:green",spinnerName);
 				spinner.show = true;
 			}
 		});
@@ -23,7 +23,7 @@ export class SpinnerService {
 	hide( spinnerName: string ): void {
 		this.spinnerCache.forEach( spinner => {
 			if ( spinner.name === spinnerName ) {
-				console.log('%chiding spinner',"color:green",spinnerName);
+				// console.log('%chiding spinner',"color:green",spinnerName);
 				spinner.show = false;
 			}
 		});

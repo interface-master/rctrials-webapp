@@ -1,0 +1,79 @@
+@import "../../../assets/css/_variables.scss";
+
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	height: 50px;
+	padding: 10px 20px;
+	margin: 0 0 20px 0;
+	background-color: #fff;
+	box-shadow: 0 4px 18px 0 rgba(0,0,0,.12), 0 7px 10px -5px rgba(0,0,0,.15);
+
+	nav.navigation {
+		max-width: 1140px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+		.navigation--left, .navigation--right {
+			display: flex;
+
+			& > mat-icon {
+				font-size: 2rem;
+				@media screen and (min-width: $break-menu) {
+					display: none;
+				}
+			}
+
+			li.mobile, .hamburger {
+				@media screen and (min-width: $break-menu) {
+					display: none;
+				}
+			}
+
+			ul {
+				align-items: center;
+				background-color: #fffe;
+				box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+				display: none;
+				flex-direction: column;
+				list-style: none;
+				margin: 0;
+				padding: 20px;
+				position: absolute;
+				right: 20px;
+				top: 60px;
+				z-index: 990;
+
+				&.open {
+					display: flex;
+				}
+
+				@media screen and (min-width: $break-menu) {
+					display: flex;
+					flex-direction: row;
+					position: relative;
+					top: auto;
+					right: auto;
+					padding: 0;
+					box-shadow: none;
+					background-color: none;
+				}
+
+				a {
+					color: black;
+					padding: 10px 15px;
+					text-decoration: none;
+					text-transform: uppercase;
+					font-weight: 400;
+					font-size: 12px;
+				}
+			}
+		}
+
+	}
+}

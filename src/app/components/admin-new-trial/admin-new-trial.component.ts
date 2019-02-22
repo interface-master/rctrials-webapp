@@ -234,17 +234,13 @@ export class AdminNewTrialComponent implements OnInit {
 			} else {
 				this.session.openDialog( "New Trial Created", `Your trial has been created. The ID of your trial is: ${response.data.tid}.\nIt has ${response.data.groups} groups, ${response.data.surveys} surveys, and ${response.data.questions} questions.` );
 			}
-			console.log(response);
 		})
 		.catch( (error) => {
 			console.warn(error);
 		});
-		// output
-		console.log('creating a new trial...',trial);
 	}
 
 	setEditingSurvey( n: number ) {
-		console.log('survey opened',n);
 		this._editingSurvey = n;
 	}
 

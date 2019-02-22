@@ -1,0 +1,22 @@
+mat-card-content {
+	& > ul {
+		font-size: 1.25rem;
+		line-height: 200%;
+
+		& > li {
+			& > ul {
+				font-size: 1rem;
+				line-height: 120%;
+			}
+		}
+	}
+
+	a {
+		color: #0000d6;
+		text-decoration: none;
+	}
+}
+
+mat-divider + mat-card-content {
+	margin-top: 30px;
+}

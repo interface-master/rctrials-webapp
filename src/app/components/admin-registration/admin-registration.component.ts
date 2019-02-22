@@ -50,8 +50,8 @@ export class AdminRegistrationComponent implements OnInit {
 		// update all fields
 		this.nameform.controls.name.markAsTouched({onlySelf:true});
 		Object.keys( this.regform.controls ).forEach( key => {
-		  let control = this.regform.get(key);
-		  control.markAsTouched({onlySelf:true});
+			let control = this.regform.get(key);
+			control.markAsTouched({onlySelf:true});
 		});
 		// submit if valid
 		if( this.nameform.valid && this.regform.valid ) {

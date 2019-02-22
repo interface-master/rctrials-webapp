@@ -1,5 +1,15 @@
-<div class="mrct-wrapper">
+<div class="mrct-wrapper" [ngClass]="[
+	route === 'about'    ? 'about' : '',
+	route === 'docs'     ? 'docs'  : '',
+	route === 'privacy'  ? 'legal' : '',
+	route === 'terms'    ? 'legal' : '',
+	route === 'register' ? 'login' : '',
+	route === 'login'    ? 'login' : ''
+]">
 	<app-spinner name="main" [(show)]="showSpinner"></app-spinner>
+	<app-header></app-header>
+	<div class='header_spacer'></div>
 	<router-outlet></router-outlet>
+	<app-footer></app-footer>
 	<!-- <app-messages></app-messages> -->
 </div>

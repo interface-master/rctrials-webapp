@@ -43,9 +43,7 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 		};
 		return await axios.get( this.api.trialDetails.replace(':tid',this._tid), config)
 		.then( (response) => {
-			console.log('a-t-d-response',response);
 			if( response.status == 200 ) {
-				console.log('a-t-d-trial',response.data);
 				let enrichedTrial = response.data;
 				// registration status
 				let now = Date.parse(Date());

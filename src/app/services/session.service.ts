@@ -94,7 +94,6 @@ export class SessionService {
 			// then you can log in once the account is marked as active
 			// /TODO
 
-
 			// if there's an error during registration
 			if( response.data.error ) {
 				let message = response.data.error || "No error message was specified.";
@@ -102,7 +101,8 @@ export class SessionService {
 			}
 			// otherwise, all is well
 			else {
-				console.log( "%cRegistration Successful", "color:green", response.data.id );
+				// TODO: fix this:
+				// console.log( "%cRegistration Successful", "color:green", response.data.id );
 				this.openDialog( "Registration Successful", `Your account has been created. Please note down your ID: ${response.data.id}\nJust kidding. We'll send you an email to validate your account. Once you've confirmed your email, you can log in and create your trials.` );
 			}
 
@@ -114,7 +114,6 @@ export class SessionService {
 			// 	access_token: '?',
 			// 	refresh_token: '?'
 			// });
-			console.log(response);
 		})
 		.catch( (error) => {
 			let title = "Registration Failed";
@@ -122,21 +121,19 @@ export class SessionService {
 			if (error.response) {
 				title += ` (${error.response.status})`;
 				message = error.response.data.error;
-			} else if (error.request) {
-				message = error.request;
+			// } else if (error.request) {
+			// 	message = error.request;
 			} else {
-				message = error.message || error;
+				message = error.message || message;
 			}
 			this.openDialog( title, message );
-			// console.warn(error);
 		});
 	}
 
 	/**
 	 * attempts to log in and get access and refresh tokens
-	 * first sends email to get salt
-	 * then uses salt to hash password
-	 * then sends email and hash to get tokens
+	 * sends email and password
+	 * to be salted and hashed on the server
 	 */
 	async login() {
 		const form = this.registrationForm.value;
@@ -165,14 +162,17 @@ export class SessionService {
 			// logged in
 			this.saveCookie( 'access_token', this.userInfo.value.access_token );
 			this.saveCookie( 'refresh_token', this.userInfo.value.refresh_token );
-			console.log( this.parseCookie( 'access_token' ) );
-			console.log("%cdestructured:","color:purple",this.userInfo.value)
 			this.router.navigateByUrl('/dashboard');
 		} else {
 			// error
 			this.openDialog("Login Failed","Hmm. Are you sure you have the right username and password?");
-			console.log("%cFAIL!","color:red;",this)
 		}
+	}
+
+	logout() {
+		this.removeCookie('access_token');
+		this.removeCookie('refresh_token');
+		this.userInfo.next(this.BLANK);
 	}
 
 	/**
@@ -204,6 +204,18 @@ export class SessionService {
 		return ary['mrct_'+key];
 	}
 
+	/**
+	 * Removes a cookie with the prefix
+	 */
+	removeCookie(key: string) {
+		var date = new Date();
+		date.setTime( date.getTime() - (24*60*60*1000) );
+		window.document.cookie = 'mrct_'+key
+			+ '=' + ' '
+			+ '; expires='
+			+ date.toUTCString() +
+			+ '; path=/';
+	}
 
 	openDialog(title: string, text: string): void {
 		let dialogRef = this.dialog.open( DialogModalComponent, {
@@ -212,8 +224,7 @@ export class SessionService {
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-			console.log('The dialog was closed');
-			// this.dataFromDialog = result;
+			// dialog is closed
 		});
 	}
 

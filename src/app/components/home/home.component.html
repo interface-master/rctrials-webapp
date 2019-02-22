@@ -1,11 +1,30 @@
-<mat-card>
-	<mat-card-header>
-		<mat-card-title>MRCTT</mat-card-title>
-		<mat-card-subtitle>Mobile Randomized Controlled Trial Tool</mat-card-subtitle>
-	</mat-card-header>
+<mat-card class='content'>
 	<mat-card-content>
-		<h1 class='mat-display-3'>Welcome</h1>
-		<p>This tool is designed to assist researchers with creating mobile-based randomized controlled trials.</p>
+		<h1 class='mat-display-4'>Randomized Controlled Trial Survey Tool</h1>
+		<p><em>RCTrials</em> is an open source tool to help researchers collect and track survey data and carry out randomized controlled trials. It is mobile, has an API, and is available on GitHub.</p>
+		<div class='polyptych'>
+			<div>
+				<h3 class='mat-h3'>Participating</h3>
+				<h4 class='mat-h4'>in a trial?</h4>
+				<p>Download the <em>Surveyor</em> app <br/>and register into your trial.</p>
+				<a href='#'>
+					<img src='../../../assets/img/get_it_on_google_play_badge.png' alt='Get It On Google Play' height='54' />
+				</a>
+			</div>
+			<div>
+				<h3 class='mat-h3'>Doing Research</h3>
+				<h4 class='mat-h4'>using an RCT?</h4>
+				<p>Create an account to start configuring your study.</p>
+				<button mat-flat-button color='primary' type='button'>Register</button>
+			</div>
+			<div>
+				<h3 class='mat-h3'>Developing</h3>
+				<h4 class='mat-h4'>an app?</h4>
+				<p>To integrate your app with the <em>RCTrials API</em>, read the documentation to get started.</p>
+				<button mat-flat-button color='primary' type='button'>Documentation</button>
+			</div>
+		</div>
+		<!--
 		<div class='row'>
 			<p class='mat-body description' [ngClass]="{ 'visible' : (_state == 'login') }">If you have an account you can login using the form below. If you do not yet have an account you can <button (click)='toggleState();' tabindex='1'>register</button> for one.</p>
 			<p class='mat-body description' [ngClass]="{ 'visible' : (_state == 'register') }">If you do not have an account you can create one using the form below. If you do have one you can <button (click)='toggleState();' tabindex='1'>login</button>.</p>
@@ -15,5 +34,6 @@
 			<admin-login [ngClass]="{ 'visible' : (_state == 'login') }"></admin-login>
 			<admin-registration [ngClass]="{ 'visible' : (_state == 'register') }"></admin-registration>
 		</div>
+		-->
 	</mat-card-content>
 </mat-card>

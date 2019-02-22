@@ -1,0 +1,58 @@
+mat-card {
+	mat-card-content {
+
+		& > h1 {
+			margin-bottom: 20px;
+		}
+
+		& > p {
+			font-size: 1rem;
+		}
+
+		a {
+			color: #00c;
+			text-decoration: none;
+			&:hover, &:focus {
+				text-decoration: underline;
+			}
+		}
+
+		.mat-divider-container {
+			position: relative;
+			margin-top: 20px;
+			margin-bottom: 70px;
+		}
+
+		.polyptych {
+
+			p {
+				font-size: 1rem;
+				line-height: 140%;
+			}
+
+			.img-research-tool, .img-dev-tool {
+				background-image: url('../../../assets/img/adult-analysis-banking-1549000.jpg');
+				background-size: 500px;
+				height: 140px;
+				width: 250px;
+				box-shadow: inset 0px 0px 10px 5px rgba(255,255,255,1);
+			}
+			.img-research-tool {
+				background-position: bottom right;
+			}
+			.img-dev-tool {
+				background-position: bottom left;
+			}
+
+		}
+
+		.img-using-project {
+			background-image: url('../../../assets/img/accounting-alone-application-938965.jpg');
+			background-size: cover;
+			background-position: 0px 20%;
+			height: 140px;
+			box-shadow: inset 0px 0px 10px 7px rgba(255,255,255,1);
+		}
+
+	}
+}
