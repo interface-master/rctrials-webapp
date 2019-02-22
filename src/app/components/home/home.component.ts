@@ -1,25 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-
-import { SessionService } from "../../services/session.service";
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-	private _state:string = 'login';
+export class HomeComponent {
+	// private _state:string = 'login';
 
-	constructor(
-		private session: SessionService
-	) { }
+	constructor() { }
 
-	ngOnInit() {
-	}
-
-	toggleState() {
-		this._state = (this._state=='login') ? 'register' : 'login';
-	}
-
+	// toggleState() {
+	// 	this._state = (this._state=='login') ? 'register' : 'login';
+	// }
 }
