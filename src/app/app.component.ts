@@ -29,6 +29,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 	ngOnInit() {
 		console.log("HERE")
+		// view stuff
+		if( window.document.querySelector('.mrct-wrapper').clientHeight < window.screen.height ) {
+			// content is smaller than screen - make it float?
+		}
 		// preload images
 		let imgs = [
 			'/assets/img/chuttersnap-348302-unsplash.jpg',
