@@ -58,6 +58,16 @@ body {
 		max-width: 800px;
 		min-height: 600px;
 		z-index: 100;
+		// box-sizing: border-box;
+		@media screen and (max-width: $break-card) {
+			padding: 40px;
+			max-width: none;
+			width: calc(94% - 80px);
+		}
+		@media screen and (max-width: $break-sm) {
+			padding: 30px;
+			width: calc(96% - 60px);
+		}
 
 		mat-card-content {
 			& > h1 {
