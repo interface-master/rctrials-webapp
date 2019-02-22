@@ -12,6 +12,7 @@ import { DocDevelopersComponent } from '../components/documentation/doc.develope
 import { DocParticipantsComponent } from '../components/documentation/doc.participants.component';
 import { DocResearchersComponent } from '../components/documentation/doc.researchers.component';
 import { HomeComponent } from '../components/home/home.component';
+import { LogoutComponent } from '../components/logout/logout.component';
 import { PrivacyComponent } from '../components/legal/privacy.component';
 import { TermsComponent } from '../components/legal/terms.component';
 
@@ -88,6 +89,13 @@ export const routes: Routes = [
 		component: AdminLoginComponent,
 		data: [{
 			pageName: 'Researcher Login'
+		}]
+	},
+	{
+		path: 'logout',
+		component: LogoutComponent,
+		data: [{
+			pageName: 'Logout'
 		}]
 	},
 	{

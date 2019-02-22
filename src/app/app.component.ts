@@ -61,6 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 				if( location.pathname !== '/about'
 						&& location.pathname !== '/register'
 						&& location.pathname !== '/login'
+						&& location.pathname !== '/logout'
 						&& location.pathname !== '/privacy'
 						&& location.pathname !== '/terms'
 						&& location.pathname.split('/')[1] !== 'docs'

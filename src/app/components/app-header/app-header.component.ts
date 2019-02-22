@@ -28,6 +28,8 @@ export class AppHeaderComponent implements OnInit {
 			userInfo => {
 				if( userInfo.uid ) {
 					self._signedIn = true;
+				} else {
+					self._signedIn = false;
 				}
 			}
 		)

@@ -132,9 +132,8 @@ export class SessionService {
 
 	/**
 	 * attempts to log in and get access and refresh tokens
-	 * first sends email to get salt
-	 * then uses salt to hash password
-	 * then sends email and hash to get tokens
+	 * sends email and password
+	 * to be salted and hashed on the server
 	 */
 	async login() {
 		const form = this.registrationForm.value;
@@ -173,6 +172,14 @@ export class SessionService {
 		}
 	}
 
+	logout() {
+		console.log("deleting cookies...");
+		this.removeCookie('access_token');
+		this.removeCookie('refresh_token');
+		this.userInfo.next(this.BLANK);
+		console.log("...cookies deleted");
+	}
+
 	/**
 	 * Sets cookies with an "mrct_" prefix to expire in 24 hours
 	 */
@@ -202,6 +209,18 @@ export class SessionService {
 		return ary['mrct_'+key];
 	}
 
+	/**
+	 * Removes a cookie with the prefix
+	 */
+	removeCookie(key: string) {
+		var date = new Date();
+		date.setTime( date.getTime() - (24*60*60*1000) );
+		window.document.cookie = 'mrct_'+key
+			+ '=' + ' '
+			+ '; expires='
+			+ date.toUTCString() +
+			+ '; path=/';
+	}
 
 	openDialog(title: string, text: string): void {
 		let dialogRef = this.dialog.open( DialogModalComponent, {
