@@ -1,11 +1,9 @@
-<mat-card>
+<mat-card class='content'>
 	<mat-card-header>
 		<div mat-card-avatar class="example-header-image"><a mat-icon-button routerLink='/dashboard' title='Back'><mat-icon>arrow_back</mat-icon></a></div>
-		<mat-card-title>MRCTT</mat-card-title>
-		<mat-card-subtitle>Mobile Randomized Controlled Trial Tool</mat-card-subtitle>
+		<h1 class='mat-display-4'>{{trial.title}}</h1>
 	</mat-card-header>
 	<mat-card-content *ngIf='trial'>
-		<h1 class='mat-display-3'>{{trial.title}}</h1>
 		<div>
 			{{ trial.regopen }} &mdash; {{ trial.regclose }}  - <span class='mat-body-strong'>Registration {{ trial.status ? trial.status.registration : '' }}</span>
 			<br/>

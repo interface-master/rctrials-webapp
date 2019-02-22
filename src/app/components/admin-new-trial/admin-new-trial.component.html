@@ -1,11 +1,9 @@
-<mat-card>
+<mat-card class='content'>
 	<mat-card-header>
 		<div mat-card-avatar class="example-header-image"><a mat-icon-button routerLink='/dashboard' color='warn' title='Cancel'><mat-icon>backspace</mat-icon></a></div>
-		<mat-card-title>MRCTT</mat-card-title>
-		<mat-card-subtitle>Mobile Randomized Controlled Trial Tool</mat-card-subtitle>
+		<h1 class='mat-display-4'>{{title}}</h1>
 	</mat-card-header>
 	<mat-card-content>
-		<h1 class='mat-display-3'>{{title}}</h1>
 		<form [formGroup]='newTrialForm' class='newTrialForm'>
 			<mat-horizontal-stepper [linear]="isLinear" #stepper>
 				<mat-step label='Basic Info'>
@@ -241,7 +239,7 @@
 													name='question_options'
 													formControlName='question_options'/>
 												<mat-hint align='start'>Delimit the options with the pipe symbol (|)</mat-hint>
-			    								<mat-hint align='end'></mat-hint>
+													<mat-hint align='end'></mat-hint>
 											</mat-form-field>
 										</div>
 										<mat-divider *ngIf='survey.controls["survey_questions"].controls.length-1 !== q'></mat-divider>
