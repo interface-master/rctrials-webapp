@@ -101,7 +101,8 @@ export class SessionService {
 			}
 			// otherwise, all is well
 			else {
-				console.log( "%cRegistration Successful", "color:green", response.data.id );
+				// TODO: fix this:
+				// console.log( "%cRegistration Successful", "color:green", response.data.id );
 				this.openDialog( "Registration Successful", `Your account has been created. Please note down your ID: ${response.data.id}\nJust kidding. We'll send you an email to validate your account. Once you've confirmed your email, you can log in and create your trials.` );
 			}
 
@@ -113,7 +114,6 @@ export class SessionService {
 			// 	access_token: '?',
 			// 	refresh_token: '?'
 			// });
-			console.log(response);
 		})
 		.catch( (error) => {
 			let title = "Registration Failed";
@@ -162,22 +162,17 @@ export class SessionService {
 			// logged in
 			this.saveCookie( 'access_token', this.userInfo.value.access_token );
 			this.saveCookie( 'refresh_token', this.userInfo.value.refresh_token );
-			console.log( this.parseCookie( 'access_token' ) );
-			console.log("%cdestructured:","color:purple",this.userInfo.value)
 			this.router.navigateByUrl('/dashboard');
 		} else {
 			// error
 			this.openDialog("Login Failed","Hmm. Are you sure you have the right username and password?");
-			console.log("%cFAIL!","color:red;",this)
 		}
 	}
 
 	logout() {
-		console.log("deleting cookies...");
 		this.removeCookie('access_token');
 		this.removeCookie('refresh_token');
 		this.userInfo.next(this.BLANK);
-		console.log("...cookies deleted");
 	}
 
 	/**
@@ -229,8 +224,7 @@ export class SessionService {
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-			console.log('The dialog was closed');
-			// this.dataFromDialog = result;
+			// dialog is closed
 		});
 	}
 

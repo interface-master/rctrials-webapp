@@ -28,7 +28,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit() {
-		console.log("HERE")
 		// view stuff
 		if( window.document.querySelector('.mrct-wrapper').clientHeight < window.screen.height ) {
 			// content is smaller than screen - make it float?
@@ -50,14 +49,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 		this.sessionService.validateUserSession().then( (user: any) => {
 			if( user.uid ) {
 				// TODO: set user details here from
-				console.log('%cvalidated user session','color:purple',user);
-				console.log("%cROUTE:",'color:purple',this.router.url);
+				// console.log('%cvalidated user session','color:purple',user);
+				// console.log("%cROUTE:",'color:purple',this.router.url);
 				if( this.router.url == '/home' ) {
 					this.router.navigateByUrl('/dashboard');
 				}
 			} else {
-				console.log('response:',user);
-				console.log('this.router',this.router);
 				if( location.pathname !== '/about'
 						&& location.pathname !== '/register'
 						&& location.pathname !== '/login'
@@ -66,18 +63,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 						&& location.pathname !== '/terms'
 						&& location.pathname.split('/')[1] !== 'docs'
 					) {
-						console.log('invalid user session',user);
 						this.router.navigateByUrl('/home');
 					}
 			}
-			console.log('finished with spinner:')
 			this.spinnerService.hide('main');
-			console.log('spinner service:',this.spinnerService);
 		});
 	}
 
 	ngAfterViewInit() {
-		console.log("THERE")
 		this.spinnerService.show('main');
 	}
 

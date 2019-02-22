@@ -24,7 +24,6 @@ export class AdminDashboardComponent implements OnInit {
 
 	async ngOnInit() {
 		this.trials = <Trial[]> await this.getTrialList();
-		console.log('this:', this);
 	}
 
 	async getTrialList() {
@@ -34,7 +33,6 @@ export class AdminDashboardComponent implements OnInit {
 		};
 		return await axios.get( this.api.userTrials, config)
 		.then( (response) => {
-			console.log('response',response);
 			if( response.status == 200 ) {
 				return response.data.map( trial => {
 					let now = Date.parse(Date());
