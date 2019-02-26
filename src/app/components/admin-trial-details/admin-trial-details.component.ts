@@ -27,7 +27,7 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private api: ApiService,
-    private session: SessionService,
+		private session: SessionService,
 		private route: ActivatedRoute,
 	) { }
 
@@ -84,6 +84,9 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 				// fin
 				console.log("admin TRIAL details:",enrichedTrial);
 				return enrichedTrial;
+			}
+			else if ( response.status == 204 ) {
+				return { tid:0, title:"No Trial "+this._tid+" Found" };
 			}
 		})
 		.catch( (error) => {
