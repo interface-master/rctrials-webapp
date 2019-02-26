@@ -56,7 +56,6 @@ export class SessionService {
 	updateUserInfo(userInfo: User) {
 		this._userInfo.next( userInfo )
 		this._loggedIn = userInfo.uid.length > 0;
-		console.log('updatedUserInfo and ',this._loggedIn);
 	}
 
 	/**

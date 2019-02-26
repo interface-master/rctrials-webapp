@@ -16,14 +16,13 @@ export class AuthGuard implements CanActivate {
 		next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): boolean {
-		console.log("isLoggedIn:",this.session.isLoggedIn());
-		console.log("isValidating:",this.session.isValidating());
+		console.log("auth.guard.isLoggedIn:",this.session.isLoggedIn());
+		console.log("auth.guard.isValidating:",this.session.isValidating());
 		//
 		if( this.session.isLoggedIn() ) {
 			return true;
 		} else {
 			const user = await this.session.getUser();
-			console.log("got user:",user);
 			if( user && user.uid ) {
 				return true;
 			}
