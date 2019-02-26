@@ -42,7 +42,7 @@ export class AdminRegistrationComponent implements OnInit {
 	}
 
 	changeInputUser(event: any) {
-		this.userInfo.name = this.nameform.value;
+		this.userInfo.name = this.nameform.value.name;
 		this.session.updateUserInfo(this.userInfo)
 	}
 
