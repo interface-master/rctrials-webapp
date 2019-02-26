@@ -1,4 +1,70 @@
 mat-card {
 	margin: 20px auto;
 	max-width: 800px;
+
+  mat-card-content {
+    padding-top: 20px;
+
+    mat-divider {
+      position: relative;
+      display: block;
+      margin: 20px 0;
+    }
+  }
+
+  .bold {
+    font-weight: 500;
+  }
+  .bolder {
+    font-weight: 900;
+  }
+
+  .summary-table {
+    & > div {
+      display: flex;
+      flex-direction: row;
+      font-weight: 300;
+      line-height: 150%;
+
+      & > *:first-child {
+        width: 150px;
+      }
+    }
+  }
+
+  .survey-list {
+    font-weight: 300;
+
+    .survey-item {
+      border-bottom: 1px solid rgba(0,0,0,.24);
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .question-list {
+      .question-item {
+        padding: 10px 0 10px;
+        border-bottom: 1px solid rgba(0,0,0,.12);
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+
+canvas {
+  height: 60px !important;
+  width: 150px !important;
+  flex: 0 !important;
+  border: 1px dotted black;
+}
+.zoomed {
+  canvas {
+    height: 200px !important;
+    width: 400px !important;
+  }
 }
