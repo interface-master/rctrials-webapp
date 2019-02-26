@@ -20,13 +20,10 @@ export class AdminNewTrialComponent implements OnInit {
 	public surveys: FormArray;
 
 	private _editingSurvey: number;
-	// private _currentStep: number = 0;
-	// private _animationStates: string[] = [ 'center', 'right', 'right', 'right' ];
 
 	constructor(
 		private route: ActivatedRoute,
 		private session: SessionService,
-		// private spinnerService: SpinnerService,
 		private formBuilder: FormBuilder
 	) {
 		this.title = this.route.snapshot.data[0].pageName;
@@ -243,15 +240,4 @@ export class AdminNewTrialComponent implements OnInit {
 	setEditingSurvey( n: number ) {
 		this._editingSurvey = n;
 	}
-
-	// toggleNextCard() {
-	// 	this._animationStates[this._currentStep]='left';
-	// 	this._animationStates[this._currentStep+1]='center';
-	// 	this._currentStep++;
-	// }
-	// togglePrevCard() {
-	// 	this._animationStates[this._currentStep]='right';
-	// 	this._animationStates[this._currentStep-1]='center';
-	// 	this._currentStep--;
-	// }
 }
