@@ -26,7 +26,7 @@
 						type='text'
 						name='email'
 						formControlName='email'
-						autocomplete='email'
+						autocomplete='username'
 						(input)='changeInputReg($event)' />
 					<mat-error *ngIf="regform.controls.email.hasError('required')">
 						Email is <strong>required</strong>

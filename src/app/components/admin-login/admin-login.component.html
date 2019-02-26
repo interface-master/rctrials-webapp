@@ -10,7 +10,7 @@
 					type='text'
 					name='email'
 					formControlName='email'
-					autocomplete='email'
+					autocomplete='username'
 					(input)='changeInput($event)'
 				/>
 				<mat-error *ngIf="regform.controls.email.hasError('required')">
