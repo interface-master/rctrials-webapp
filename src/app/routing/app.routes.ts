@@ -16,6 +16,8 @@ import { LogoutComponent } from '../components/logout/logout.component';
 import { PrivacyComponent } from '../components/legal/privacy.component';
 import { TermsComponent } from '../components/legal/terms.component';
 
+import { AuthGuard } from '../services/auth.guard';
+
 
 export const routes: Routes = [
 	{
@@ -101,6 +103,7 @@ export const routes: Routes = [
 	{
 		path: 'dashboard',
 		component: AdminDashboardComponent,
+		canActivate: [AuthGuard],
 		data: [{
 			pageName: 'RCTrials Dashboard'
 		}]
@@ -108,6 +111,7 @@ export const routes: Routes = [
 	{
 		path: 'new-trial',
 		component: AdminNewTrialComponent,
+		canActivate: [AuthGuard],
 		data: [{
 			pageName: 'New Trial'
 		}]
@@ -115,6 +119,7 @@ export const routes: Routes = [
 	{
 		path: 'trial-details/:tid',
 		component: AdminTrialDetailsComponent,
+		canActivate: [AuthGuard],
 		data: [{
 			pageName: 'Trial Details'
 		}]
