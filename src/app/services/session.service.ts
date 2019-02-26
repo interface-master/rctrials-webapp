@@ -38,6 +38,7 @@ export class SessionService {
 	public currentUserInfo = this._userInfo.asObservable();
 
 	private _loggedIn:boolean = false;
+	private _validating:boolean = false;
 
 	private redirectURL:string = '';
 
@@ -287,6 +288,8 @@ export class SessionService {
 		.then( (response) => {
 			this.saveCookie( 'access_token', response.data.access_token );
 			this.saveCookie( 'refresh_token', response.data.refresh_token );
+			this._userInfo.value.access_token = response.data.access_token;
+			this._userInfo.value.refresh_token = response.data.refresh_token;
 			return {
 				access_token: response.data.access_token,
 				refresh_token: response.data.refresh_token
@@ -304,6 +307,8 @@ export class SessionService {
 	 */
 	async validateUserSession() {
 		console.log('validating user session...');
+		if( this._validating ) return null;
+		this._validating = true;
 		// return await new Promise( (resolve) => {
 		const access_token = this.parseCookie('access_token');
 		const refresh_token = this.parseCookie('refresh_token');
@@ -314,22 +319,27 @@ export class SessionService {
 		// else - nothing
 		if ( access_token && uid ) {
 			console.log("...case 1:");
+			this._validating = false;
+			return this._userInfo.value;
 		}
-		else if ( access_token && !uid ) {
-			console.log("...case 2:");
+		if (
+			( access_token && !uid )
+			||
+			( !access_token && refresh_token )
+		) {
+			console.log("...case 2/3:");
 			const user: any = await this.fetchUserDetails();
 			this.updateUserInfo(user);
-			return user;
+			if( user.uid ) {
+				this._validating = false;
+				return user;
+			}
 		}
-		else if ( !access_token && refresh_token ) {
-			console.log("...case 3:");
-			// try refresh token
-		}
-		else {
-			console.log("...case 4:");
-			// await new Promise( r => setTimeout( r, 2000 ) );
-			return this.BLANK;
-		}
+
+		console.log("...case 4:");
+		// await new Promise( r => setTimeout( r, 2000 ) );
+		this._validating = false;
+		return this.BLANK;
 	}
 
 	setRedirectURL(url:string) {
@@ -338,6 +348,9 @@ export class SessionService {
 
 	isLoggedIn():boolean {
 		return this._loggedIn;
+	}
+	isValidating():boolean {
+		return this._validating;
 	}
 
 	get access_token() {
