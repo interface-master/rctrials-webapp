@@ -55,7 +55,7 @@ export class SessionService {
 	*/
 	updateUserInfo(userInfo: User) {
 		this._userInfo.next( userInfo )
-		this._loggedIn = userInfo.uid.length > 0;
+		this._loggedIn = userInfo.uid && userInfo.uid.length > 0;
 	}
 
 	/**
@@ -232,7 +232,7 @@ export class SessionService {
 	async fetchUserDetails() {
 		const access_token = this.parseCookie('access_token');
 		const refresh_token = this.parseCookie('refresh_token');
-		if( !access_token ) return this.BLANK;
+		if( !access_token && !refresh_token ) return this.BLANK;
 		const header: any = {
 			headers: {
 				'Authorization' : `Bearer ${access_token}`
