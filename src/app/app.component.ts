@@ -12,13 +12,13 @@ import { SpinnerService } from "./services/spinner.service";
 })
 export class AppComponent implements OnInit, AfterViewInit {
 
-	private showSpinner: boolean = true;
+	// private showSpinner: boolean = true;
 	private route: String = "home";
 
 	constructor(
 		private router: Router,
-		private sessionService: SessionService,
-		private spinnerService: SpinnerService,
+		private session: SessionService,
+		private spinner: SpinnerService,
 	) {
 		router.events.subscribe((val) => {
 			if( val instanceof NavigationEnd ) {
@@ -46,7 +46,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 			x.src = imgs[i];
 		}
 		// check session info
-		this.sessionService.validateUserSession().then( (user: any) => {
+		// this.session.validateUserSession().then( (user: any) => {
+			/*
 			if( user.uid ) {
 				// TODO: set user details here from
 				// console.log('%cvalidated user session','color:purple',user);
@@ -66,12 +67,25 @@ export class AppComponent implements OnInit, AfterViewInit {
 						this.router.navigateByUrl('/home');
 					}
 			}
-			this.spinnerService.hide('main');
-		});
+			*/
+			// this.spinner.hide('main');
+		// });
+		// this.spinner.hide('main');
+		// this.session.getUser().then( (user:any) => {
+			// this.spinner.hide('main');
+		// });
+	}
+
+	ngDoCheck() {
+		this.spinner.hide('main');
 	}
 
 	ngAfterViewInit() {
-		this.spinnerService.show('main');
+		// this.spinner.hide('main');
+	}
+
+	ngAfterViewChecked() {
+		// this.spinner.hide('main');
 	}
 
 }
