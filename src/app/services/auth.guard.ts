@@ -18,31 +18,19 @@ export class AuthGuard implements CanActivate {
 	): boolean {
 		console.log("auth.guard.isLoggedIn:",this.session.isLoggedIn());
 		console.log("auth.guard.isValidating:",this.session.isValidating());
-		//
+		// are we logged in?
 		if( this.session.isLoggedIn() ) {
 			return true;
 		} else {
+			// do we maybe have an expired session?
 			const user = await this.session.getUser();
 			if( user && user.uid ) {
 				return true;
 			}
+			// we should log in then
 			this.session.setRedirectURL( state.url );
 			this.router.navigate(['/login']);
 			return false;
 		}
-		/*
-		this.session.currentUserInfo.subscribe(
-			userInfo => {
-				console.log("came back with",userInfo);
-				if( userInfo.uid ) {
-					return true;
-				} else {
-					this.session.setRedirectURL( state.url );
-					this.router.navigate(['/login']);
-					return false;
-				}
-			}
-		);
-		*/
 	}
 }
