@@ -1,33 +1,84 @@
 <mat-card class='content'>
 	<mat-card-header>
 		<div mat-card-avatar class="example-header-image"><a mat-icon-button routerLink='/dashboard' title='Back'><mat-icon>arrow_back</mat-icon></a></div>
-		<h1 class='mat-display-4'>{{trial.title}}</h1>
+		<h1 class='mat-display-4' *ngIf="trial">{{trial.title}}</h1>
 	</mat-card-header>
 	<mat-card-content *ngIf='trial'>
-		<div>
-			{{ trial.regopen }} &mdash; {{ trial.regclose }}  - <span class='mat-body-strong'>Registration {{ trial.status ? trial.status.registration : '' }}</span>
-			<br/>
-			{{ trial.trialstart }} &mdash; {{ trial.trialend }} - <span class='mat-body-strong'>Trial {{ trial.status ? trial.status.trial : '' }}</span>
-		</div>
-		<div>
-			Subjects: {{ trial.totalSubjects }}
-		</div>
-		<div>
-			Answers: {{ trial.totalAnswers }}
-		</div>
-		<div>
-			Groups: {{ trial.groups ? trial.groups.length : 0 }}
-			<div *ngFor='let group of trial.groups; index as g'>
-				gid:{{group.gid}}; name:{{group.name}}; size:{{group.size}};
-				subjects:{{group.subjects}}
+		<div class='row'>
+			<div class='summary-table'>
+				<div>
+					<span>Registration Status:</span>
+					<span class='bolder'>{{ trial.status ? trial.status.registration : '' }}</span>
+				</div>
+				<div>
+					<span>Trial Status:</span>
+					<span class='bolder'>{{ trial.status ? trial.status.trial : '' }}</span>
+				</div>
+				<div>
+					<span>Surveys:</span>
+					<span class='bold'>{{ trial.surveys ? trial.surveys.length : 0 }}</span>
+				</div>
+				<div>
+					<span>Answers:</span>
+					<span class='bold'>{{ trial.totalAnswers }}</span>
+				</div>
+				<div>
+					<span>Participants:</span>
+					<span class='bold'>{{ trial.totalSubjects }}</span>
+				</div>
+				<div>
+					<span>Groups:</span>
+					<div>
+						<div *ngFor='let group of trial.groups; index as g'>
+							{{g+1}}.&nbsp;
+							name: <span class='bold'>{{group.name}}</span>;
+							participants: <span class='bold'>{{group.subjects}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class='summary-table'>
+				<div>
+					<span>Registration Open:</span>
+					<span>{{ trial.regopen.split(' ')[0] }}</span>
+				</div>
+				<div>
+					<span>Registration Closed:</span>
+					<span>{{ trial.regclose.split(' ')[0] }}</span>
+				</div>
+				<div>
+					<span>Trial Start:</span>
+					<span>{{ trial.trialstart.split(' ')[0] }}</span>
+				</div>
+				<div>
+					<span>Trial End:</span>
+					<span>{{ trial.trialend.split(' ')[0] }}</span>
+				</div>
 			</div>
 		</div>
-		<div>
-			Surveys: {{ trial.surveys ? trial.surveys.length : 0 }}
-			<div *ngFor='let survey of trial.surveys; index as s'>
-				sid:{{survey.sid}}; name:{{survey.name}};
-			</div>
-		</div>
+
+		<mat-divider></mat-divider>
+
+		<span>Surveys:</span>
+		<ul class='survey-list'>
+			<li class='survey-item'
+					*ngFor='let survey of trial.surveys; index as s'>
+				name: <span class='bold'>{{survey.name}}</span>;
+				<ul class='question-list'>
+					<li class='row question-item'
+							*ngFor='let question of survey.questions; index as q'
+							(click)='clickedQuestion($event)'>
+						<div class='col'>
+							<div>item: <span class='bold'>{{q+1}}</span>; qid: <span>{{question.qid}}</span></div>
+							<div>text: <span class='bold'>{{question.text}}</span></div>
+							<div>type: <span class='bold'>{{question.type == "text" ? "Free Text" : question.type == "mc" ? "Multiple Choice" : ""}}</span></div>
+							<div *ngIf="question.type=='mc'">options: <span class='bold'>{{question.options}}</span></div>
+						</div>
+						<canvas [attr.id]="'chart-' + question.qid">{{ charts[question.qid] }}</canvas>
+					</li>
+				</ul>
+			</li>
+		</ul>
 		<mat-divider></mat-divider>
 	</mat-card-content>
 </mat-card>
