@@ -215,7 +215,7 @@ export class AdminNewTrialComponent implements OnInit {
 		);
 		// send data
 		const config = {
-			headers: {'Authorization': `Bearer ${ this.session.parseCookie( 'access_token' ) }`}
+			headers: {'Authorization': `Bearer ${ this.session.userInfo.value.access_token }`}
 		};
 		const data = {
 			trial: JSON.stringify(trial)

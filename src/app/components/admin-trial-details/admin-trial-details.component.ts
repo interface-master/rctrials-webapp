@@ -43,7 +43,7 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 	async getTrialDetails() {
 		// send data
 		const config = {
-			headers: {'Authorization': `Bearer ${ this.session.parseCookie( 'access_token' ) }`}
+			headers: {'Authorization': `Bearer ${ this.session.userInfo.value.access_token }`}
 		};
 		return await axios.get( this.api.trialDetails.replace(':tid',this._tid), config)
 		.then( (response) => {

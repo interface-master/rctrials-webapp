@@ -27,7 +27,7 @@ export class AdminDashboardComponent implements OnInit {
 	async getTrialList() {
 		// send data
 		const config = {
-			headers: {'Authorization': `Bearer ${ this.session.parseCookie( 'access_token' ) }`}
+			headers: {'Authorization': `Bearer ${ this.session.userInfo.value.access_token }`}
 		};
 		return await axios.get( this.api.userTrials, config)
 		.then( (response) => {
