@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { SessionService } from "./services/session.service";
@@ -10,7 +10,7 @@ import { SpinnerService } from "./services/spinner.service";
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
 
 	// private showSpinner: boolean = true;
 	private route: String = "home";

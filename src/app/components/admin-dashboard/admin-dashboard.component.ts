@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Trial } from '../../models/trial.model';
@@ -12,7 +12,7 @@ import axios from 'axios';
 	templateUrl: './admin-dashboard.component.html',
 	styleUrls: ['./admin-dashboard.component.scss']
 })
-export class AdminDashboardComponent implements OnInit {
+export class AdminDashboardComponent {
 
 	private trials: Trial[];
 
