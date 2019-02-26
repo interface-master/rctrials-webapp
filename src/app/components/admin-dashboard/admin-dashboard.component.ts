@@ -19,11 +19,15 @@ export class AdminDashboardComponent implements OnInit {
 	constructor(
 		private api: ApiService,
 		private session: SessionService,
-		// private router: Router
-	) { }
-
-	async ngOnInit() {
-		this.trials = <Trial[]> await this.getTrialList();
+		private router: Router
+	) {
+		session.currentUserInfo.subscribe(
+			async userInfo => {
+				if( userInfo.uid ) {
+					this.trials = <Trial[]> await this.getTrialList();
+				}
+			}
+		);
 	}
 
 	async getTrialList() {
