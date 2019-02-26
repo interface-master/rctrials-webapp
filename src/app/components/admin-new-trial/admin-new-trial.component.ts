@@ -226,7 +226,7 @@ export class AdminNewTrialComponent implements OnInit {
 		const data = {
 			trial: JSON.stringify(trial)
 		};
-		axios.post('http://localhost/new/trial', data, config) // TODO: remove hard-coded URLs into a service
+		axios.post('http://localhost/api/new/trial', data, config) // TODO: remove hard-coded URLs into a service
 		.then( (response) => {
 			if( response.data.status !== 200 ) {
 				let message = response.data.message || "No error message was specified.";
