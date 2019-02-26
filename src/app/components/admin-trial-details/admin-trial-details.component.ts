@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Trial } from '../../models/trial.model';
 import { ApiService } from '../../services/api.service';
+import { SessionService } from '../../services/session.service';
 
 import axios from 'axios';
 import { Chart } from 'chart.js';
@@ -26,6 +27,7 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private api: ApiService,
+    private session: SessionService,
 		private route: ActivatedRoute,
 	) { }
 
@@ -43,7 +45,7 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 	async getTrialDetails() {
 		// send data
 		const config = {
-			headers: {'Authorization': `Bearer ${ this.session.userInfo.value.access_token }`}
+			headers: {'Authorization': `Bearer ${ this.session.access_token }`}
 		};
 		return await axios.get( this.api.trialDetails.replace(':tid',this._tid), config)
 		.then( (response) => {

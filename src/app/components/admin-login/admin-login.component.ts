@@ -1,6 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { SessionService } from "../../services/session.service";
+
+
 @Component({
 	selector: 'admin-login',
 	templateUrl: './admin-login.component.html',
@@ -11,7 +14,9 @@ export class AdminLoginComponent implements OnInit {
 
 	regform: FormGroup;
 
-	constructor() {}
+	constructor(
+		private session: SessionService
+	) { }
 
 	ngOnInit() {
 		// set up form

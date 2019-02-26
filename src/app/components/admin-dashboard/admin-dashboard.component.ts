@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Trial } from '../../models/trial.model';
 import { ApiService } from '../../services/api.service';
+import { SessionService } from '../../services/session.service';
 
 import axios from 'axios';
 
@@ -17,6 +18,7 @@ export class AdminDashboardComponent implements OnInit {
 
 	constructor(
 		private api: ApiService,
+		private session: SessionService,
 		// private router: Router
 	) { }
 
@@ -27,7 +29,7 @@ export class AdminDashboardComponent implements OnInit {
 	async getTrialList() {
 		// send data
 		const config = {
-			headers: {'Authorization': `Bearer ${ this.session.userInfo.value.access_token }`}
+			headers: {'Authorization': `Bearer ${ this.session.access_token }`}
 		};
 		return await axios.get( this.api.userTrials, config)
 		.then( (response) => {
