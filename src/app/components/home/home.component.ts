@@ -6,11 +6,7 @@ import { Component } from '@angular/core';
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-	// private _state:string = 'login';
 
-	constructor() { }
+	constructor() {}
 
-	// toggleState() {
-	// 	this._state = (this._state=='login') ? 'register' : 'login';
-	// }
 }
