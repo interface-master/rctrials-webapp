@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { SessionService } from '../../services/session.service';
-
 import axios from 'axios';
 
 @Component({
@@ -23,7 +21,6 @@ export class AdminNewTrialComponent implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private session: SessionService,
 		private formBuilder: FormBuilder
 	) {
 		this.title = this.route.snapshot.data[0].pageName;

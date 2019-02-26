@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Trial } from '../../models/trial.model';
 import { ApiService } from '../../services/api.service';
-import { SessionService } from "../../services/session.service";
 
 import axios from 'axios';
 import { Chart } from 'chart.js';
@@ -28,7 +27,6 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 	constructor(
 		private api: ApiService,
 		private route: ActivatedRoute,
-		private session: SessionService
 	) { }
 
 	async ngOnInit() {

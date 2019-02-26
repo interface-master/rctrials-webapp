@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { Trial } from '../../models/trial.model';
 import { ApiService } from '../../services/api.service';
-import { SessionService } from '../../services/session.service';
 
 import axios from 'axios';
 
@@ -18,7 +17,6 @@ export class AdminDashboardComponent implements OnInit {
 
 	constructor(
 		private api: ApiService,
-		private session: SessionService
 		// private router: Router
 	) { }
 
