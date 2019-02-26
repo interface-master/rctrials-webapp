@@ -1,12 +1,35 @@
+@import "../../../assets/css/_variables.scss";
+
 mat-card {
 	mat-card-content {
 		font-weight: 300;
+		& > h1 {
+			font-size: 2.88rem;
+			@media screen and (max-width: $break-card) {
+				font-size: 2.5rem;
+			}
+			@media screen and (max-width: $break-title) {
+				font-size: 2.25rem;
+			}
+			@media screen and (max-width: $break-mid) {
+				font-size: 1.875rem;
+			}
+		}
 		& > p {
 			font-size: 2rem;
+			@media screen and (max-width: $break-card) {
+				font-size: 1.625rem;
+			}
+			@media screen and (max-width: $break-title) {
+				font-size: 1.375rem;
+			}
 		}
 		.polyptych {
 			p {
 				font-size: 1.125rem;
+				@media screen and (max-width: $break-card) {
+					font-size: 1rem;
+				}
 			}
 		}
 	}

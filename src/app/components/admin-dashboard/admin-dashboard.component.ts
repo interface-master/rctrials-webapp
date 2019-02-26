@@ -18,18 +18,22 @@ export class AdminDashboardComponent implements OnInit {
 
 	constructor(
 		private api: ApiService,
-		private session: SessionService
-		// private router: Router
-	) { }
-
-	async ngOnInit() {
-		this.trials = <Trial[]> await this.getTrialList();
+		private session: SessionService,
+		private router: Router
+	) {
+		session.currentUserInfo.subscribe(
+			async userInfo => {
+				if( userInfo.uid ) {
+					this.trials = <Trial[]> await this.getTrialList();
+				}
+			}
+		);
 	}
 
 	async getTrialList() {
 		// send data
 		const config = {
-			headers: {'Authorization': `Bearer ${ this.session.parseCookie( 'access_token' ) }`}
+			headers: {'Authorization': `Bearer ${ this.session.access_token }`}
 		};
 		return await axios.get( this.api.userTrials, config)
 		.then( (response) => {
@@ -65,6 +69,10 @@ export class AdminDashboardComponent implements OnInit {
 		})
 		.catch( (error) => {
 			console.warn(error);
+			if( error.response.status == 401 ) { // Unauthorized
+				this.session.setRedirectURL( '/dashboard' );
+				this.router.navigate(['/login']);
+			}
 			return [];
 		});
 	}

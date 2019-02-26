@@ -14,7 +14,7 @@ export class AppHeaderComponent implements OnInit {
 
 	constructor(
 		private router: Router,
-		private sessionService: SessionService,
+		private session: SessionService,
 	) {
 		const self = this;
 		// close menu when routing
@@ -24,7 +24,7 @@ export class AppHeaderComponent implements OnInit {
 			}
 		});
 		// hide/show menu items when logged in
-		sessionService.currentUserInfo.subscribe(
+		session.currentUserInfo.subscribe(
 			userInfo => {
 				if( userInfo.uid ) {
 					self._signedIn = true;
@@ -32,7 +32,7 @@ export class AppHeaderComponent implements OnInit {
 					self._signedIn = false;
 				}
 			}
-		)
+		);
 	}
 
 	ngOnInit() {

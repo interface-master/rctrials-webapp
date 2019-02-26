@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { SessionService } from '../../services/session.service';
-
 import { User } from '../../models/user.model';
-
 
 @Component({
 	selector: 'admin-registration',
@@ -18,9 +15,7 @@ export class AdminRegistrationComponent implements OnInit {
 	private nameform:FormGroup;
 	userInfo: User;
 
-	constructor(
-		private session: SessionService
-	) { }
+	constructor() {}
 
 	ngOnInit() {
 		// set up the form

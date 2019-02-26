@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Trial } from '../../models/trial.model';
 import { ApiService } from '../../services/api.service';
-import { SessionService } from "../../services/session.service";
+import { SessionService } from '../../services/session.service';
 
 import axios from 'axios';
 import { Chart } from 'chart.js';
@@ -27,8 +27,8 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private api: ApiService,
+		private session: SessionService,
 		private route: ActivatedRoute,
-		private session: SessionService
 	) { }
 
 	async ngOnInit() {
@@ -45,7 +45,7 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 	async getTrialDetails() {
 		// send data
 		const config = {
-			headers: {'Authorization': `Bearer ${ this.session.parseCookie( 'access_token' ) }`}
+			headers: {'Authorization': `Bearer ${ this.session.access_token }`}
 		};
 		return await axios.get( this.api.trialDetails.replace(':tid',this._tid), config)
 		.then( (response) => {
@@ -84,6 +84,9 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 				// fin
 				console.log("admin TRIAL details:",enrichedTrial);
 				return enrichedTrial;
+			}
+			else if ( response.status == 204 ) {
+				return { tid:0, title:"No Trial "+this._tid+" Found" };
 			}
 		})
 		.catch( (error) => {

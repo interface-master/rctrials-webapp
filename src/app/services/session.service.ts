@@ -14,15 +14,7 @@ import { DialogModalComponent } from '../components/dialog-modal/dialog-modal.co
 @Injectable()
 export class SessionService {
 
-	private BLANK = {
-		uid: null,
-		email: null,
-		name: null,
-		role: null,
-		access_token: null,
-		refresh_token: null
-	};
-
+	private BLANK = new User();
 	private API_CREDENTIALS = {
 		client_id: 'mrct',
 		client_secret: 'doascience',
@@ -30,7 +22,7 @@ export class SessionService {
 		grant_type: 'password',
 	}
 
-	REGISTRATION_FORM: FormGroup = new FormGroup({
+	private REGISTRATION_FORM: FormGroup = new FormGroup({
 		email: new FormControl('',Validators.compose([
 			Validators.required,
 			Validators.pattern('^^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
@@ -38,16 +30,17 @@ export class SessionService {
 		pass: new FormControl('',Validators.required)
 	});
 
-	USER: User = new User();
+	private _registrationForm = new BehaviorSubject( this.REGISTRATION_FORM );
+	public getRegistrationForm = () => this._registrationForm.getValue();
+	public currentRegistrationForm = this._registrationForm.asObservable();
 
+	private _userInfo = new BehaviorSubject( this.BLANK );
+	public currentUserInfo = this._userInfo.asObservable();
 
-	private registrationForm = new BehaviorSubject( this.REGISTRATION_FORM );
-	public getRegistrationForm = () => this.registrationForm.getValue();
-	currentRegistrationForm = this.registrationForm.asObservable();
+	private _loggedIn:boolean = false;
+	private _validating:boolean = false;
 
-	private userInfo = new BehaviorSubject( this.USER );
-	currentUserInfo = this.userInfo.asObservable();
-
+	private redirectURL:string = '';
 
 	/**
 	 */
@@ -57,19 +50,19 @@ export class SessionService {
 		public dialog: MatDialog,
 	) { }
 
-
 	/**
 	* updates user info
 	*/
 	updateUserInfo(userInfo: User) {
-		this.userInfo.next( userInfo )
+		this._userInfo.next( userInfo )
+		this._loggedIn = userInfo.uid.length > 0;
 	}
 
 	/**
 	 * updates registration form fields
 	 */
 	updateRegistrationForm(formData: FormGroup) {
-		this.registrationForm.next( formData );
+		this._registrationForm.next( formData );
 	}
 
 
@@ -78,8 +71,8 @@ export class SessionService {
 	 * // TODO: should return something?
 	 */
 	async register() {
-		const form = this.registrationForm.value;
-		const user = this.userInfo.value;
+		const form = this._registrationForm.value;
+		const user = this._userInfo.value;
 		const data = {
 			email: form.value.email,
 			pass: form.value.pass,
@@ -106,7 +99,7 @@ export class SessionService {
 				this.openDialog( "Registration Successful", `Your account has been created. Please note down your ID: ${response.data.id}\nJust kidding. We'll send you an email to validate your account. Once you've confirmed your email, you can log in and create your trials.` );
 			}
 
-			// this.userInfo.next({
+			// this._userInfo.next({
 			// 	uid: response.data.id,
 			// 	email: form.value.email,
 			// 	name: user.name,
@@ -136,7 +129,7 @@ export class SessionService {
 	 * to be salted and hashed on the server
 	 */
 	async login() {
-		const form = this.registrationForm.value;
+		const form = this._registrationForm.value;
 		// fetch login
 		const dataLogin = Object.assign(
 			{},
@@ -146,52 +139,58 @@ export class SessionService {
 				password: form.value.pass
 			}
 		);
+		// await the response
 		await axios.post( this.api.login, dataLogin )
 		.then( async (response) => {
 			this.saveCookie( 'access_token', response.data.access_token );
 			this.saveCookie( 'refresh_token', response.data.refresh_token );
 			const user = await this.fetchUserDetails();
-			this.userInfo.next(user);
+			this._userInfo.next(user);
 		})
 		.catch( (error) => {
 			console.warn(error);
 		});
-		// console.log('session service . login . user:',this.userInfo.value,this.currentUserInfo.source.value);
+		// console.log('session service . login . user:',this._userInfo.value,this.currentUserInfo.source.value);
 		// validate
-		if( this.userInfo.value.access_token ) {
+		if( this._userInfo.value.access_token ) {
 			// logged in
-			this.saveCookie( 'access_token', this.userInfo.value.access_token );
-			this.saveCookie( 'refresh_token', this.userInfo.value.refresh_token );
-			this.router.navigateByUrl('/dashboard');
+			this._loggedIn = true;
+			if( this.redirectURL ) {
+				this.router.navigateByUrl( this.redirectURL );
+			} else {
+				this.router.navigateByUrl('/dashboard');
+			}
+			// this.saveCookie( 'access_token', this._userInfo.value.access_token );
+			// this.saveCookie( 'refresh_token', this._userInfo.value.refresh_token );
 		} else {
 			// error
-			this.openDialog("Login Failed","Hmm. Are you sure you have the right username and password?");
+			this.openDialog("Login Failed","Are you sure you have the right credentials?");
 		}
 	}
 
 	logout() {
 		this.removeCookie('access_token');
 		this.removeCookie('refresh_token');
-		this.userInfo.next(this.BLANK);
+		this._userInfo.next(this.BLANK);
 	}
+
 
 	/**
 	 * Sets cookies with an "mrct_" prefix to expire in 24 hours
 	 */
-	saveCookie(key: string, value: string) {
+	private saveCookie(key: string, value: string) {
 		var date = new Date();
 		date.setTime( date.getTime() + (24*60*60*1000) );
-		window.document.cookie = 'mrct_'+key
-			+ '=' + value
-			+ '; expires='
-			+ date.toUTCString() +
-			+ '; path=/';
+		window.document.cookie
+				= 'mrct_'+key + '=' + value + ';'
+				+ 'path=/;'
+				+ 'expires=' + date.toUTCString() + ';';
 	}
 
 	/**
 	 * Parses cookies with an "mrct_" prefix and returns the value
 	 */
-	parseCookie(key: string) {
+	private parseCookie(key: string) {
 		let ary = [];
 		ary['mrct_'+key] = null;
 		window.document.cookie.split(';').map( i => {
@@ -207,15 +206,16 @@ export class SessionService {
 	/**
 	 * Removes a cookie with the prefix
 	 */
-	removeCookie(key: string) {
+	private removeCookie(key: string) {
 		var date = new Date();
 		date.setTime( date.getTime() - (24*60*60*1000) );
 		window.document.cookie = 'mrct_'+key
 			+ '=' + ' '
-			+ '; expires='
+			+ ';expires='
 			+ date.toUTCString() +
-			+ '; path=/';
+			+ ';path=/';
 	}
+
 
 	openDialog(title: string, text: string): void {
 		let dialogRef = this.dialog.open( DialogModalComponent, {
@@ -232,6 +232,7 @@ export class SessionService {
 	async fetchUserDetails() {
 		const access_token = this.parseCookie('access_token');
 		const refresh_token = this.parseCookie('refresh_token');
+		if( !access_token ) return this.BLANK;
 		const header: any = {
 			headers: {
 				'Authorization' : `Bearer ${access_token}`
@@ -286,6 +287,8 @@ export class SessionService {
 		.then( (response) => {
 			this.saveCookie( 'access_token', response.data.access_token );
 			this.saveCookie( 'refresh_token', response.data.refresh_token );
+			this._userInfo.value.access_token = response.data.access_token;
+			this._userInfo.value.refresh_token = response.data.refresh_token;
 			return {
 				access_token: response.data.access_token,
 				refresh_token: response.data.refresh_token
@@ -297,23 +300,69 @@ export class SessionService {
 		});
 	}
 
-
-
 	/**
 	 * Check cookies to see if an access/refresh token exists
 	 * If so, use it to retrieve user info
 	 */
 	async validateUserSession() {
+		console.log('validating user session...');
+		if( this._validating ) return null;
+		this._validating = true;
 		// return await new Promise( (resolve) => {
 		const access_token = this.parseCookie('access_token');
-		if( access_token ) {
+		const refresh_token = this.parseCookie('refresh_token');
+		const uid = this._userInfo.value.uid;
+		// token & user - all ok
+		// token & !user - fetch details
+		// !token - use refresh
+		// else - nothing
+		if ( access_token && uid ) {
+			console.log("...case 1:");
+			this._validating = false;
+			return this._userInfo.value;
+		}
+		if (
+			( access_token && !uid )
+			||
+			( !access_token && refresh_token )
+		) {
+			console.log("...case 2/3:");
 			const user: any = await this.fetchUserDetails();
 			this.updateUserInfo(user);
-			return user;
+			if( user.uid ) {
+				this._validating = false;
+				return user;
+			}
 		}
-		else {
-			// await new Promise( r => setTimeout( r, 2000 ) );
-			return this.BLANK;
+
+		console.log("...case 4:");
+		// await new Promise( r => setTimeout( r, 2000 ) );
+		this._validating = false;
+		return this.BLANK;
+	}
+
+	setRedirectURL(url:string) {
+		this.redirectURL = url;
+	}
+
+	isLoggedIn():boolean {
+		return this._loggedIn;
+	}
+	isValidating():boolean {
+		return this._validating;
+	}
+
+	get access_token() {
+		return this._userInfo.value.access_token || null;
+	}
+
+	async getUser() {
+		// await new Promise( r => setTimeout( r, 2000 ) );
+		console.log('get user: is logged in? ', this._loggedIn);
+		if( this._loggedIn ) {
+			return this._userInfo.value;
+		} else {
+			return await this.validateUserSession();
 		}
 	}
 
