@@ -65,7 +65,7 @@
 					*ngFor='let survey of trial.surveys; index as s'>
 				name: <span class='bold'>{{survey.name}}</span>;
 				<ul class='question-list'>
-					<li class='row question-item'
+					<li class='row row--filled question-item'
 							*ngFor='let question of survey.questions; index as q'
 							(click)='clickedQuestion($event)'>
 						<div class='col'>

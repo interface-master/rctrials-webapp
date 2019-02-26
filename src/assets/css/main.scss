@@ -148,7 +148,7 @@ body {
 		display: flex;
 		flex-direction: row;
 
-		& > * {
+		&--filled > * {
 			flex: 1;
 		}
 	}
