@@ -69,6 +69,10 @@ export class AdminDashboardComponent implements OnInit {
 		})
 		.catch( (error) => {
 			console.warn(error);
+			if( error.response.status == 401 ) { // Unauthorized
+				this.session.setRedirectURL( '/dashboard' );
+				this.router.navigate(['/login']);
+			}
 			return [];
 		});
 	}
