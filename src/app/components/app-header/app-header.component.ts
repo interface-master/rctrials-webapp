@@ -32,7 +32,7 @@ export class AppHeaderComponent implements OnInit {
 					self._signedIn = false;
 				}
 			}
-		)
+		);
 	}
 
 	ngOnInit() {

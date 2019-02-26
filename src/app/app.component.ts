@@ -20,11 +20,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 		private session: SessionService,
 		private spinner: SpinnerService,
 	) {
+		// observe route changes for background images
 		router.events.subscribe((val) => {
 			if( val instanceof NavigationEnd ) {
 				this.route = val.url.split('/')[1];
 			}
 		});
+		// observe view loads to disable spinner ?
+		// instead of ngDoCheck ???
 	}
 
 	ngOnInit() {
@@ -45,47 +48,16 @@ export class AppComponent implements OnInit, AfterViewInit {
 			let x = new Image();
 			x.src = imgs[i];
 		}
-		// check session info
-		// this.session.validateUserSession().then( (user: any) => {
-			/*
-			if( user.uid ) {
-				// TODO: set user details here from
-				// console.log('%cvalidated user session','color:purple',user);
-				// console.log("%cROUTE:",'color:purple',this.router.url);
-				if( this.router.url == '/home' ) {
-					this.router.navigateByUrl('/dashboard');
-				}
-			} else {
-				if( location.pathname !== '/about'
-						&& location.pathname !== '/register'
-						&& location.pathname !== '/login'
-						&& location.pathname !== '/logout'
-						&& location.pathname !== '/privacy'
-						&& location.pathname !== '/terms'
-						&& location.pathname.split('/')[1] !== 'docs'
-					) {
-						this.router.navigateByUrl('/home');
-					}
-			}
-			*/
-			// this.spinner.hide('main');
-		// });
-		// this.spinner.hide('main');
+		// check session by validating user
+		// returns user or null if no cookies are set
 		// this.session.getUser().then( (user:any) => {
-			// this.spinner.hide('main');
+		// 	console.log('app.component:user:',user);
+		// 	this.spinner.hide('main');
 		// });
 	}
 
 	ngDoCheck() {
 		this.spinner.hide('main');
-	}
-
-	ngAfterViewInit() {
-		// this.spinner.hide('main');
-	}
-
-	ngAfterViewChecked() {
-		// this.spinner.hide('main');
 	}
 
 }
