@@ -16,7 +16,7 @@ export class SessionService {
 
 	private BLANK = new User();
 	private API_CREDENTIALS = {
-		client_id: 'mrct',
+		client_id: 'rctrials.tk',
 		client_secret: 'doascience',
 		scope: 'basic',
 		grant_type: 'password',
@@ -176,23 +176,23 @@ export class SessionService {
 
 
 	/**
-	 * Sets cookies with an "mrct_" prefix to expire in 24 hours
+	 * Sets cookies with an "rct_" prefix to expire in 24 hours
 	 */
 	private saveCookie(key: string, value: string) {
 		var date = new Date();
 		date.setTime( date.getTime() + (24*60*60*1000) );
 		window.document.cookie
-				= 'mrct_'+key + '=' + value + ';'
+				= 'rct_'+key + '=' + value + ';'
 				+ 'path=/;'
 				+ 'expires=' + date.toUTCString() + ';';
 	}
 
 	/**
-	 * Parses cookies with an "mrct_" prefix and returns the value
+	 * Parses cookies with an "rct_" prefix and returns the value
 	 */
 	private parseCookie(key: string) {
 		let ary = [];
-		ary['mrct_'+key] = null;
+		ary['rct_'+key] = null;
 		window.document.cookie.split(';').map( i => {
 			try {
 				let k = i.split('=')[0].trim();
@@ -200,7 +200,7 @@ export class SessionService {
 				if(k) ary[k] = v;
 			} catch(err) {}
 		} );
-		return ary['mrct_'+key];
+		return ary['rct_'+key];
 	}
 
 	/**
@@ -209,7 +209,7 @@ export class SessionService {
 	private removeCookie(key: string) {
 		var date = new Date();
 		date.setTime( date.getTime() - (24*60*60*1000) );
-		window.document.cookie = 'mrct_'+key
+		window.document.cookie = 'rct_'+key
 			+ '=' + ' '
 			+ ';expires='
 			+ date.toUTCString() +

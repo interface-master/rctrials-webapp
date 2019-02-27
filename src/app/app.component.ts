@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		// view stuff
-		if( window.document.querySelector('.mrct-wrapper').clientHeight < window.screen.height ) {
+		if( window.document.querySelector('.rct-wrapper').clientHeight < window.screen.height ) {
 			// content is smaller than screen - make it float?
 		}
 		// preload images
