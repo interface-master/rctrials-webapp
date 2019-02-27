@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ApiService {
-	private _apiRoot:string = "http://localhost/api/";
+	private _apiRoot:string = "https://localhost/api/";
 
 	public login:string = `${this._apiRoot}validate/login`;
+	public newTrial:string = `${this._apiRoot}new/trial`;
 	public register:string = `${this._apiRoot}register`;
 	public trialDetails:string = `${this._apiRoot}trial/:tid`;
 	public userDetails:string = `${this._apiRoot}user/details`;

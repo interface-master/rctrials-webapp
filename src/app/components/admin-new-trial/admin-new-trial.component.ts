@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
+import { ApiService } from '../../services/api.service';
 import { SessionService } from '../../services/session.service';
 
 import axios from 'axios';
@@ -22,6 +23,7 @@ export class AdminNewTrialComponent implements OnInit {
 	private _editingSurvey: number;
 
 	constructor(
+    private api: ApiService,
 		private formBuilder: FormBuilder,
 		private route: ActivatedRoute,
 		private session: SessionService
@@ -223,7 +225,7 @@ export class AdminNewTrialComponent implements OnInit {
 		const data = {
 			trial: JSON.stringify(trial)
 		};
-		axios.post('http://localhost/api/new/trial', data, config) // TODO: remove hard-coded URLs into a service
+		axios.post( this.api.newTrial, data, config) // TODO: remove hard-coded URLs into a service
 		.then( (response) => {
 			if( response.data.status !== 200 ) {
 				let message = response.data.message || "No error message was specified.";
