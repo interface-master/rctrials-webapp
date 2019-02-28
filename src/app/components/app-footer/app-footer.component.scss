@@ -10,8 +10,14 @@ footer {
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
-		max-width: 800px;
+		max-width: 900px;
 		margin: 0 auto;
+		@media screen and (max-width: $break-card) {
+			max-width: none;
+			padding: 0 15px;
+		}
+		@media screen and (max-width: $break-sm) {
+		}
 	}
 
 	.footer-angle {
@@ -26,6 +32,14 @@ footer {
 		font-size: 0.75rem;
 		font-weight: 100;
 	}
+
+	.br {
+		display: inline-block;
+		@media screen and (max-width: $break-menu) {
+			display: block;
+		}
+	}
+
 	nav.legal {
 		@media screen and (max-width: $break-menu) {
 			display: none;
