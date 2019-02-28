@@ -14,19 +14,24 @@ import axios from 'axios';
 })
 export class AdminDashboardComponent {
 	private trials:Trial[];
+	private _userSubscriber:any;
 
 	constructor(
 		private api: ApiService,
 		private session: SessionService,
 		private router: Router
 	) {
-		session.currentUserInfo.subscribe(
+		this._userSubscriber = session.currentUserInfo.subscribe(
 			async userInfo => {
 				if( userInfo.uid ) {
 					this.trials = <Trial[]> await this.getTrialList();
 				}
 			}
 		);
+	}
+
+	ngOnDestroy() {
+		this._userSubscriber.unsubscribe();
 	}
 
 	async getTrialList() {

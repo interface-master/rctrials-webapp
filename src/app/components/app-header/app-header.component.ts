@@ -11,6 +11,8 @@ import { SessionService } from "../../services/session.service";
 export class AppHeaderComponent implements OnInit {
 	private _menu:boolean = false;
 	private _signedIn:boolean = false;
+	private _routeSubscriber:any;
+	private _userSubscriber:any;
 
 	constructor(
 		private router: Router,
@@ -18,13 +20,13 @@ export class AppHeaderComponent implements OnInit {
 	) {
 		const self = this;
 		// close menu when routing
-		router.events.subscribe((val) => {
+		this._routeSubscriber = router.events.subscribe((val) => {
 			if( val instanceof NavigationEnd ) {
 				self.closeMenu();
 			}
 		});
 		// hide/show menu items when logged in
-		session.currentUserInfo.subscribe(
+		this._userSubscriber = session.currentUserInfo.subscribe(
 			userInfo => {
 				if( userInfo.uid ) {
 					self._signedIn = true;
@@ -36,6 +38,11 @@ export class AppHeaderComponent implements OnInit {
 	}
 
 	ngOnInit() {
+	}
+
+	ngOnDestroy() {
+		this._routeSubscriber.unsubscribe();
+		this._userSubscriber.unsubscribe();
 	}
 
 	toggleState() {

@@ -16,6 +16,7 @@ export class AdminRegistrationComponent implements OnInit {
 	private nameform:FormGroup;
 	userInfo:User;
 
+	private _formSubscriber:any;
 
 	constructor(
 		private session: SessionService
@@ -29,11 +30,15 @@ export class AdminRegistrationComponent implements OnInit {
 		});
 		this.userInfo = new User();
 		// set up data binding
-		this.session.currentRegistrationForm.subscribe(
+		this._formSubscriber = this.session.currentRegistrationForm.subscribe(
 			loginForm => {
 				this.regform.setValue(loginForm.value);
 			}
 		)
+	}
+
+	ngOnDestroy() {
+		this._formSubscriber.unsubscribe();
 	}
 
 

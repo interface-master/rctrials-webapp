@@ -12,6 +12,7 @@ import { SpinnerService } from "./services/spinner.service";
 })
 export class AppComponent implements OnInit {
 	private route: String = "home";
+	private _routeSubscriber:any;
 
 	constructor(
 		private router: Router,
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
 		private spinner: SpinnerService,
 	) {
 		// observe route changes for background images
-		router.events.subscribe((val) => {
+		this._routeSubscriber = router.events.subscribe((val) => {
 			if( val instanceof NavigationEnd ) {
 				this.route = val.url.split('/')[1];
 			}
@@ -50,6 +51,10 @@ export class AppComponent implements OnInit {
 
 	ngDoCheck() {
 		this.spinner.hide('main');
+	}
+
+	ngOnDestroy() {
+		this._routeSubscriber.unsubscribe();
 	}
 
 }

@@ -11,6 +11,7 @@ import { SessionService } from "../../services/session.service";
 })
 export class AdminLoginComponent implements OnInit {
 	private title:string = 'Researcher Login';
+	private _formSubscriber:any;
 
 	regform: FormGroup;
 
@@ -22,11 +23,15 @@ export class AdminLoginComponent implements OnInit {
 		// set up form
 		this.regform = this.session.getRegistrationForm();
 		// set up data binding
-		this.session.currentRegistrationForm.subscribe(
+		this._formSubscriber = this.session.currentRegistrationForm.subscribe(
 			loginForm => {
 				this.regform.setValue(loginForm.value);
 			}
 		)
+	}
+
+	ngOnDestroy() {
+		this._formSubscriber.unsubscribe();
 	}
 
 	changeInput(event: any) {
