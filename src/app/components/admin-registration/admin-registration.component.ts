@@ -14,7 +14,8 @@ export class AdminRegistrationComponent implements OnInit {
 
 	private regform:FormGroup;
 	private nameform:FormGroup;
-	userInfo: User;
+	userInfo:User;
+
 
 	constructor(
 		private session: SessionService
@@ -35,8 +36,9 @@ export class AdminRegistrationComponent implements OnInit {
 		)
 	}
 
+
 	changeInputReg(event: any) {
-		this.session.updateRegistrationForm(this.regform)
+		this.session.updateRegistrationForm(this.regform);
 	}
 
 	changeInputUser(event: any) {

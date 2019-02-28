@@ -16,8 +16,8 @@ export class AuthGuard implements CanActivate {
 		next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	) {
-		console.log("auth.guard.isLoggedIn:",this.session.isLoggedIn());
-		console.log("auth.guard.isValidating:",this.session.isValidating());
+		// console.log("auth.guard.isLoggedIn:",this.session.isLoggedIn());
+		// console.log("auth.guard.isValidating:",this.session.isValidating());
 		// are we logged in?
 		if( this.session.isLoggedIn() ) {
 			return true;

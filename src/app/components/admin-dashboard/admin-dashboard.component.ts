@@ -13,8 +13,7 @@ import axios from 'axios';
 	styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent {
-
-	private trials: Trial[];
+	private trials:Trial[];
 
 	constructor(
 		private api: ApiService,
@@ -59,13 +58,6 @@ export class AdminDashboardComponent {
 					return trial;
 				});
 			}
-			// if( response.data.status !== 200 ) {
-			// 	let message = response.data.message || "No error message was specified.";
-			// 	this.session.openDialog( "Creating New Trial Failed", message );
-			// } else {
-			// 	this.session.openDialog( "New Trial Created", `Your trial has been created. The ID of your trial is: ${response.data.tid}.\nIt has ${response.data.groups} groups, ${response.data.surveys} surveys, and ${response.data.questions} questions.` );
-			// }
-			// console.log(response);
 		})
 		.catch( (error) => {
 			console.warn(error);

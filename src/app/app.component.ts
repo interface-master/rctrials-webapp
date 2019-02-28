@@ -11,8 +11,6 @@ import { SpinnerService } from "./services/spinner.service";
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
-	// private showSpinner: boolean = true;
 	private route: String = "home";
 
 	constructor(
@@ -35,7 +33,7 @@ export class AppComponent implements OnInit {
 		if( window.document.querySelector('.rct-wrapper').clientHeight < window.screen.height ) {
 			// content is smaller than screen - make it float?
 		}
-		// preload images
+		// preload images // TODO: for some reason still seeing background images flicker
 		let imgs = [
 			'/assets/img/chuttersnap-348302-unsplash.jpg',
 			'/assets/img/martin-adams-1062002-unsplash.jpg',
@@ -48,12 +46,6 @@ export class AppComponent implements OnInit {
 			let x = new Image();
 			x.src = imgs[i];
 		}
-		// check session by validating user
-		// returns user or null if no cookies are set
-		// this.session.getUser().then( (user:any) => {
-		// 	console.log('app.component:user:',user);
-		// 	this.spinner.hide('main');
-		// });
 	}
 
 	ngDoCheck() {

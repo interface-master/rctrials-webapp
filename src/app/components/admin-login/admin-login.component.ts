@@ -30,7 +30,7 @@ export class AdminLoginComponent implements OnInit {
 	}
 
 	changeInput(event: any) {
-		this.session.updateRegistrationForm(this.regform)
+		this.session.updateRegistrationForm(this.regform);
 	}
 
 	login(event) {

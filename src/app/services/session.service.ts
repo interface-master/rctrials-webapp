@@ -95,18 +95,8 @@ export class SessionService {
 			// otherwise, all is well
 			else {
 				// TODO: fix this:
-				// console.log( "%cRegistration Successful", "color:green", response.data.id );
 				this.openDialog( "Registration Successful", `Your account has been created. Please note down your ID: ${response.data.id}\nJust kidding. We'll send you an email to validate your account. Once you've confirmed your email, you can log in and create your trials.` );
 			}
-
-			// this._userInfo.next({
-			// 	uid: response.data.id,
-			// 	email: form.value.email,
-			// 	name: user.name,
-			// 	role: user.role,
-			// 	access_token: '?',
-			// 	refresh_token: '?'
-			// });
 		})
 		.catch( (error) => {
 			let title = "Registration Failed";
@@ -114,8 +104,6 @@ export class SessionService {
 			if (error.response) {
 				title += ` (${error.response.status})`;
 				message = error.response.data.error;
-			// } else if (error.request) {
-			// 	message = error.request;
 			} else {
 				message = error.message || message;
 			}
@@ -150,7 +138,6 @@ export class SessionService {
 		.catch( (error) => {
 			console.warn(error);
 		});
-		// console.log('session service . login . user:',this._userInfo.value,this.currentUserInfo.source.value);
 		// validate
 		if( this._userInfo.value.access_token ) {
 			// logged in
@@ -160,8 +147,6 @@ export class SessionService {
 			} else {
 				this.router.navigateByUrl('/dashboard');
 			}
-			// this.saveCookie( 'access_token', this._userInfo.value.access_token );
-			// this.saveCookie( 'refresh_token', this._userInfo.value.refresh_token );
 		} else {
 			// error
 			this.openDialog("Login Failed","Are you sure you have the right credentials?");
@@ -223,9 +208,9 @@ export class SessionService {
 			data: { title, text }
 		});
 
-		dialogRef.afterClosed().subscribe(result => {
-			// dialog is closed
-		});
+		// dialogRef.afterClosed().subscribe(result => {
+		// 	// dialog is closed
+		// });
 	}
 
 
@@ -305,10 +290,9 @@ export class SessionService {
 	 * If so, use it to retrieve user info
 	 */
 	async validateUserSession() {
-		console.log('validating user session...');
+		// console.log('validating user session...');
 		if( this._validating ) return null;
 		this._validating = true;
-		// return await new Promise( (resolve) => {
 		const access_token = this.parseCookie('access_token');
 		const refresh_token = this.parseCookie('refresh_token');
 		const uid = this._userInfo.value.uid;
@@ -317,7 +301,7 @@ export class SessionService {
 		// !token - use refresh
 		// else - nothing
 		if ( access_token && uid ) {
-			console.log("...case 1:");
+			// console.log("...case 1:");
 			this._validating = false;
 			return this._userInfo.value;
 		}
@@ -326,7 +310,7 @@ export class SessionService {
 			||
 			( !access_token && refresh_token )
 		) {
-			console.log("...case 2/3:");
+			// console.log("...case 2/3:");
 			const user: any = await this.fetchUserDetails();
 			this.updateUserInfo(user);
 			if( user.uid ) {
@@ -335,7 +319,7 @@ export class SessionService {
 			}
 		}
 
-		console.log("...case 4:");
+		// console.log("...case 4:");
 		// await new Promise( r => setTimeout( r, 2000 ) );
 		this._validating = false;
 		return this.BLANK;

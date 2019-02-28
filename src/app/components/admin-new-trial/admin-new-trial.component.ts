@@ -23,7 +23,7 @@ export class AdminNewTrialComponent implements OnInit {
 	private _editingSurvey: number;
 
 	constructor(
-    private api: ApiService,
+		private api: ApiService,
 		private formBuilder: FormBuilder,
 		private route: ActivatedRoute,
 		private session: SessionService
@@ -108,11 +108,6 @@ export class AdminNewTrialComponent implements OnInit {
 	}
 
 	changeInput(event: any, index?: number) {
-		// console.log('event:',event);
-		// this.groups = this.newTrialForm.get('groups') as FormArray;
-		// this.features = this.newTrialForm.get('features') as FormArray;
-		// this.surveys = this.newTrialForm.get('surveys') as FormArray;
-
 		switch( event.target.name ) {
 			// when changing the number of groups:
 			case 'ngroups':
@@ -191,10 +186,6 @@ export class AdminNewTrialComponent implements OnInit {
 					questions.removeAt( questions.length-1 );
 				}
 				break;
-
-			default:
-				// update form group
-				// this.session.updateNewTrialForm(this.newTrialForm)
 		}
 	}
 
