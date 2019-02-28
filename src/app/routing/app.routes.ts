@@ -11,6 +11,7 @@ import { DocumentationTOCComponent } from '../components/documentation/documenta
 import { DocDevelopersComponent } from '../components/documentation/doc.developers.component';
 import { DocParticipantsComponent } from '../components/documentation/doc.participants.component';
 import { DocResearchersComponent } from '../components/documentation/doc.researchers.component';
+import { Error404Component } from '../components/error/404.component';
 import { HomeComponent } from '../components/home/home.component';
 import { LogoutComponent } from '../components/logout/logout.component';
 import { PrivacyComponent } from '../components/legal/privacy.component';
@@ -123,5 +124,16 @@ export const routes: Routes = [
 		data: [{
 			pageName: 'Trial Details'
 		}]
+	},
+	{
+		path: '404',
+		component: Error404Component,
+		data: [{
+			pageName: 'Page Not Found'
+		}]
+	},
+	{
+		path: '**',
+		redirectTo: '/404'
 	}
 ]

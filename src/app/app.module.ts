@@ -44,6 +44,7 @@ import { DocumentationTOCComponent } from './components/documentation/documentat
 import { DocDevelopersComponent } from './components/documentation/doc.developers.component';
 import { DocParticipantsComponent } from './components/documentation/doc.participants.component';
 import { DocResearchersComponent } from './components/documentation/doc.researchers.component';
+import { Error404Component } from './components/error/404.component';
 import { HomeComponent } from './components/home/home.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { PrivacyComponent } from './components/legal/privacy.component';
@@ -71,6 +72,7 @@ import { SpinnerService } from './services/spinner.service';
 		DocDevelopersComponent,
 		DocParticipantsComponent,
 		DocResearchersComponent,
+		Error404Component,
 		HomeComponent,
 		LogoutComponent,
 		PrivacyComponent,
