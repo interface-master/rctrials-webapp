@@ -13,7 +13,7 @@ import axios from 'axios';
 	styleUrls: ['./admin-new-trial.component.scss']
 })
 export class AdminNewTrialComponent implements OnInit {
-	private title:string = 'New Trial';
+	public title:string = 'New Trial';
 
 	public newTrialForm: FormGroup;
 	public groups: FormArray;

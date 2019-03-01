@@ -86,7 +86,7 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 				return enrichedTrial;
 			}
 			else if ( response.status == 204 ) {
-				return { tid:0, title:"No Trial "+this._tid+" Found" };
+				return { tid:'0', title:"No Trial "+this._tid+" Found" };
 			}
 		})
 		.catch( (error) => {

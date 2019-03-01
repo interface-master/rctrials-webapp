@@ -5,7 +5,7 @@
 	</mat-card-header>
 	<mat-card-content>
 		<form [formGroup]='newTrialForm' class='newTrialForm'>
-			<mat-horizontal-stepper [linear]="isLinear" #stepper>
+			<mat-horizontal-stepper [linear]="true" #stepper>
 				<mat-step label='Basic Info'>
 					<div class='mat-headline'>Registration and Trial Dates</div>
 					<mat-card>
@@ -118,8 +118,7 @@
 						</mat-card-content>
 						<mat-card-actions align='end'>
 							<button mat-button
-								matStepperPrevious
-								(click)='togglePrevCard()'>
+								matStepperPrevious>
 								<mat-icon>navigate_before</mat-icon> Previous
 							</button>
 							<button mat-raised-button
@@ -292,10 +291,10 @@
 									<h3 class='mat-h3'>Groups</h3>
 									<div class='row'>
 										<span>Number of Groups:</span>
-										<span class='mono'>{{ newTrialForm.get('groups').controls.length || "N/A" }}</span>
+										<span class='mono'>{{ groups.length || "N/A" }}</span>
 									</div>
 									<div class='col'
-									*ngFor='let group of newTrialForm.get("groups").controls; index as g'>
+									*ngFor='let group of groups; index as g'>
 										<div class='row'>
 											<span>Group {{ g+1 }}:</span>
 											<span class='mono'>{{ group.get('group_name').value || "N/A" }}</span>
@@ -309,16 +308,16 @@
 								<div class='col section'>
 									<h3 class='mat-h3'>Surveys</h3>
 									<div class='col subsection'
-									*ngFor='let survey of newTrialForm.get("surveys").controls; index as s'>
+									*ngFor='let survey of surveys; index as s'>
 										<div class='col'
-										*ngIf='s < newTrialForm.get("surveys").controls.length-1'>
+										*ngIf='s < surveys.length-1'>
 											<h5 class='mono'>{{ survey.get('survey_name').value || "N/A" }}</h5>
 											<div class='row'>
 												<span>Applies to Groups:</span>
 												<div class='row'
 												 *ngFor='let group of survey.get("survey_groups").value; index as g'>
 													<span class='mono'>
-														{{ newTrialForm.get('groups').controls[group].get('group_name').value || "N/A" }}
+														{{ groups[group].get('group_name').value || "N/A" }}
 													</span>
 													<span *ngIf='g < survey.get("survey_groups").value.length-1'>,</span>
 												</div>

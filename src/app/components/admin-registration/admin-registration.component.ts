@@ -12,9 +12,9 @@ import { SessionService } from '../../services/session.service';
 export class AdminRegistrationComponent implements OnInit {
 	private title:string = 'Researcher Registration';
 
-	private regform:FormGroup;
-	private nameform:FormGroup;
-	userInfo:User;
+	public regform:FormGroup;
+	public nameform:FormGroup;
+	public userInfo:User;
 
 	private _formSubscriber:any;
 

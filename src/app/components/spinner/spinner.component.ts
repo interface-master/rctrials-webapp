@@ -10,7 +10,7 @@ import { SpinnerService } from "../../services/spinner.service";
 })
 export class SpinnerComponent implements OnInit {
 
-	private isShowing: boolean = true;
+	public isShowing: boolean = true;
 
 	@Input() name: string;
 

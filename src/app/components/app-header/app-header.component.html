@@ -5,14 +5,14 @@
 		</div>
 		<div class='navigation--right'>
 			<button mat-icon-button (click)="toggleState();" class='hamburger'><mat-icon aria-label='Menu'>menu</mat-icon></button>
-			<ul [ngClass]="[_menu ? 'open' : '']">
+			<ul [ngClass]="[menu ? 'open' : '']">
 				<li><a mat-button routerLink='/about'>About</a></li>
 				<li><a mat-button routerLink='/docs'>Documentation</a></li>
 
-				<li *ngIf="!_signedIn"><a mat-button routerLink='/register'>Register</a></li>
-				<li *ngIf="!_signedIn"><a mat-button routerLink='/login'>Login</a></li>
-				<li *ngIf="_signedIn"><a mat-button routerLink='/dashboard'>Dashboard</a></li>
-				<li *ngIf="_signedIn"><a mat-button routerLink='/logout'>Logout</a></li>
+				<li *ngIf="!signedIn"><a mat-button routerLink='/register'>Register</a></li>
+				<li *ngIf="!signedIn"><a mat-button routerLink='/login'>Login</a></li>
+				<li *ngIf="signedIn"><a mat-button routerLink='/dashboard'>Dashboard</a></li>
+				<li *ngIf="signedIn"><a mat-button routerLink='/logout'>Logout</a></li>
 
 				<li class='mobile'><a mat-button routerLink='/privacy'>Privacy Policy</a></li>
 				<li class='mobile'><a mat-button routerLink='/terms'>Terms and Conditions</a></li>

@@ -9,8 +9,8 @@ import { SessionService } from "../../services/session.service";
 	styleUrls: ['./app-header.component.scss']
 })
 export class AppHeaderComponent implements OnInit {
-	private _menu:boolean = false;
-	private _signedIn:boolean = false;
+	public menu:boolean = false;
+	public signedIn:boolean = false;
 	private _routeSubscriber:any;
 	private _userSubscriber:any;
 
@@ -29,9 +29,9 @@ export class AppHeaderComponent implements OnInit {
 		this._userSubscriber = session.currentUserInfo.subscribe(
 			userInfo => {
 				if( userInfo.uid ) {
-					self._signedIn = true;
+					self.signedIn = true;
 				} else {
-					self._signedIn = false;
+					self.signedIn = false;
 				}
 			}
 		);
@@ -46,11 +46,11 @@ export class AppHeaderComponent implements OnInit {
 	}
 
 	toggleState() {
-		this._menu = !this._menu;
+		this.menu = !this.menu;
 	}
 
 	closeMenu() {
-		this._menu = false;
+		this.menu = false;
 	}
 
 }

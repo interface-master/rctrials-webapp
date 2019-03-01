@@ -13,7 +13,7 @@ import axios from 'axios';
 	styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent {
-	private trials:Trial[];
+	public trials:Trial[];
 	private _userSubscriber:any;
 
 	constructor(

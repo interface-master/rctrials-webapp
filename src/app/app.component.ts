@@ -11,7 +11,7 @@ import { SpinnerService } from "./services/spinner.service";
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-	private route: String = "home";
+	route: String = "home";
 	private _routeSubscriber:any;
 
 	constructor(
