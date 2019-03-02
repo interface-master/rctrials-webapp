@@ -294,7 +294,7 @@
 										<span class='mono'>{{ groups.length || "N/A" }}</span>
 									</div>
 									<div class='col'
-									*ngFor='let group of groups; index as g'>
+									*ngFor='let group of newTrialForm.get("groups").controls; index as g'>
 										<div class='row'>
 											<span>Group {{ g+1 }}:</span>
 											<span class='mono'>{{ group.get('group_name').value || "N/A" }}</span>
@@ -308,7 +308,7 @@
 								<div class='col section'>
 									<h3 class='mat-h3'>Surveys</h3>
 									<div class='col subsection'
-									*ngFor='let survey of surveys; index as s'>
+									*ngFor='let survey of newTrialForm.get("surveys").controls; index as s'>
 										<div class='col'
 										*ngIf='s < surveys.length-1'>
 											<h5 class='mono'>{{ survey.get('survey_name').value || "N/A" }}</h5>
@@ -317,7 +317,7 @@
 												<div class='row'
 												 *ngFor='let group of survey.get("survey_groups").value; index as g'>
 													<span class='mono'>
-														{{ groups[group].get('group_name').value || "N/A" }}
+														{{ (newTrialForm.get("groups").controls)[group].get('group_name').value || "Group "+(group+1) }}
 													</span>
 													<span *ngIf='g < survey.get("survey_groups").value.length-1'>,</span>
 												</div>
@@ -338,10 +338,14 @@
 							</div>
 						</mat-card-content>
 						<mat-card-actions align='end'>
+							<button mat-button
+								matStepperPrevious>
+								<mat-icon>navigate_before</mat-icon> Previous
+							</button>
 							<button mat-raised-button
 							color='accent'
 							(click)='newTrial($event)'>
-								New Trial
+								Finish
 							</button>
 						</mat-card-actions>
 					</mat-card>
