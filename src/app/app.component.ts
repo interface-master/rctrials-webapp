@@ -22,7 +22,11 @@ export class AppComponent implements OnInit {
 		// observe route changes for background images
 		this._routeSubscriber = router.events.subscribe((val) => {
 			if( val instanceof NavigationEnd ) {
+				// store route to toggle background images in the html
 				this.route = val.url.split('/')[1];
+				// Google Analytics tracking
+				(<any>window).ga('set', 'page', val.urlAfterRedirects);
+				(<any>window).ga('send', 'pageview');
 			}
 		});
 		// observe view loads to disable spinner ?
