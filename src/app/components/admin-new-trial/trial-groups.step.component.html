@@ -1,0 +1,46 @@
+<div class='mat-headline'>Trial Groups</div>
+<mat-card [formGroup]='parentForm'>
+	<mat-card-content>
+		<mat-form-field>
+			<input
+				matInput
+				type='number'
+				name='ngroups'
+				min=1
+				value=1
+				placeholder='Number of Groups:'
+				(input)='changeInput($event)' />
+		</mat-form-field>
+		<mat-divider></mat-divider>
+		<div formArrayName="groups"
+			*ngFor="let group of groups.controls; index as i">
+			<div [formGroupName]='i' class='col'>
+				<div class='row'>
+					<mat-form-field>
+						<input
+							matInput
+							tabindex='0'
+							type='text'
+							name='group_name'
+							formControlName='group_name'
+							placeholder='Group Name:'
+							autocomplete='off'
+							(input)='changeInput($event)'/>
+					</mat-form-field>
+				</div>
+				<mat-divider *ngIf='i < groups.value.length-1'></mat-divider>
+			</div>
+		</div>
+	</mat-card-content>
+	<mat-card-actions align='end'>
+		<button mat-button
+			matStepperPrevious>
+			<mat-icon>navigate_before</mat-icon> Previous
+		</button>
+		<button mat-raised-button
+			matStepperNext
+			color='primary'>
+			Next <mat-icon>navigate_next</mat-icon>
+		</button>
+	</mat-card-actions>
+</mat-card>

@@ -1,0 +1,133 @@
+<div class='mat-headline'>Survey Settings and Questions</div>
+<mat-accordion [formGroup]='parentForm'>
+	<mat-expansion-panel
+		formArrayName='surveys'
+		*ngFor='let survey of surveys.controls; index as s'
+		(opened)="setEditingSurvey(s)">
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				<mat-icon *ngIf="!survey.get('survey_name').value">add_circle</mat-icon>
+				<div class='survey'>{{ survey.get('survey_name').value || 'add new survey' }}</div>
+			</mat-panel-title>
+			<mat-panel-description>
+				{{ (survey.get('survey_questions').value.length > 1) ? (survey.get("survey_questions").value.length-1) + " question"+(survey.get("survey_questions").value.length>2?"s":"") : "" }}
+			</mat-panel-description>
+		</mat-expansion-panel-header>
+		<ng-template matExpansionPanelContent>
+			<div [formGroupName]='s' class='col'>
+				<mat-form-field>
+					<input
+						matInput
+						type='text'
+						placeholder='Survey Name:'
+						name='survey_name'
+						formControlName='survey_name'
+						(input)='changeInput($event)'/>
+				</mat-form-field>
+				<div *ngIf='survey.get("survey_name").value.length > 0'>
+					<div class='mat-subheading-2'>Request survey from the following Groups:</div>
+					<div class='item_group_cell'
+						*ngFor='let group of groups.controls; index as t'>
+						<mat-checkbox
+							type='checkbox'
+							name='survey_groups'
+							(input)='changeGroupAssignment($event, survey.controls["survey_groups"], group.controls["group_id"].value )'>
+							{{ group.controls['group_name'].value || 'Group '+(group.controls['group_id'].value+1) }}
+						</mat-checkbox>
+					</div>
+					<div class='mat-subheading-2'>Request survey at these intervals:</div>
+					<div class='row'>
+						<div class='col'>
+							<mat-checkbox
+								type='checkbox'
+								name='survey_pre'
+								formControlName='survey_pre'
+							>Pretest</mat-checkbox>
+							<mat-checkbox
+								type='checkbox'
+								name='survey_during'
+								formControlName='survey_during'
+							>During Treatment</mat-checkbox>
+							<mat-checkbox
+								type='checkbox'
+								name='survey_post'
+								formControlName='survey_post'
+							>Posttest</mat-checkbox>
+						</div>
+						<div class='col surveyFrequency'
+							*ngIf='survey.controls["survey_during"].value'>
+							<mat-form-field>
+								<input
+									matInput
+									type='number'
+									name='survey_interval'
+									formControlName='survey_interval'
+									placeholder='{{ "Allow new submission every " + survey.controls["survey_interval"].value + " " + survey.controls["survey_frequency"].value  }}'/>
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+			</div>
+			<mat-divider *ngIf='survey.get("survey_name").value.length > 0'></mat-divider>
+			<div [formGroupName]='s' class='questions'
+				*ngIf='survey.get("survey_name").value.length > 0'>
+				<div class='mat-h2'>Questions:</div>
+				<div formArrayName='survey_questions'
+					*ngFor='let question of survey.controls["survey_questions"].controls; index as q'
+					class='col'>
+					<div [formGroupName]='q' class='row'>
+						<h3 class='mat-h3 formFieldLabel'>№{{q+1}}:</h3>
+						<mat-form-field class='fullFlex'>
+							<input
+								matInput
+								type='text'
+								placeholder='Question Text:'
+								name='question_text'
+								formControlName='question_text'
+								(input)='changeInput($event)'/>
+						</mat-form-field>
+						<mat-form-field class='fullFlex'>
+							<mat-select
+								name='question_type'
+								placeholder='Question Type:'
+								formControlName='question_type'>
+								<mat-option value='text'>Text</mat-option>
+								<mat-option value='mc'>Multiple Choice</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div [formGroupName]='q' class='row'
+					*ngIf='question.get("question_type").value !== "text"'>
+						<mat-form-field class='fullFlex h3Indent'>
+							<input
+								matInput
+								type='text'
+								placeholder='Enter Multiple Choice Options:'
+								name='question_options'
+								formControlName='question_options'/>
+							<mat-hint align='start'>Delimit the options with the pipe symbol (|)</mat-hint>
+								<mat-hint align='end'></mat-hint>
+						</mat-form-field>
+					</div>
+					<mat-divider *ngIf='survey.controls["survey_questions"].controls.length-1 !== q'></mat-divider>
+				</div>
+			</div>
+		</ng-template>
+		<mat-action-row>
+			<button mat-stroked-button color='warn' disabled>
+				<mat-icon>delete_forever</mat-icon> Delete
+			</button>
+		</mat-action-row>
+	</mat-expansion-panel>
+</mat-accordion>
+<mat-action-row align='end'>
+	<button mat-button
+		matStepperPrevious>
+		<mat-icon>navigate_before</mat-icon> Previous
+	</button>
+	<button mat-raised-button
+		matStepperNext
+		color='primary'>
+		Next <mat-icon>navigate_next</mat-icon>
+	</button>
+</mat-action-row>

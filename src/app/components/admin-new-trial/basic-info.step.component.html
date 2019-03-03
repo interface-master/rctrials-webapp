@@ -1,0 +1,68 @@
+<div class='mat-headline'>Registration and Trial Dates</div>
+<mat-card [formGroup]='parentForm'>
+	<mat-card-content class='col'>
+		<mat-form-field>
+			<input
+				type='text'
+				name='title'
+				formControlName='title'
+				placeholder='Trial Title'
+				matInput />
+		</mat-form-field>
+		<div class='row'>
+			<mat-form-field>
+				<input
+					type='text'
+					name='regopen'
+					formControlName='regopen'
+					placeholder='Registration Opens:'
+					[matDatepicker]='pickerRO'
+					matInput />
+				<mat-datepicker-toggle matSuffix [for]='pickerRO'></mat-datepicker-toggle>
+				<mat-datepicker #pickerRO></mat-datepicker>
+			</mat-form-field>
+			<mat-form-field>
+				<input
+					type='text'
+					name='regclose'
+					formControlName='regclose'
+					placeholder='Registration Closes:'
+					[matDatepicker]='pickerRC'
+					matInput />
+				<mat-datepicker-toggle matSuffix [for]='pickerRC'></mat-datepicker-toggle>
+				<mat-datepicker #pickerRC></mat-datepicker>
+			</mat-form-field>
+		</div>
+		<div class='row'>
+			<mat-form-field>
+				<input
+					type='text'
+					name='trialstart'
+					formControlName='trialstart'
+					placeholder='Trial Starts:'
+					[matDatepicker]='pickerTS'
+					matInput />
+				<mat-datepicker-toggle matSuffix [for]='pickerTS'></mat-datepicker-toggle>
+				<mat-datepicker #pickerTS></mat-datepicker>
+			</mat-form-field>
+			<mat-form-field>
+				<input
+					type='text'
+					name='trialend'
+					formControlName='trialend'
+					placeholder='Trial Ends:'
+					[matDatepicker]='pickerTF'
+					matInput />
+				<mat-datepicker-toggle matSuffix [for]='pickerTF'></mat-datepicker-toggle>
+				<mat-datepicker #pickerTF></mat-datepicker>
+			</mat-form-field>
+		</div>
+	</mat-card-content>
+	<mat-card-actions align='end'>
+		<button mat-raised-button
+			matStepperNext
+			color='primary'>
+			Next <mat-icon>navigate_next</mat-icon>
+		</button>
+	</mat-card-actions>
+</mat-card>
