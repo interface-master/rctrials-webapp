@@ -56,6 +56,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TermsComponent } from './components/legal/terms.component';
 
 import { ApiService } from './services/api.service';
+import { DialogService } from './services/dialog.service';
 import { SessionService } from './services/session.service';
 import { SpinnerService } from './services/spinner.service';
 
@@ -120,6 +121,7 @@ import { SpinnerService } from './services/spinner.service';
 	],
 	providers: [
 		ApiService,
+		DialogService,
 		SessionService,
 		SpinnerService,
 	],
