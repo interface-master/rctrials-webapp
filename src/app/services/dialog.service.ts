@@ -18,6 +18,8 @@ export class DialogService {
 		public dialog: MatDialog,
 	) { }
 
+	// TODO: use this to open dialogs
+	// refactor existing use of DialogModalComponent
 	open(title:string, text:string): Observable<boolean> {
 		const ack = this.dialog.open( DialogModalComponent, {
 			width: '350px;',
