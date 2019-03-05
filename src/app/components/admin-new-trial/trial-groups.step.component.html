@@ -9,11 +9,12 @@
 				min=1
 				value=1
 				placeholder='Number of Groups:'
-				(input)='changeInput($event)' />
+				(input)='changeGroupsCount($event)' />
 		</mat-form-field>
 		<mat-divider></mat-divider>
 		<div formArrayName="groups"
-			*ngFor="let group of groups.controls; index as i">
+				class='group-wrapper'
+				*ngFor="let group of parentForm.get('groups').controls; index as i">
 			<div [formGroupName]='i' class='col'>
 				<div class='row'>
 					<mat-form-field>
@@ -23,12 +24,16 @@
 							type='text'
 							name='group_name'
 							formControlName='group_name'
-							placeholder='Group Name:'
-							autocomplete='off'
-							(input)='changeInput($event)'/>
+							placeholder='Group Name:'/>
+						<mat-error *ngIf="group.controls.group_name.hasError('required')">
+							Group Name is <strong>required</strong>
+						</mat-error>
+						<mat-error *ngIf="group.controls.group_name.hasError('repeated')">
+							Do <strong>not repeat</strong> group names
+						</mat-error>
 					</mat-form-field>
 				</div>
-				<mat-divider *ngIf='i < groups.value.length-1'></mat-divider>
+				<mat-divider *ngIf="i < parentForm.get('groups').value.length-1"></mat-divider>
 			</div>
 		</div>
 	</mat-card-content>
@@ -38,8 +43,9 @@
 			<mat-icon>navigate_before</mat-icon> Previous
 		</button>
 		<button mat-raised-button
-			matStepperNext
-			color='primary'>
+			color='primary'
+			(click)='validate($event)'
+			matStepperNext>
 			Next <mat-icon>navigate_next</mat-icon>
 		</button>
 	</mat-card-actions>

@@ -12,10 +12,10 @@
 							[parentForm]='basicInfoStepForm'>
 					</step-basic-info>
 				</mat-step>
-				<mat-step label='Groups'>
+				<mat-step label='Groups' [stepControl]='trialGroupsStepForm'>
 					<step-trial-groups
-							[groups]='groups'
-							[parentForm]='newTrialForm'>
+							[parent]='this'
+							[parentForm]='trialGroupsStepForm'>
 					</step-trial-groups>
 				</mat-step>
 				<mat-step label='Surveys'>

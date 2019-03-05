@@ -17,6 +17,7 @@ export class AdminNewTrialComponent implements OnInit {
 
 	public newTrialForm: FormGroup;
 	public basicInfoStepForm: FormGroup;
+	public trialGroupsStepForm: FormGroup;
 	public groups: FormArray;
 	public features: FormArray;
 	public surveys: FormArray;
@@ -57,6 +58,7 @@ export class AdminNewTrialComponent implements OnInit {
 			trialtype: ['simple'],
 			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		});
+		this.trialGroupsStepForm = this.formBuilder.group({
 			groups: this.groups,
 			features: this.features,
 			surveys: this.surveys,
@@ -123,32 +125,6 @@ export class AdminNewTrialComponent implements OnInit {
 
 	changeInput(event: any, index?: number) {
 		switch( event.target.name ) {
-			// when changing the number of groups:
-			case 'ngroups':
-				let n = event.target.value;
-				for( let i = this.groups.length; i < n; i++ ) {
-					this.groups.push( this.createGroup( this.groups.length ) );
-				}
-				for( let i = this.groups.length; i >= n; i-- ) {
-					this.groups.removeAt( i );
-				}
-				break;
-
-			// when changing group size:
-			case 'group_size_n':
-				let t = event.target;
-				let this_group = <FormGroup>this.groups.controls[index];
-				const this_group_size = <FormControl>this_group.controls['group_size'];
-				if( this_group_size ) {
-					if( !isNaN(parseInt(t.value)) ) {
-						// set to manual
-						this_group_size.setValue('manual');
-					} else {
-						// set to auto
-						this_group_size.setValue('auto');
-					}
-				}
-				break;
 
 			case 'feature_name':
 				var ary = [];
