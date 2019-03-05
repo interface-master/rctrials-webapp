@@ -29,9 +29,12 @@
 				<!-- Confirmation Summary -->
 				<mat-step label='Done'>
 					<step-summary
+							[parent]='this'
 							[groups]='groups'
 							[surveys]='surveys'
-							[parentForm]='newTrialForm'>
+							[basicInfoStepForm]='basicInfoStepForm'
+							[trialGroupsStepForm]='trialGroupsStepForm'
+							[surveyQuestionsStepForm]='surveyQuestionsStepForm'>
 					</step-summary>
 				</mat-step>
 			</mat-horizontal-stepper>

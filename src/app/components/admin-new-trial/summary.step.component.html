@@ -1,23 +1,23 @@
 <div class='mat-headline'>Confirm</div>
-<mat-card [formGroup]='parentForm'>
+<mat-card>
 	<mat-card-title>
 	</mat-card-title>
 	<mat-card-content>
 		<div class='col'>
-			<h2 class='mat-h2'>{{ parentForm.get('title').value || "N/A" }}</h2>
+			<h2 class='mat-h2'>{{ basicInfoStepForm.get('title').value || "N/A" }}</h2>
 			<div class='col section'>
 				<h3 class='mat-h3'>Registration</h3>
 				<span> from: </span>
-				<span class='mono'>{{ parentForm.get('regopen').value || "N/A" }}</span>
+				<span class='mono'>{{ basicInfoStepForm.get('regopen').value || "N/A" }}</span>
 				<span> to </span>
-				<span class='mono'>{{ parentForm.get('regclose').value || "N/A" }}</span>
+				<span class='mono'>{{ basicInfoStepForm.get('regclose').value || "N/A" }}</span>
 			</div>
 			<div class='col section'>
 				<h3 class='mat-h3'>Trial</h3>
 				<span> from: </span>
-				<span class='mono'>{{ parentForm.get('trialstart').value || "N/A" }}</span>
+				<span class='mono'>{{ basicInfoStepForm.get('trialstart').value || "N/A" }}</span>
 				<span> to </span>
-				<span class='mono'>{{ parentForm.get('trialend').value || "N/A" }}</span>
+				<span class='mono'>{{ basicInfoStepForm.get('trialend').value || "N/A" }}</span>
 			</div>
 			<div class='col section'>
 				<h3 class='mat-h3'>Groups</h3>
@@ -49,7 +49,7 @@
 							<div class='row'
 							 *ngFor='let group of survey.get("survey_groups").value; index as g'>
 								<span class='mono'>
-									{{ (parentForm.get("groups").controls)[group].get('group_name').value || "Group "+(group+1) }}
+									{{ (trialGroupsStepForm.get("groups").controls)[group].get('group_name').value || "Group "+(group+1) }}
 								</span>
 								<span *ngIf='g < survey.get("survey_groups").value.length-1'>,</span>
 							</div>
