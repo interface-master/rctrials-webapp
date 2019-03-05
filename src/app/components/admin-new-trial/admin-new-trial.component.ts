@@ -16,6 +16,7 @@ export class AdminNewTrialComponent implements OnInit {
 	public title:string = 'New Trial';
 
 	public newTrialForm: FormGroup;
+	public basicInfoStepForm: FormGroup;
 	public groups: FormArray;
 	public features: FormArray;
 	public surveys: FormArray;
@@ -47,7 +48,15 @@ export class AdminNewTrialComponent implements OnInit {
 			regclose: [''],
 			trialstart: [''],
 			trialend: [''],
+		this.basicInfoStepForm = this.formBuilder.group({
+			title: new FormControl('',Validators.required),
+			regopen: new FormControl('',Validators.required),
+			regclose: new FormControl('',Validators.required),
+			trialstart: new FormControl('',Validators.required),
+			trialend: new FormControl('',Validators.required),
 			trialtype: ['simple'],
+			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+		});
 			groups: this.groups,
 			features: this.features,
 			surveys: this.surveys,

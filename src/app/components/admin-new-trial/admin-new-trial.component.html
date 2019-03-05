@@ -6,9 +6,10 @@
 	<mat-card-content>
 		<form [formGroup]='newTrialForm' class='newTrialForm'>
 			<mat-horizontal-stepper [linear]="true" #stepper>
-				<mat-step label='Basic Info'>
+				<mat-step label='Basic Info' [stepControl]='basicInfoStepForm'>
 					<step-basic-info
-							[parentForm]='newTrialForm'>
+							[parent]='this'
+							[parentForm]='basicInfoStepForm'>
 					</step-basic-info>
 				</mat-step>
 				<mat-step label='Groups'>
