@@ -20,7 +20,7 @@ export class DialogService {
 
 	// TODO: use this to open dialogs
 	// refactor existing use of DialogModalComponent
-	open(title:string, text:string): Observable<boolean> {
+	open(title:string, text:string): Observable<any> {
 		const ack = this.dialog.open( DialogModalComponent, {
 			width: '350px;',
 			data: { title, text }
@@ -32,7 +32,7 @@ export class DialogService {
    * Ask user to confirm an action. `message` explains the action and choices.
    * Returns observable resolving to `true`=confirm or `false`=cancel
    */
-  confirm(title:string, text:string): Observable<boolean> {
+  confirm(title:string, text:string): Observable<any> {
 		const ack = this.dialog.open( DialogModalComponent, {
 			width: '350px;',
 			data: { title, text }
