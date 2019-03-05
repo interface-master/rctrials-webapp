@@ -16,7 +16,6 @@ export class AdminNewTrialTrialGroupsStepComponent {
 	changeGroupsCount(event:any) {
 		const n = event.target.value;
 		const groups = <FormArray>this.parentForm.get('groups');
-		console.log('got groups:',groups);
 		for( let i = groups.length; i < n; i++ ) {
 			groups.push( this.parent.createGroup( groups.length ) );
 		}
@@ -44,34 +43,6 @@ export class AdminNewTrialTrialGroupsStepComponent {
 
 	validate(event) {
 		console.log('validating trial groups',this.parentForm);
-		// touch each input to validate it
-		// Object.keys( this.parentForm.controls ).forEach( key => {
-			// let control = this.parentForm.get(key);
-			// control.markAsTouched({onlySelf:true});
-		// });
-		// compare group names to ensure uniqueness
-		// const groups = <FormArray>this.parentForm.get('groups');
-		// groups.controls.map( g => {
-		// 	const inp = (<FormGroup>g).controls.group_name;
-		// 	inp.updateValueAndValidity({onlySelf:true,emitEvent:false});
-		// });
-		// const names = groups.controls
-		// 		.map( g => (<FormGroup>g).controls.group_name.value )
-		// 		.reduce( (a,c,i) => {
-		// 			if( !a.includes(c) ) a.push(c);
-		// 			else (<FormGroup>groups.controls[i]).controls.group_name.setErrors({repeated:true});
-		// 			return a;
-		// 		}, [] );
-		// groups.controls.forEach( g => {
-		// 	let input = (<FormGroup>g).controls.group_name;
-		// 	console.log('comparing',names,input.value);
-		// 	if( names.includes(input.value) ) {
-		// 		console.log("ERR");
-		// 		input.setErrors({repeated:true});
-		// 	} else {
-		// 		input.updateValueAndValidity({onlySelf:true,emitEvent:false});
-		// 	}
-		// });
 		this.parent.doNotRepeatGroups(this.parentForm);
 		console.log("valid?",this.parentForm.valid);
 		// submit if valid

@@ -44,11 +44,7 @@ export class AdminNewTrialComponent implements OnInit {
 		this.features = this.formBuilder.array([ this.createFeature(0) ]);
 		this.surveys = this.formBuilder.array([ this.createSurvey(0) ]);
 		this.newTrialForm = this.formBuilder.group({
-			title: [''],
-			regopen: [''],
-			regclose: [''],
-			trialstart: [''],
-			trialend: [''],
+		});
 		this.basicInfoStepForm = this.formBuilder.group({
 			title: new FormControl('',Validators.required),
 			regopen: new FormControl('',Validators.required),
@@ -61,18 +57,38 @@ export class AdminNewTrialComponent implements OnInit {
 		this.trialGroupsStepForm = this.formBuilder.group({
 			groups: this.groups,
 			features: this.features,
+		},{
+			validator: this.doNotRepeatGroups
+		});
 			surveys: this.surveys,
-			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		});
 	}
 
-	createGroup(id: number): FormGroup {
+	public createGroup(id: number): FormGroup {
 		return this.formBuilder.group({
 			group_id: [id],
-			group_name: [''],
+			group_name: new FormControl('',Validators.required),
 			group_size: ['auto'],
 			group_size_n: [''],
 		});
+	}
+
+	doNotRepeatGroups(ctx:any):{[key:string]:boolean} {
+		const groups = <FormArray>ctx.get('groups');
+		if( groups.controls.length > 1 ) {
+			groups.controls
+					.map( g => {
+						const inp = (<FormGroup>g).controls.group_name;
+						inp.updateValueAndValidity({onlySelf:true,emitEvent:false});
+						return inp.value;
+					})
+					.reduce( (a,c,i) => {
+						if( !a.includes(c) ) a.push(c);
+						else (<FormGroup>groups.controls[i]).controls.group_name.setErrors({repeated:true});
+						return a;
+					}, [] );
+		}
+		return null;
 	}
 
 	createFeature(id: number): FormGroup {
@@ -220,7 +236,4 @@ export class AdminNewTrialComponent implements OnInit {
 		});
 	}
 
-	setEditingSurvey( n: number ) {
-		this._editingSurvey = n;
-	}
 }
