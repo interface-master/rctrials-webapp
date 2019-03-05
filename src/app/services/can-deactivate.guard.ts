@@ -24,7 +24,7 @@ export class CanDeactivateGuard implements CanDeactivate<AdminNewTrialComponent>
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	):Observable<boolean> | boolean {
-		if( component.newTrialForm.touched ) {
+		if( component.formsTouched ) {
 			return this.dialog.confirm(
 				"Discard Changes?",
 				"There are unsaved changes in the form, are you sure you wish to discard them?"

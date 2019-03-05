@@ -20,7 +20,12 @@ export class AdminNewTrialComponent implements OnInit {
 	public features: FormArray;
 	public surveys: FormArray;
 
-	private _editingSurvey: number;
+	public get formsTouched():boolean {
+		return this.newTrialForm.touched
+			|| this.basicInfoStepForm.touched
+			|| this.trialGroupsStepForm.touched
+			|| this.surveyQuestionsStepForm.touched;
+	}
 
 	constructor(
 		private api: ApiService,
