@@ -18,10 +18,12 @@
 							[parentForm]='trialGroupsStepForm'>
 					</step-trial-groups>
 				</mat-step>
-				<mat-step label='Surveys'>
+				<mat-step label='Surveys' [stepControl]='surveyQuestionsStepForm'>
 					<step-survey-questions
 							[surveys]='surveys'
-							[parentForm]='newTrialForm'>
+							[groups]='groups'
+							[parent]='this'
+							[parentForm]='surveyQuestionsStepForm'>
 					</step-survey-questions>
 				</mat-step>
 				<!-- Confirmation Summary -->

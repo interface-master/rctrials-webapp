@@ -18,6 +18,7 @@ export class AdminNewTrialComponent implements OnInit {
 	public newTrialForm: FormGroup;
 	public basicInfoStepForm: FormGroup;
 	public trialGroupsStepForm: FormGroup;
+	public surveyQuestionsStepForm: FormGroup;
 	public groups: FormArray;
 	public features: FormArray;
 	public surveys: FormArray;
@@ -60,6 +61,7 @@ export class AdminNewTrialComponent implements OnInit {
 		},{
 			validator: this.doNotRepeatGroups
 		});
+		this.surveyQuestionsStepForm = this.formBuilder.group({
 			surveys: this.surveys,
 		});
 	}
@@ -159,49 +161,10 @@ export class AdminNewTrialComponent implements OnInit {
 				break;
 
 			case 'survey_name':
-				var ary = [];
-				this.surveys.value.forEach( i => {
-					(i['survey_name'].trim().length > 0) ? ary.push(1) : ary.push(0);
-				});
-				if( ary[ary.length-1] == 1 ) {
-					this.surveys.push( this.createSurvey( this.getNextSurveyID() ) );
-				}
-				if( ary.length > 2
-					&& ary[ary.length-1] == 0
-					&& ary[ary.length-2] == 0
-				) {
-					this.surveys.removeAt( this.surveys.length-1 );
-				}
 				break;
 
 			case 'question_text':
-				var ary = [];
-				// figure out which survey is being edited
-				let survey = <FormGroup>this.surveys.controls[ this._editingSurvey ];
-				let questions = <FormArray>survey.get('survey_questions');
-				questions.controls.forEach( q => {
-					(q.get('question_text').value.trim().length > 0) ? ary.push(1) : ary.push(0);
-				});
-				if( ary[ary.length-1] == 1 ) {
-					questions.push( this.createSurveyQuestion( this.getNextQuestionID() ) );
-				}
-				if( ary.length > 2
-					&& ary[ary.length-1] == 0
-					&& ary[ary.length-2] == 0
-				) {
-					questions.removeAt( questions.length-1 );
-				}
 				break;
-		}
-	}
-
-	changeGroupAssignment(event: any, ary: FormControl, idx_group: number) {
-		// const ary = this.features.value[idx_feature]['feat_n_grp_n'];
-		if( event.target.checked == true ) {
-			ary.value.push( idx_group );
-			ary.value.sort();
-		} else {
-			ary.value.splice( ary.value.indexOf(idx_group), 1 );
 		}
 	}
 
