@@ -1,18 +1,84 @@
-.col {
-	display: flex;
-	flex-direction: column;
-}
 .row {
-	display: flex;
-	flex-direction: row;
+	&.pad-top {
+		padding-top: 10px;
+	}
 }
-.fullFlex {
+
+.col {
+	&.pad-top {
+		margin-top: 10px;
+	}
+	&.section1 {
+		margin-bottom: 20px;
+	}
+}
+
+.full-flex {
 	flex: 1;
 }
 
-mat-card {
-	margin: 20px auto;
-	max-width: 800px;
+.group-wrapper {
+	.row {
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+
+	mat-divider {
+		position: relative;
+		left: -24px;
+		width: calc(100% + 48px);
+	}
+}
+
+.survey-title {
+	align-self: center;
+}
+mat-icon + .survey-title {
+	margin-left: 10px;
+}
+
+mat-expansion-panel {
+	position: relative;
+
+	.mat-subheading-2 {
+		margin-top: 10px;
+		margin-bottom: 0;
+	}
+}
+
+.surveyFrequency {
+	width: 190px;
+	margin-left: 20px;
+	margin-top: 11px;
+}
+
+.questions {
+	margin-top: 40px;
+
+	.question {
+		position: relative;
+		margin-top: 10px;
+		margin-bottom: 20px;
+
+		.form-field-label {
+			color: rgba(0,0,0,0.54);
+			font-size: 14px;
+			justify-self: flex-start;
+			transform: translateY(-0.78125em) scale(.75) perspective(100px) translateZ(.001px);
+			width: 30px;
+		}
+
+		.indent {
+			margin-left: 40px;
+		}
+
+		mat-divider {
+			position: relative;
+			bottom: -10px;
+			left: -24px;
+			width: calc(100% + 48px);
+		}
+	}
 }
 
 form.newTrialForm {
@@ -56,11 +122,11 @@ form.newTrialForm {
 		}
 	}
 
-	mat-divider {
-		position: relative;
-		margin-top: 20px;
-		margin-bottom: 20px;
-	}
+	// mat-divider {
+	// 	position: relative;
+	// 	margin-top: 20px;
+	// 	margin-bottom: 20px;
+	// }
 
 	mat-form-field {
 		margin-right: 20px;
@@ -75,65 +141,4 @@ form.newTrialForm {
 		}
 	}
 
-	.mat-subheading-2 {
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-
-	.formFieldLabel {
-		justify-self: flex-start;
-		font-size: 14px;
-		color: rgba(0,0,0,0.54);
-		transform: translateY(-0.78125em) scale(.75) perspective(100px) translateZ(.001px);
-		width: 30px;
-	}
-	.h3Indent {
-		margin-left: 30px;
-	}
-	.surveyFrequency {
-		width: 190px;
-		margin-left: 20px;
-		margin-top: 11px;
-	}
-
-}
-
-fieldset {
-	border: 1px solid black;
-	margin: 20px 0;
-	padding: 10px;
-
-	&.done {
-		border: 2px solid green;
-	}
-
-	&.wip {
-		border: 2px solid orange;
-	}
-
-	legend {
-		width: auto;
-	}
-
-	.item_group_row {
-		display: flex;
-
-		.item_group_cell {
-			padding: 0 10px;
-
-			label {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-			}
-		}
-	}
-
-	.questions {
-		padding-bottom: 20px;
-	}
-
-	.input_id {
-		width: 20px;
-	}
 }

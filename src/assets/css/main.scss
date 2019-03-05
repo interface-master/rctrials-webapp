@@ -138,9 +138,21 @@ body {
 		display: flex;
 		flex-direction: row;
 
+		& > * {
+			margin-right: 10px;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+
 		&--filled > * {
 			flex: 1;
 		}
+	}
+
+	.col {
+		display: flex;
+		flex-direction: column;
 	}
 
 }
