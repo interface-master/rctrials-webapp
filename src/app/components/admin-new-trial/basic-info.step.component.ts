@@ -20,8 +20,9 @@ export class AdminNewTrialBasicInfoStepComponent {
 	];
 
 	updateDates(event) {
+		let eventDate = new Date(event.value);
 		let tomorrow = new Date();
-		tomorrow.setDate(event.value.getDate() + 1);
+		tomorrow.setDate(eventDate.getDate() + 1);
 		switch( event.targetElement.name ) {
 			case 'regopen':
 				this.start_at[1] = tomorrow;
