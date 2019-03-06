@@ -58,16 +58,12 @@ export class AdminNewTrialSurveyQuestionsStepComponent {
 	changeIntervalPreTest( event:any ) {
 		if( event.checked ) {
 			let allGroups = this.groups.controls.map( g => g.get('group_id').value );
-			console.log( 'all groups:', allGroups );
 			let survey = <FormGroup>this.surveys.controls[ this._editingSurvey ];
-			console.log('editing survey',survey);
 			survey.get('survey_groups').setValue( allGroups );
 		}
 	}
 
 	changeGroupAssignment(event: any, ary: FormControl, idx_group: number) {
-		// const ary = this.features.value[idx_feature]['feat_n_grp_n'];
-		console.log('changeGroupAssignment',ary,idx_group);
 		if( event.target.checked == true ) {
 			ary.value.push( idx_group );
 			ary.value.sort();

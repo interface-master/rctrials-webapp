@@ -41,18 +41,4 @@ export class AdminNewTrialTrialGroupsStepComponent {
 		}
 	}
 
-	validate(event) {
-		console.log('validating trial groups',this.parentForm);
-		this.parent.doNotRepeatGroups(this.parentForm);
-		console.log("valid?",this.parentForm.valid);
-		// submit if valid
-		if( this.parentForm.valid ) {
-			console.log('.. step 2 valid');
-			return true;
-		} else {
-			console.log('.. invalid');
-			return false;
-		}
-	}
-
 }

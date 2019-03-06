@@ -20,8 +20,6 @@ export class AdminNewTrialBasicInfoStepComponent {
 	];
 
 	updateDates(event) {
-		console.log('update dates event:',event);
-		console.log("just in case:",this.parentForm);
 		let tomorrow = new Date();
 		tomorrow.setDate(event.value.getDate() + 1);
 		switch( event.targetElement.name ) {
@@ -34,22 +32,6 @@ export class AdminNewTrialBasicInfoStepComponent {
 			case 'trialstart':
 				this.start_at[3] = tomorrow;
 				break;
-		}
-	}
-
-	validate(event) {
-		console.log('validating basic info',this.parentForm);
-		// Object.keys( this.parentForm.controls ).forEach( key => {
-		// 	let control = this.parentForm.get(key);
-		// 	control.markAsTouched({onlySelf:true});
-		// });
-		// submit if valid
-		if( this.parentForm.valid ) {
-			console.log('.. step 1 valid');
-			return true;
-		} else {
-			console.log('.. invalid');
-			return false;
 		}
 	}
 }
