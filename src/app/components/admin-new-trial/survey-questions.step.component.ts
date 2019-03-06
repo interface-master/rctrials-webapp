@@ -16,6 +16,10 @@ export class AdminNewTrialSurveyQuestionsStepComponent {
 
 	private _editingSurvey: number;
 
+	setEditingSurvey( n:number ) {
+		this._editingSurvey = n;
+	}
+
 	changeSurveyName( event:any ) {
 		var ary = [];
 		this.surveys.value.forEach( i => {
@@ -70,10 +74,6 @@ export class AdminNewTrialSurveyQuestionsStepComponent {
 		} else {
 			ary.value.splice( ary.value.indexOf(idx_group), 1 );
 		}
-	}
-
-	setEditingSurvey( n:number ) {
-		this._editingSurvey = n;
 	}
 
 }
