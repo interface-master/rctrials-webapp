@@ -43,7 +43,7 @@
 				*ngFor='let survey of surveys.controls; index as s'>
 					<div class='col'
 					*ngIf='s < surveys.length-1'>
-						<h5 class='mono'>{{ survey.get('survey_name').value || "N/A" }}</h5>
+						<h4 class='mono'>{{ survey.get('survey_name').value || "N/A" }}</h4>
 						<div class='row'>
 							<span>Applies to Groups:</span>
 							<div class='row'
