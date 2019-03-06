@@ -139,9 +139,11 @@ body {
 		flex-direction: row;
 
 		& > * {
-			margin-right: 10px;
-			&:last-child {
-				margin-right: 0;
+			@media screen and (min-width: $break-form) {
+				margin-right: 10px;
+				&:last-child {
+					margin-right: 0;
+				}				
 			}
 		}
 

@@ -1,4 +1,9 @@
+@import '../../../assets/css/variables';
+
 .row {
+	@media screen and (max-width: $break-form) {
+		flex-direction: column;
+	}
 	&.pad-top {
 		padding-top: 10px;
 	}
