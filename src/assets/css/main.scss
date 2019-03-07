@@ -37,7 +37,7 @@ body {
 
 	&.legal {
 		background-image: url('/assets/img/abstract-black-and-white-blur-261763.jpg');
-		background-size: contain;
+		background-size: 100%;
 		background-position: center top;
 		background-repeat: repeat-y;
 	}
@@ -138,9 +138,23 @@ body {
 		display: flex;
 		flex-direction: row;
 
+		& > * {
+			@media screen and (min-width: $break-form) {
+				margin-right: 10px;
+				&:last-child {
+					margin-right: 0;
+				}				
+			}
+		}
+
 		&--filled > * {
 			flex: 1;
 		}
+	}
+
+	.col {
+		display: flex;
+		flex-direction: column;
 	}
 
 }

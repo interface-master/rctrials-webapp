@@ -82,7 +82,6 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 						.map( s => s.questions.reduce( (a,c) => [...a, c], [] ) )
 						.reduce( (a,c) => [...a, ...c], [] );
 				// fin
-				console.log("admin TRIAL details:",enrichedTrial);
 				return enrichedTrial;
 			}
 			else if ( response.status == 204 ) {
@@ -179,8 +178,6 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 				});
 			}
 		}
-		console.log('questions:', this.questions);
-		console.log("admin trial details CHARTS:", this.charts);
 	}
 
 	clickedQuestion(event:any) {

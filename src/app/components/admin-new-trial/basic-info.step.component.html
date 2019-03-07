@@ -1,0 +1,103 @@
+<div class='mat-headline'>Registration and Trial Dates</div>
+<mat-card [formGroup]='parentForm'>
+	<mat-card-content class='col'>
+		<mat-form-field>
+			<input
+				type='text'
+				name='title'
+				formControlName='title'
+				placeholder='Trial Title'
+				matInput />
+			<mat-error *ngIf="parentForm.controls.title.hasError('required')">
+				Title is <strong>required</strong>
+			</mat-error>
+		</mat-form-field>
+		<div class='row pad-top row--filled'>
+			<mat-form-field>
+				<input
+					type='text'
+					name='regopen'
+					formControlName='regopen'
+					placeholder='Registration Opens:'
+					[matDatepicker]='pickerRO'
+					[min]='start_at[0]'
+					(dateChange)='updateDates($event)'
+					matInput />
+				<mat-error *ngIf="parentForm.controls.regopen.hasError('required')">
+					Registration Open Date is <strong>required</strong>
+				</mat-error>
+				<mat-error *ngIf="parentForm.controls.regopen.hasError('matDatepickerMin')">
+					Must be later than <strong>today</strong>
+				</mat-error>
+				<mat-datepicker-toggle matSuffix [for]='pickerRO'></mat-datepicker-toggle>
+				<mat-datepicker #pickerRO [startAt]='start_at[0]'></mat-datepicker>
+			</mat-form-field>
+			<mat-form-field>
+				<input
+					type='text'
+					name='regclose'
+					formControlName='regclose'
+					placeholder='Registration Closes:'
+					[matDatepicker]='pickerRC'
+					[min]='start_at[1]'
+					(dateChange)='updateDates($event)'
+					matInput />
+					<mat-error *ngIf="parentForm.controls.regclose.hasError('required')">
+						Registration Close Date is <strong>required</strong>
+					</mat-error>
+					<mat-error *ngIf="parentForm.controls.regclose.hasError('matDatepickerMin')">
+						Must be later than <strong>Open Date</strong>
+					</mat-error>
+				<mat-datepicker-toggle matSuffix [for]='pickerRC'></mat-datepicker-toggle>
+				<mat-datepicker #pickerRC [startAt]='start_at[1]'></mat-datepicker>
+			</mat-form-field>
+		</div>
+		<div class='row pad-top row--filled'>
+			<mat-form-field>
+				<input
+					type='text'
+					name='trialstart'
+					formControlName='trialstart'
+					placeholder='Trial Starts:'
+					[matDatepicker]='pickerTS'
+					[min]='start_at[2]'
+					(dateChange)='updateDates($event)'
+					matInput />
+					<mat-error *ngIf="parentForm.controls.trialstart.hasError('required')">
+						Trial Start Date is <strong>required</strong>
+					</mat-error>
+					<mat-error *ngIf="parentForm.controls.trialstart.hasError('matDatepickerMin')">
+						Must be at least after <strong>Registration Closes</strong>
+					</mat-error>
+				<mat-datepicker-toggle matSuffix [for]='pickerTS'></mat-datepicker-toggle>
+				<mat-datepicker #pickerTS [startAt]='start_at[2]'></mat-datepicker>
+			</mat-form-field>
+			<mat-form-field>
+				<input
+					type='text'
+					name='trialend'
+					formControlName='trialend'
+					placeholder='Trial Ends:'
+					[matDatepicker]='pickerTF'
+					[min]='start_at[3]'
+					(dateChange)='updateDates($event)'
+					matInput />
+					<mat-error *ngIf="parentForm.controls.trialend.hasError('required')">
+						Trial End Date is <strong>required</strong>
+					</mat-error>
+					<mat-error *ngIf="parentForm.controls.trialend.hasError('matDatepickerMin')">
+						Must be later than <strong>Trial Start</strong>
+					</mat-error>
+				<mat-datepicker-toggle matSuffix [for]='pickerTF'></mat-datepicker-toggle>
+				<mat-datepicker #pickerTF [startAt]='start_at[3]'></mat-datepicker>
+			</mat-form-field>
+		</div>
+	</mat-card-content>
+	<mat-card-actions align='end'>
+		<button mat-raised-button
+			color='primary'
+			matStepperNext>
+			Next <mat-icon>navigate_next</mat-icon>
+		</button>
+	</mat-card-actions>
+</mat-card>

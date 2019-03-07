@@ -1,0 +1,84 @@
+<div class='mat-headline'>Confirm</div>
+<mat-card>
+	<mat-card-title>
+	</mat-card-title>
+	<mat-card-content>
+		<div class='col'>
+			<h2 class='mat-h2'>{{ basicInfoStepForm.get('title').value || "N/A" }}</h2>
+			<div class='col section'>
+				<h3 class='mat-h3'>Registration</h3>
+				<span> from: </span>
+				<span class='mono'>{{ basicInfoStepForm.get('regopen').value || "N/A" }}</span>
+				<span> to: </span>
+				<span class='mono'>{{ basicInfoStepForm.get('regclose').value || "N/A" }}</span>
+			</div>
+			<div class='col section'>
+				<h3 class='mat-h3'>Trial</h3>
+				<span> from: </span>
+				<span class='mono'>{{ basicInfoStepForm.get('trialstart').value || "N/A" }}</span>
+				<span> to: </span>
+				<span class='mono'>{{ basicInfoStepForm.get('trialend').value || "N/A" }}</span>
+			</div>
+			<div class='col section'>
+				<h3 class='mat-h3'>Groups</h3>
+				<div class='row'>
+					<span>Number of Groups:</span>
+					<span class='mono'>{{ groups.length || "N/A" }}</span>
+				</div>
+				<div class='col'
+				*ngFor='let group of groups.controls; index as g'>
+					<div class='row'>
+						<span>Group {{ g+1 }}:</span>
+						<span class='mono'>{{ group.get('group_name').value || "N/A" }}</span>
+						<span>; Sizing:</span>
+						<span class='mono'>{{ group.get('group_size').value }}</span>
+						<span *ngIf='group.get("group_size").value !== "auto"'
+						> - {{ group.get('group_size_n').value }}</span>
+					</div>
+				</div>
+			</div>
+			<div class='col section'>
+				<h3 class='mat-h3'>Surveys</h3>
+				<div class='col subsection'
+				*ngFor='let survey of surveys.controls; index as s'>
+					<div class='col'
+					*ngIf='s < surveys.length-1'>
+						<h4 class='mat-h4'>{{ survey.get('survey_name').value || "N/A" }}</h4>
+						<div class='row'>
+							<span>Applies to Groups:</span>
+							<div class='row'
+							 *ngFor='let group of survey.get("survey_groups").value; index as g'>
+								<span class='mono'>
+									{{ (trialGroupsStepForm.get("groups").controls)[group].get('group_name').value || "Group "+(group+1) }}
+								</span>
+								<span *ngIf='g < survey.get("survey_groups").value.length-1'>,</span>
+							</div>
+						</div>
+						<div class='col'>
+							<span>Questions:</span>
+							<div
+							*ngFor='let question of survey.get("survey_questions").controls; index as q'>
+								<span class='mono'
+								*ngIf='q < survey.get("survey_questions").controls.length-1'>
+									{{ q+1 }}: {{ question.get('question_text').value }}
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</mat-card-content>
+	<mat-card-actions align='end'>
+		<button mat-button
+			matStepperPrevious>
+			<mat-icon>navigate_before</mat-icon> Previous
+		</button>
+		<button mat-raised-button
+		color='accent'
+		[disabled]='_submitting'
+		(click)='postNewTrial($event)'>
+			Finish
+		</button>
+	</mat-card-actions>
+</mat-card>

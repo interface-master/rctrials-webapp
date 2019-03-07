@@ -18,6 +18,7 @@ import { PrivacyComponent } from '../components/legal/privacy.component';
 import { TermsComponent } from '../components/legal/terms.component';
 
 import { AuthGuard } from '../services/auth.guard';
+import { CanDeactivateGuard } from '../services/can-deactivate.guard';
 
 
 export const routes: Routes = [
@@ -113,6 +114,7 @@ export const routes: Routes = [
 		path: 'new-trial',
 		component: AdminNewTrialComponent,
 		canActivate: [AuthGuard],
+		canDeactivate: [CanDeactivateGuard],
 		data: [{
 			pageName: 'New Trial'
 		}]

@@ -344,8 +344,10 @@ export class SessionService {
 		// await new Promise( r => setTimeout( r, 2000 ) );
 		console.log('get user: is logged in? ', this._loggedIn);
 		if( this._loggedIn ) {
+			console.log('returning from memory');
 			return this._userInfo.value;
 		} else {
+			console.log('awaiting validateUserSession');
 			return await this.validateUserSession();
 		}
 	}

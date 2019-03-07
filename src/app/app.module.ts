@@ -34,6 +34,10 @@ import { AboutComponent } from './components/about/about.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminNewTrialComponent } from './components/admin-new-trial/admin-new-trial.component';
+import { AdminNewTrialBasicInfoStepComponent } from './components/admin-new-trial/basic-info.step.component';
+import { AdminNewTrialTrialGroupsStepComponent } from './components/admin-new-trial/trial-groups.step.component';
+import { AdminNewTrialSurveyQuestionsStepComponent } from './components/admin-new-trial/survey-questions.step.component';
+import { AdminNewTrialSummaryStepComponent } from './components/admin-new-trial/summary.step.component';
 import { AdminRegistrationComponent } from './components/admin-registration/admin-registration.component';
 import { AdminTrialDetailsComponent } from './components/admin-trial-details/admin-trial-details.component';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
@@ -52,6 +56,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TermsComponent } from './components/legal/terms.component';
 
 import { ApiService } from './services/api.service';
+import { DialogService } from './services/dialog.service';
 import { SessionService } from './services/session.service';
 import { SpinnerService } from './services/spinner.service';
 
@@ -62,6 +67,10 @@ import { SpinnerService } from './services/spinner.service';
 		AdminLoginComponent,
 		AdminDashboardComponent,
 		AdminNewTrialComponent,
+		AdminNewTrialBasicInfoStepComponent,
+		AdminNewTrialTrialGroupsStepComponent,
+		AdminNewTrialSurveyQuestionsStepComponent,
+		AdminNewTrialSummaryStepComponent,
 		AdminTrialDetailsComponent,
 		AppComponent,
 		AppHeaderComponent,
@@ -112,6 +121,7 @@ import { SpinnerService } from './services/spinner.service';
 	],
 	providers: [
 		ApiService,
+		DialogService,
 		SessionService,
 		SpinnerService,
 	],
