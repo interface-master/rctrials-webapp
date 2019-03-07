@@ -64,6 +64,7 @@ export class AdminNewTrialSummaryStepComponent {
 			if( response.data.status !== 200 ) {
 				let message = response.data.message || "No error message was specified.";
 				this.dialog.open( "Creating New Trial Failed", message );
+				this._submitting = true;
 			} else {
 				const ret:Subscription = this.dialog.open( "New Trial Created", `Your trial has been created. The ID of your trial is: ${response.data.tid}.\nIt has ${response.data.groups} groups, ${response.data.surveys} surveys, and ${response.data.questions} questions.` )
 				.subscribe( val => {
