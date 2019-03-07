@@ -18,6 +18,19 @@
 	}
 }
 
+.mat-h1, .mat-h2, .mat-h3, .mat-h4 {
+	font-weight: 700;
+}
+.mat-h3 {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid rgba(0,0,0,.12);
+}
+.mat-h4 {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
 .full-flex {
 	flex: 1;
 }
@@ -86,6 +99,22 @@ mat-expansion-panel {
 	}
 }
 
+.mono {
+	font-family: monospace;
+	font-weight: bold;
+	font-size: 16px;
+	padding-left: 7px;
+	font-size: 96%;
+	padding: 2px 4px;
+	background-color: #f9f2f4;
+	border-radius: 4px;
+	color: #3f51b5;
+
+	&:first-child {
+		padding-left: 0;
+	}
+}
+
 form.newTrialForm {
 	margin: 20px auto auto;
 	max-width: 800px;
@@ -99,16 +128,6 @@ form.newTrialForm {
 			}
 		}
 
-		.mono {
-			font-family: monospace;
-			font-weight: bold;
-			font-size: 16px;
-			padding-left: 7px;
-
-			&:first-child {
-				padding-left: 0;
-			}
-		}
 
 		.section {
 			border-top: 1px solid rgba(0,0,0,.12);

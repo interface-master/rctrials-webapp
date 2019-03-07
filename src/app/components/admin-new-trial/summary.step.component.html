@@ -9,14 +9,14 @@
 				<h3 class='mat-h3'>Registration</h3>
 				<span> from: </span>
 				<span class='mono'>{{ basicInfoStepForm.get('regopen').value || "N/A" }}</span>
-				<span> to </span>
+				<span> to: </span>
 				<span class='mono'>{{ basicInfoStepForm.get('regclose').value || "N/A" }}</span>
 			</div>
 			<div class='col section'>
 				<h3 class='mat-h3'>Trial</h3>
 				<span> from: </span>
 				<span class='mono'>{{ basicInfoStepForm.get('trialstart').value || "N/A" }}</span>
-				<span> to </span>
+				<span> to: </span>
 				<span class='mono'>{{ basicInfoStepForm.get('trialend').value || "N/A" }}</span>
 			</div>
 			<div class='col section'>
@@ -43,7 +43,7 @@
 				*ngFor='let survey of surveys.controls; index as s'>
 					<div class='col'
 					*ngIf='s < surveys.length-1'>
-						<h4 class='mono'>{{ survey.get('survey_name').value || "N/A" }}</h4>
+						<h4 class='mat-h4'>{{ survey.get('survey_name').value || "N/A" }}</h4>
 						<div class='row'>
 							<span>Applies to Groups:</span>
 							<div class='row'
@@ -76,7 +76,8 @@
 		</button>
 		<button mat-raised-button
 		color='accent'
-		(click)='newTrial($event)'>
+		[disabled]='_submitting'
+		(click)='postNewTrial($event)'>
 			Finish
 		</button>
 	</mat-card-actions>
