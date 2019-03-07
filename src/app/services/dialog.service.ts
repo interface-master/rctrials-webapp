@@ -10,7 +10,7 @@ import { DialogModalComponent } from '../components/dialog-modal/dialog-modal.co
  * TODO: better modal implementation that doesn't use window.confirm
  */
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class DialogService {
 
@@ -22,21 +22,33 @@ export class DialogService {
 	// refactor existing use of DialogModalComponent
 	open(title:string, text:string): Observable<any> {
 		const ack = this.dialog.open( DialogModalComponent, {
-			width: '350px;',
-			data: { title, text }
+			data: {
+				title,
+				text,
+				buttons: {
+					n: 1
+				}
+			},
+			width: '350px;'
 		});
 		return ack.afterClosed();
 	}
 
 	/**
-   * Ask user to confirm an action. `message` explains the action and choices.
-   * Returns observable resolving to `true`=confirm or `false`=cancel
-   */
-  confirm(title:string, text:string): Observable<any> {
+	 * Ask user to confirm an action. `message` explains the action and choices.
+	 * Returns observable resolving to `true`=confirm or `false`=cancel
+	 */
+	confirm(title:string, text:string): Observable<any> {
 		const ack = this.dialog.open( DialogModalComponent, {
-			width: '350px;',
-			data: { title, text }
+			data: {
+				title,
+				text,
+				buttons: {
+					n: 2
+				},
+			},
+			width: '350px;'
 		});
 		return ack.afterClosed();
-  };
+	};
 }
