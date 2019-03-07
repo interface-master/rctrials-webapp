@@ -142,62 +142,27 @@ export class AdminNewTrialComponent implements OnInit {
 		return Math.max( ...allIds ) + 1;
 	}
 
-	changeInput(event: any, index?: number) {
-		switch( event.target.name ) {
-
-			case 'feature_name':
-				var ary = [];
-				this.features.value.forEach( i => {
-					(i['feature_name'].trim().length > 0) ? ary.push(1) : ary.push(0);
-				});
-				if( ary[ary.length-1] == 1 ) {
-					this.features.push( this.createFeature( this.features.length ) );
-				}
-				if( ary.length > 2
-					&& ary[ary.length-1] == 0
-					&& ary[ary.length-2] == 0
-				) {
-					this.features.removeAt( this.features.length-1 );
-				}
-				break;
-
-			case 'survey_name':
-				break;
-
-			case 'question_text':
-				break;
-		}
-	}
-
-	newTrial(event) {
-		let trial = this.newTrialForm.value;
-		// remove auto-generated blank FEATURE
-		trial.features = trial.features.filter( i => i.feature_name.length > 0 );
-		// remove auto-generated blank SURVEY
-		trial.surveys = trial.surveys.filter( i => i.survey_name.length > 0 );
-		// remove auto-generated blank QUESTIONS
-		trial.surveys.map( s =>
-			s.survey_questions = s.survey_questions.filter( i => i.question_text.length > 0 )
-		);
-		// send data
-		const config = {
-			headers: {'Authorization': `Bearer ${ this.session.access_token }`}
-		};
-		const data = {
-			trial: JSON.stringify(trial)
-		};
-		axios.post( this.api.newTrial, data, config) // TODO: remove hard-coded URLs into a service
-		.then( (response) => {
-			if( response.data.status !== 200 ) {
-				let message = response.data.message || "No error message was specified.";
-				this.session.openDialog( "Creating New Trial Failed", message );
-			} else {
-				this.session.openDialog( "New Trial Created", `Your trial has been created. The ID of your trial is: ${response.data.tid}.\nIt has ${response.data.groups} groups, ${response.data.surveys} surveys, and ${response.data.questions} questions.` );
-			}
-		})
-		.catch( (error) => {
-			console.warn(error);
-		});
-	}
+	// TODO: the code below should be used when the features are brought back
+	// changeInput(event: any, index?: number) {
+	// 	switch( event.target.name ) {
+	//
+	// 		case 'feature_name':
+	// 			var ary = [];
+	// 			this.features.value.forEach( i => {
+	// 				(i['feature_name'].trim().length > 0) ? ary.push(1) : ary.push(0);
+	// 			});
+	// 			if( ary[ary.length-1] == 1 ) {
+	// 				this.features.push( this.createFeature( this.features.length ) );
+	// 			}
+	// 			if( ary.length > 2
+	// 				&& ary[ary.length-1] == 0
+	// 				&& ary[ary.length-2] == 0
+	// 			) {
+	// 				this.features.removeAt( this.features.length-1 );
+	// 			}
+	// 			break;
+	//
+	// 	}
+	// }
 
 }
