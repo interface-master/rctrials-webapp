@@ -96,16 +96,18 @@
 								placeholder='Question Type:'
 								formControlName='question_type'>
 								<mat-option value='text'>Text</mat-option>
-								<mat-option value='mc'>Multiple Choice</mat-option>
-								<mat-option value='slider'>Slider</mat-option>
 								<mat-option value='likert'>Likert-type</mat-option>
+								<mat-option value='slider'>Slider</mat-option>
+								<mat-option value='radio'>Choose One of Many</mat-option>
+								<mat-option value='check'>Choose Many of Many</mat-option>
 							</mat-select>
 						</mat-form-field>
 					</div>
 					<div [formGroupName]='q' class='row'
-						*ngIf='question.get("question_type").value == "mc"
+						*ngIf='question.get("question_type").value == "likert"
 						|| question.get("question_type").value == "slider"
-						|| question.get("question_type").value == "likert"'>
+						|| question.get("question_type").value == "radio"
+						|| question.get("question_type").value == "check"'>
 						<mat-form-field class='full-flex indent'>
 							<input
 								matInput
