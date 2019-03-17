@@ -71,8 +71,8 @@
 						<div class='col'>
 							<div>item: <span class='bold'>{{q+1}}</span>; qid: <span>{{question.qid}}</span></div>
 							<div>text: <span class='bold'>{{question.text}}</span></div>
-							<div>type: <span class='bold'>{{question.type == "text" ? "Free Text" : question.type == "mc" ? "Multiple Choice" : ""}}</span></div>
-							<div *ngIf="question.type=='mc'">options: <span class='bold'>{{question.options}}</span></div>
+							<div>type: <span class='bold'>{{question.type}}</span></div>
+							<div *ngIf="question.options!=''">options: <span class='bold'>{{question.options}}</span></div>
 						</div>
 						<canvas [attr.id]="'chart-' + question.qid">{{ charts[question.qid] }}</canvas>
 					</li>
