@@ -134,6 +134,10 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 			}
 			if( this.questions[q].answers ) {
 				let oldUID = '', dataPoints = [], datasets = [];
+				let options = this.questions[q].options;
+				if( options.indexOf("|") > -1 ) {
+					options = options.split("|").map(i=>i.trim());
+				}
 				for( let v = 0; v < this.questions[q].answers.length; v++ ) {
 					let a = this.questions[q].answers[v];
 					if( oldUID != a.uid ) {
@@ -147,7 +151,12 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 						oldUID = a.uid;
 						dataPoints = [];
 					}
-					dataPoints.push({ y: parseInt(a.text), x: a.timestamp });
+					// dataPoints.push({ y: parseInt(a.text), x: a.timestamp });
+					if( options.indexOf(a.text) > -1 ) {
+						dataPoints.push({ y: options.indexOf(a.text), x: a.timestamp });
+					} else {
+						dataPoints.push({ y: a.text, x: a.timestamp });
+					}
 				}
 				// build chart
 				let qid = this.questions[q].qid;
