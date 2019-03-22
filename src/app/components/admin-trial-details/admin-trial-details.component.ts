@@ -140,6 +140,7 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 				}
 				for( let v = 0; v < this.questions[q].answers.length; v++ ) {
 					let a = this.questions[q].answers[v];
+					// set up new series (only if series data)
 					if( oldUID != a.uid ) {
 						let r = (23 * datasets.length); // prime so that goes through all the shades
 						datasets.push({
@@ -151,7 +152,6 @@ export class AdminTrialDetailsComponent implements OnInit, OnDestroy {
 						oldUID = a.uid;
 						dataPoints = [];
 					}
-					// dataPoints.push({ y: parseInt(a.text), x: a.timestamp });
 					if( options.indexOf(a.text) > -1 ) {
 						dataPoints.push({ y: options.indexOf(a.text), x: a.timestamp });
 					} else {
