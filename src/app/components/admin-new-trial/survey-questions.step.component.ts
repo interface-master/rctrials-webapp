@@ -36,6 +36,23 @@ export class AdminNewTrialSurveyQuestionsStepComponent {
 		}
 	}
 
+	changeIntervalPreTest( event:any ) {
+		if( event.checked ) {
+			let allGroups = this.groups.controls.map( g => g.get('group_id').value );
+			let survey = <FormGroup>this.surveys.controls[ this._editingSurvey ];
+			survey.get('survey_groups').setValue( allGroups );
+		}
+	}
+
+	changeGroupAssignment(event: any, ary: FormControl, idx_group: number) {
+		if( event.target.checked == true ) {
+			ary.value.push( idx_group );
+			ary.value.sort();
+		} else {
+			ary.value.splice( ary.value.indexOf(idx_group), 1 );
+		}
+	}
+
 	changeQuestionText( event:any ) {
 		var ary = [];
 		// figure out which survey is being edited
@@ -52,23 +69,6 @@ export class AdminNewTrialSurveyQuestionsStepComponent {
 			&& ary[ary.length-2] == 0
 		) {
 			questions.removeAt( questions.length-1 );
-		}
-	}
-
-	changeIntervalPreTest( event:any ) {
-		if( event.checked ) {
-			let allGroups = this.groups.controls.map( g => g.get('group_id').value );
-			let survey = <FormGroup>this.surveys.controls[ this._editingSurvey ];
-			survey.get('survey_groups').setValue( allGroups );
-		}
-	}
-
-	changeGroupAssignment(event: any, ary: FormControl, idx_group: number) {
-		if( event.target.checked == true ) {
-			ary.value.push( idx_group );
-			ary.value.sort();
-		} else {
-			ary.value.splice( ary.value.indexOf(idx_group), 1 );
 		}
 	}
 
