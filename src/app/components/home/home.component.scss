@@ -4,12 +4,12 @@ mat-card {
 	mat-card-content {
 		font-weight: 300;
 		& > h1 {
-			font-size: 2.88rem;
+			font-size: 2.45rem;
 			@media screen and (max-width: $break-card) {
-				font-size: 2.5rem;
+				font-size: 2.0rem;
 			}
 			@media screen and (max-width: $break-title) {
-				font-size: 2.25rem;
+				font-size: 1.875rem;
 			}
 			@media screen and (max-width: $break-mid) {
 				font-size: 1.875rem;

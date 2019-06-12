@@ -26,7 +26,7 @@
 		<div class='polyptych'>
 			<div>
 				<h3>Hosted Solution</h3>
-				<p>Use the solution hosted at <a href='#'>RCTrials.tk</a> to define your study along with the <a href='#'>Surveyor</a> app to collect survey responses.</p>
+				<p>Use the solution hosted at <a href='#'>RCTrials.tk</a> to define your study along with the <a href='#'>RCTrials</a> app to collect survey responses.</p>
 			</div>
 			<div>
 				<h3>Integrated</h3>
@@ -44,17 +44,17 @@
 
 		<h2>Hosted Solution</h2>
 		<p>The <em>Hosted Solution</em> allows the researcher to define the parameters of the study - the start and end dates for the registration and trial, how many groups, what features are enabled for each group, and what surveys each group needs to complete. The system generates a four-digit code which the researcher then gives to the trial participants. When the participants submit survey answers the researcher is able to see aggregate information on the survey responses from all participants in each group.</p>
-		<p>The participants download the free <em>Surveyor</em> app and join the trial with the given four-digit code. The app will ask all participants to fill out the pre-test surveys, and when the trial begins split the participants into the defined groups. During and after the trial other surveys can be requested and will appear in the app for the participants in that group.</p>
+		<p>The participants download the free <em>RCTrials</em> app and join the trial with the given four-digit code. The app will ask all participants to fill out the pre-test surveys, and when the trial begins split the participants into the defined groups. During and after the trial other surveys can be requested and will appear in the app for the participants in that group.</p>
 
 		<h2>Integrated Solution</h2>
-		<p>With the <em>Integrated Solution</em> the researcher still uses the hosted service to define the parameters of the study, however they are then able to integrate their own app with the <em>RCTrials API</em>. The API is used by the <em>Surveyor</em> app, which means the researcher has complete flexibility and control over how the features and surveys are implemented for their study.</p>
+		<p>With the <em>Integrated Solution</em> the researcher still uses the hosted service to define the parameters of the study, however they are then able to integrate their own app with the <em>RCTrials API</em>. The API is used by the <em>RCTrials</em> app, which means the researcher has complete flexibility and control over how the features and surveys are implemented for their study.</p>
 		<p>Use the <em>Integrated Solution</em> if the research deals with testing features of a mobile app, or testing effects of different interventions delivered via a mobile app. Integrating with the API allows the researcher to use all the online features, while delivering the group assignment, feature assignment, and surveys directly to the mobile app users.</p>
 		<p>The API exposes endpoints that allow the developer to control when the user registers with the research server and receive their unique identifier, when requests for surveys are sent, and when responses are sent back to the server. This means when the participants are using the researcher's app, they can be placed in different groups, and have different app features enabled or disabled based on their assignment. Later, when they are surveyed, valuable information can be gathered about the feedback from different participants based on their group assignment.</p>
 
 		<h2>Custom Solution</h2>
 		<p>Because this entire project is Open Source, it is possible to use in custom implementations. The project consists of 3 major parts, which are split into separate GitHub repositories.</p>
 		<p>The <em><a href='https://github.com/interface-master/rctrials-api'>Research Server API</a></em>, which is responsible for managing the connection with the database, managing researcher and participant accounts, and exposing the API endpoints to the internet. Fork this repo if you wish to manage your own data or modify the API endpoints.</p>
-		<p>The <em><a href='https://github.com/interface-master/rctrials-android-app'>Surveyor Android App</a></em>, which allows participants to connect to the <em>Research Server</em>, register into a trial, query for surveys, and submit survey answers. Fork this repo if you wish to create an app that connects to a custom server, or has modified app functionality.</p>
+		<p>The <em><a href='https://github.com/interface-master/rctrials-android-app'>RCTrials Android App</a></em>, which allows participants to connect to the <em>Research Server</em>, register into a trial, query for surveys, and submit survey answers. Fork this repo if you wish to create an app that connects to a custom server, or has modified app functionality.</p>
 		<p>And the <em><a href='https://github.com/interface-master/rctrials-webapp'>WebApp</a></em>, which is the web front-end built in Angular that allows the administration of the <em>Research Server</em>. Fork this repo if you are working with a custom <em>Research Server</em> or if you wish to modify any of the front-end, reporting, or exporting functionality.</p>
 
 	</mat-card-content>
