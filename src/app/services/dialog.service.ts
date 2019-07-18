@@ -34,6 +34,19 @@ export class DialogService {
 		return ack.afterClosed();
 	}
 
+  image(image:string): Observable<any> {
+    const ack = this.dialog.open( DialogModalComponent, {
+      data: {
+        image,
+        buttons: {
+          n: 1
+        }
+      },
+      width: '100%;'
+    });
+    return ack.afterClosed();
+  }
+
 	/**
 	 * Ask user to confirm an action. `message` explains the action and choices.
 	 * Returns observable resolving to `true`=confirm or `false`=cancel

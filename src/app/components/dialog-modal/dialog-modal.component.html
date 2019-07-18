@@ -1,6 +1,7 @@
 <h2 mat-dialog-title>{{ data.title }}</h2>
-<mat-dialog-content class='mat-body'>{{ data.text }}</mat-dialog-content>
+<mat-dialog-content class='mat-body' *ngIf='data.image'><img src='{{ data.image }}' alt='' /></mat-dialog-content>
+<mat-dialog-content class='mat-body' *ngIf='data.text'>{{ data.text }}</mat-dialog-content>
 <mat-dialog-actions>
-	<button mat-button [mat-dialog-close]='false' *ngIf='data.buttons.n == 2'>No</button>
+	<button mat-button [mat-dialog-close]='false' *ngIf='data.buttons && data.buttons.n && data.buttons.n == 2'>No</button>
 	<button mat-button [mat-dialog-close]='true'>Ok</button>
 </mat-dialog-actions>
