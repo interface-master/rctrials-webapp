@@ -6,26 +6,32 @@
 			<li>
 				<a routerLink='researchers'>Researchers ›</a>
 				<ul>
-					<li>Registering an account</li>
-					<li>Configuring a trial</li>
-					<li>Collecting data</li>
+					<li><a routerLink='researchers' fragment='register'>Registering an account</a></li>
+					<li><a routerLink='researchers' fragment='configure'>Configuring a trial</a></li>
+					<li><a routerLink='researchers' fragment='collect'>Collecting data</a></li>
+					<!-- <li><a routerLink='researchers' fragment='report'>Reporting</a></li> -->
 					<li>Reporting</li>
 				</ul>
 			</li>
 			<li>
 				<a routerLink='participants'>Participants ›</a>
 				<ul>
-					<li>Installing the app</li>
-					<li>Registering with a trial</li>
-					<li>Submitting survey responses</li>
+					<li><a routerLink='participants' fragment='install'>Installing the app</a></li>
+					<li><a routerLink='participants' fragment='register'>Registering with a trial</a></li>
+					<li><a routerLink='participants' fragment='submit'>Submitting survey responses</a></li>
 				</ul>
 			</li>
 			<li>
 				<a routerLink='developers'>Developers ›</a>
 				<ul>
-					<li><a href='/assets/apidoc/index.html'>API integration</a></li>
-					<li>Running the projects locally</li>
-					<li>Contributing</li>
+					<li>
+						<a routerLink='developers' fragment='api'>API integration</a>
+						<ul>
+							<li><a href='/assets/apidoc/index.html'>API javadocs</a></li>
+						</ul>
+					</li>
+					<li><a routerLink='developers' fragment='running'>Running the projects locally</a></li>
+					<li><a routerLink='developers' fragment='contributing'>Contributing</a></li>
 				</ul>
 			</li>
 		</ul>

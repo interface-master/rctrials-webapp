@@ -1,12 +1,148 @@
 <mat-card class='content'>
 	<mat-card-content>
 		<h1 class='mat-display-4'>Documentation for Developers</h1>
-		<ul>
-			<li><a href='/assets/apidoc/index.html'>API integration</a></li>
-			<li>Running the projects locally</li>
-			<li>Contributing</li>
-		</ul>
-		<p><i>More content coming soon.</i></p>
-		<p>For now, <i>apidocs</i> are available for the Research Server integration.</p>
+		<p class='mat-body'>This section outlines how to use the RCTrials project by developers looking to integrate with the RCTrials hosted solution through the API, or clone and modify the project for their own purposes.</p>
+		<hr/>
+
+		<h2 class='mat-h2'><span id='api'></span>API integration</h2>
+		<p class='mat-body'>The <em>RCTrials App</em> connects to the <em>Research Server</em> through a REST API. As a developer if you wish to connect the API and make the same calls as the mobile app you can do so through your own cusom implementation. This is useful if you wish to integrate the surveys into your own mobile or web app. Making the survey process part of your own application means your participants have one less app to download.</p>
+		<h3 class='mat-h3'>Architecture overview</h3>
+		<img src='/assets/img/docs/research_server_architecture_dfd.png' alt='' class='img-padded-left img-padded-bottom' />
+		<p class='mat-body'>First, to register with a trial the user must POST a request to the registration endpoint. The endpoint returns a unique ID and any pre-test surveys as part of the same payload. This unique ID is used to link the answers of the trial participant across all the surveys, however, since no personal information is collected, it does not and should not be used to identify the trial particiapnts.</p>
+		<p class='mat-body'>The ID is used to query the surveys endpoint at any time to receive a list of available surveys for that participant and the group to which they were assigned. Once the user answers are gathered they can be posted to the answers endpoint to be recorded in the database.</p>
+
+		<h3 class='mat-h3'>Basic example</h3>
+
+		<p class='mat-body'>The following example illustrates step-by-step how to validate a Trial ID, register with the trial, retrieve surveys, and submit responses using Postman. Postman is a tool for sending requests to an API for testing and development purposes. For more information on Postman, <a href='https://www.getpostman.com/' target='_blank'>check out the Postman website</a>.</p>
+
+		<h4 class='mat-h4'>Validate Trial ID</h4>
+		<div class='p_row p_row--thirty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>First, if you wish to validate the Trial ID exists in the system before proceeding with registration, an endpoint is available that will return an integer value of zero (0) or one (1) indicating whether the Trial ID is valid. For testing purposes, a trial with ID <em>ab12</em> was created. Notice the url <em>/api/validate/trial/ab12</em> is used when sending a GET request, and a value of <em>1</em> is returned.</p>
+			</div>
+			<img src='/assets/img/docs/postman_validate_trial.gif' alt='' class='img-padded-left img-padded-bottom' />
+		</div>
+
+		<h4 class='mat-h4'>Register into trial</h4>
+		<div class='p_row p_row--thirty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>Second, to register with the trial a POST request with an empty body is sent to <em>/api/register/ab12</em>, which returns the trial participant's unique ID and any pre-test surveys in the same payload.</p>
+			</div>
+			<img src='/assets/img/docs/postman_register.gif' alt='' class='img-padded-left img-padded-bottom'/>
+		</div>
+
+		<h4 class='mat-h4'>Check for surveys</h4>
+		<div class='p_row p_row--thirty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>Third, to check for new surveys make a GET request to <em>/api/trial/ab12/surveys</em> with the participant's unique ID in the body of the request under the <em>uuid</em> key.</p>
+				<p class='mat-body'>The result will include all available surveys and questions for the given participant in the given trial except for pre-test surveys. Even if the pre-test surveys are still available to be filled out by that participant they are not sent again as those surveys and questions are only sent during the registration phase. It is advised that surveys and questions are stored locally and answers are sent when the entire survey has been filled out.</p>
+			</div>
+			<img src='/assets/img/docs/postman_surveys.gif' alt='' class='img-padded-left img-padded-bottom'/>
+		</div>
+
+		<div class='p_row p_row--thirty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>The response contains the Trial ID (<em>tid</em>), the Survey ID (<em>sid</em>), and all the questions and their IDs (<em>qid</em>). This information is necessary for submitting the answers back to the server.</p>
+			</div>
+			<img src='/assets/img/docs/postman_survey_questions.gif' alt='' class='img-padded-left img-padded-bottom'/>
+		</div>
+
+		<h4 class='mat-h4'>Send answers</h4>
+		<div class='p_row p_row--thirty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>Once the participant has provided responses to all the questions, they can be sent to the server in a single batch. The endpoint URL is <em>/api/trial/ab12/survey/1</em> where "ab12" is the Trial ID, and "1" is the Survey ID (<em>sid</em>) from the above payload.</p>
+				<p class='mat-body'>The POST body should include the <em>uuid</em> of the participant, and an <em>answers</em> JSON array of objects containing the Question ID (<em>qid</em>) and the answer.</p>
+				<p class='mat-body'>If the request is made correctly a confirmation object will show the status of the request and the answer values that were recorded for each question.</p>
+			</div>
+			<img src='/assets/img/docs/postman_answers.gif' alt='' class='img-padded-left img-padded-bottom'/>
+		</div>
+
+		<p class='mat-body'><a href='/assets/apidoc/index.html'>Complete API javadocs</a> are available for more detailed explanations of all the endpoints, the expected inputs and outputs, request and response samples, and possible errors for the participant and admin endpoints.</p>
+		<hr/>
+
+		<h2 class='mat-h2'><span id='running'></span>Running the projects locally</h2>
+		<div class='p_row'>
+			<div class='p_col'>
+				<p class='mat-body'>The code for the entire project is available on GitHub. It is split into three separate repositories by function.</p>
+
+			</div>
+			<img src='/assets/img/docs/git_repos.gif' alt='List of RCTrials Git repositories' />
+		</div>
+
+		<h3 class='mat-h3'>rctrials-api</h3>
+		<p class='mat-body'>This repository contains the code for the Research Server REST API. It is responsible for exposing endpoints to the internet that receive instructions for administrators or participants, and communicate those instructions as read/write operations to the database. It is built to run on a LAMP server and contains a Vagrant file to easily generate a virtual machine with all the necessary configuration.</p>
+
+		<div class='p_row p_row--fourty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>First you will need to have <a href='https://www.virtualbox.org/wiki/Downloads' target='_blank'>VirtualBox</a> and <a href='https://www.vagrantup.com/downloads.html' target='_blank'>Vagrant</a> in order to use the vagrant file. Once downloaded and installed you can use the terminal to navigate to the vagrant folder and execute <em>vagrant up</em> to create and provision the "RCTrials Research Server".</p>
+			</div>
+			<img src='/assets/img/docs/vagrant_up.gif' alt='running vagrant up in a terminal to observe the installation of a new virtualbox machine' class='img-padded-left img-padded-bottom' />
+		</div>
+
+		<div class='p_row p_row--fourty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>Once the machine is running you can access it through the terminal by running <em>vagrant ssh</em>. From there to access the database you can run <em>mysql -uroot -prooot rctrials</em> to connect to MySQL. By default the database is empty, but if you wish you can import a sample database from the <em>/sql/</em> folder.</p>
+			</div>
+			<img src='/assets/img/docs/vagrant_db.gif' alt='running vagrant ssh to connect to the machine and running database commands' class='img-padded-left img-padded-bottom' />
+		</div>
+
+		<div class='p_row p_row--fourty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>You can test each endpoint of the server with Postman. A <a href="/assets/postman_collection.json">sample collection</a> is available to be imported into Postman that will set up all the necessary requests. When testing, make sure correct username and password credentials are supplied for the login endpoint, and the correct access or refresh tokens are provided when testing protected endpoints.</p>
+			</div>
+			<figure class='img-padded-left img-padded-bottom'>
+				<a href='#' (click)='imagePopup($event)' class='max-width-height'><img src='/assets/img/docs/postman_collection.gif' class='' alt='importing and running postman tests' /></a>
+				<figcaption>click the image for a detailed view</figcaption>
+			</figure>
+		</div>
+
+		<h3 class='mat-h3'>rctrials-webapp</h3>
+
+		<p class='mat-body'>This repository contains the code for the web interface that allows for creation of admin accounts, defining trials, and viewing the results. It is essentially this website you are currently viewing.</p>
+
+		<div class='p_row p_row--fourty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>Installation is simple, after you have cloned the repo, run <em>npm install</em> in the cloned folder.</p>
+			</div>
+			<img src='/assets/img/docs/npm_install.gif' alt='' class='img-padded-left img-padded-bottom' />
+		</div>
+
+		<div class='p_row p_row--fourty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>Once all the modules are installed run <em>npm start</em>. Once the application has finished compiling you should be able to navigate to <a href='http://localhost:4200/' target='_blank'>http://localhost:4200/</a> to view the project.</p>
+			</div>
+			<img src='/assets/img/docs/npm_start.gif' alt='' class='img-padded-left img-padded-bottom' />
+		</div>
+
+		<h3 class='mat-h3'>rctrials-android-app</h3>
+
+		<div class='p_row p_row--fourty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>This repository contains the code for the Android App and can be imported into Android Studio. Once imported, the code </p>
+				<p class='mat-body'>The code under <em>/app/java/ca.interfacemaster.surveyor</em> are the main application views - the Dashboard, the input view to register into a trial, and the input view to fill out a survey. Those views are linked to <em>/res/layout</em> XML files that define the layouts.</p>
+				<p class='mat-body'>The rest of the code is broken out into supporting <em>/classes</em>, <em>/adapters</em>, and <em>/services</em>. </p>
+			</div>
+			<img src='/assets/img/docs/android_studio_code.gif' alt='' class='img-padded-left img-padded-bottom' />
+		</div>
+
+		<div class='p_row p_row--fourty p_clear'>
+			<div class='p_col'>
+				<p class='mat-body'>You can use the AVD Studio to launch different emulators to test the app on different devices. You can also load the app onto a connected device set into development mode.</p>
+			</div>
+			<img src='/assets/img/docs/android_studio_emulate.gif' alt='' class='img-padded-left img-padded-bottom' />
+		</div>
+
+
+		<hr/>
+
+		<h2 class='mat-h2'><span id='contributing'></span>Contributing</h2>
+		<div class='p_row'>
+			<div class='p_col'>
+				<p class='mat-body'>The source code for the entire project is available on GitHub in three separate repositories. At the current time they can be found here: <a href='https://github.com/search?q=user%3Ainterface-master+rctrials' target='_blank'>https://github.com/interface-master/</a></p>
+				<p class='mat-body'>Please help the project grow by contributing features, issues, and pull requests.</p>
+			</div>
+			<img src='/assets/img/docs/git_repos.gif' alt='List of RCTrials Git repositories' />
+		</div>
+
 	</mat-card-content>
 </mat-card>

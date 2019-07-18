@@ -1,12 +1,86 @@
 <mat-card class='content'>
 	<mat-card-content>
 		<h1 class='mat-display-4'>Documentation for Researchers</h1>
-		<ul>
-			<li>Registering an account</li>
-			<li>Configuring a trial</li>
-			<li>Collecting data</li>
-			<li>Reporting</li>
-		</ul>
-		<p><i>Content coming soon.</i></p>
+		<p>This section outlines how to work with the RCTrials project for researchers looking to gather survey responses from trial participants.</p>
+		<hr/>
+
+		<h2 class='mat-h2'><span id='register'></span>Registering an account</h2>
+		<img src='/assets/img/docs/register.gif' alt='Filling out the Registration form' style='width:230px;' />
+		<p>First, you must create an account on the site. To do that, navigate to the <a routerLink='/register'>Registration</a> page and fill out the form.</p>
+		<hr/>
+
+		<h2 class='mat-h2'><span id='configure'></span>Configuring a trial</h2>
+		<img src='/assets/img/docs/create_new_trial.gif' alt='Creating a New Trial' />
+		<p>Once you are logged in, you can specify the parameters of your trial by clicking the "New Trial" button from the Dashboard screen.</p>
+		<hr/>
+
+		<img src='/assets/img/docs/new_trial_basic_info.gif' alt='Filling out the Basic Info step' />
+		<p>To define the parameters of your trial there are three main steps - "Basic Info", "Groups", and "Surveys".</p>
+		<p>The "Basic Info" step asks you to provide the "Trial Title", which is used on the Dashboard screen to help you identify your trials. The "Registration" dates, which are used to determine when participants are allowed to register into the trial. If the closing date is left blank, then participants may continue to register indefinitely. Finally, the "Trial" dates, which are used to determine when then actual trial is taking place. This is useful when there are key dates or milestones during the trial. Leaving the ending date blank will allow participants to remain in the trial indefinitely and continue submitting questionnaire responses.</p>
+		<hr/>
+
+		<img src='/assets/img/docs/new_trial_groups.gif' alt='Filling out the Groups step' />
+		<p>The "Groups" step allows you to configure how to split up the participants into groups. When new users register into your trial they will be randomly assigned into one of the created groups. On the next step you can define which surveys will be administered to which group.</p>
+		<hr/>
+
+		<img src='/assets/img/docs/new_trial_surveys.gif' alt='Filling out the Surveys step' />
+		<p>The "Surveys" step allows you to define the surveys for the trial, and which groups will receive which surveys at what time.</p>
+
+		<p>First, provide the "Survey Name" that will be shown to the participant when they receive the survey.</p>
+		<p>Then, specify when the survey should be delivered to the participant. "Pretest" is delevered at the trial start date, or immediately upon registration if the trial is in progress. "During Treatment" will repeatedly deliver the survey allowing the participant to submit responses every <i>n</i> days. "Posttest" is delivered at the trial end date.</p>
+		<p>You can then specify which groups should receive the given survey. This can be useful when you do not wish to deliver certain surveys to a control or experiment group.</p>
+		<p>Then you need to define the questions for this survey. Each question has the "Question Text", and depending on the "Question Type" there may be a need for "Question Options". Options are provided in a pipe ("|") delimited format, and the input control will adjust to the available options. For example a radio button input that allows the participant to select one of many options will display as many radio buttons as there are pipe delimited options.</p>
+
+		<table class='question_table'>
+			<thead>
+				<tr><th>Question Type</th><th></th><th>Input Type</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>Text:</td><td>
+					<img src='/assets/img/docs/question_type_text.gif' alt='Text question type shows an input field' />
+				</td><td>
+					<img src='/assets/img/docs/input_type_text_anim.gif' alt='Text input type shows a free text input field' />
+				</td></tr>
+
+				<tr><td>Likert-type:</td><td>
+					<img src='/assets/img/docs/question_type_likert.gif' alt='Likert question type shows an input field with options delimited by pipes' />
+				</td><td>
+					<img src='/assets/img/docs/input_type_likert_anim.gif' alt='Likert input type shows a slider with options ranging from Strongly Disagree to Strongly Agree' />
+				</td></tr>
+
+				<tr><td>Slider:</td><td>
+					<img src='/assets/img/docs/question_type_slider.gif' alt='Slider question type shows an input field with two options delimited by a double period' />
+				</td><td>
+					<img src='/assets/img/docs/input_type_slider_anim.gif' alt='Slider input type shows a slider with options ranging from one to ten' />
+				</td></tr>
+
+				<tr><td>One of Many:</td><td>
+					<img src='/assets/img/docs/question_type_oom.gif' alt='One of Many question type shows an input field with options delimited by pipes' />
+				</td><td>
+					<img src='/assets/img/docs/input_type_oom_anim.gif' alt='One of Many input type shows radio buttons that allow one to be selected at a time' />
+				</td></tr>
+
+				<tr><td>Many of Many:</td><td>
+					<img src='/assets/img/docs/question_type_mom.gif' alt='Many of Many question type shows an input field with options delimited by pipes' />
+				</td><td>
+					<img src='/assets/img/docs/input_type_mom_anim.gif' alt='Many of Many input type shows checkboxes that allow multiple items to be selected at a time' />
+				</td></tr>
+			</tbody>
+		</table>
+
+		<img src='/assets/img/docs/new_trial_finish.gif' alt='Reviewing and completing the form' />
+		<p>You can create as many surveys for the trial as necessary by clicking the "add new survey" button.</p>
+
+		<p>When you are finished, review that everything is correct and click "Finish". If the entry was successful you should receive a 4-digit alphanumeric ID. This is the Trial ID that your participants will use to register into your trial.</p>
+		<!-- todo: insert image of button -->
+		<hr/>
+
+		<h2 class='mat-h2'><span id='collect'></span>Collecting data</h2>
+		<p>To collect data from your trial participants using the hosted solution - direct the trial participants to download the <em>RCTrials App</em> and register into your trial using the given Trial ID to submit survey responses. More detailed instructions can be found in the <a routerLink='/docs/participants'>documentation for participants</a>.</p>
+		<p>If you wish to collect data from your trial participants using your own solution integrated with the <em>RCTrials API</em> - direct your developers to the documentation on <a routerLink='/docs/developers'>integrating with the API</a>.</p>
+		<hr/>
+
+		<h2 class='mat-h2'><span id='report'></span>Reporting</h2>
+		<p><i>More content coming soon.</i></p>
 	</mat-card-content>
 </mat-card>
