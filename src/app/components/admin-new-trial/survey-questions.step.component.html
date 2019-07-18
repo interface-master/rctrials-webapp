@@ -32,7 +32,6 @@
 								type='checkbox'
 								name='survey_pre'
 								formControlName='survey_pre'
-								(change)='changeIntervalPreTest($event)'
 							>Pretest</mat-checkbox>
 							<mat-checkbox
 								type='checkbox'
@@ -58,14 +57,11 @@
 						</div>
 					</div>
 					<div class='mat-subheading-2'>Request survey from the following Groups:</div>
-					<span class='mat-small' *ngIf='survey.controls["survey_pre"].value'>(Pre-Test surveys are given to all participants since they have not been assigned into a group yet)</span>
 					<div class='col'>
 						<mat-checkbox
 							*ngFor='let group of groups.controls; index as t'
 							type='checkbox'
 							name='survey_groups'
-							[checked]='survey.controls["survey_pre"].value'
-							[disabled]='survey.controls["survey_pre"].value'
 							(input)='changeGroupAssignment($event, survey.controls["survey_groups"], group.controls["group_id"].value )'>
 							{{ group.controls['group_name'].value || 'Group '+(group.controls['group_id'].value+1) }}
 						</mat-checkbox>

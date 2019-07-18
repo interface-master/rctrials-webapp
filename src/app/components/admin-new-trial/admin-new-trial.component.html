@@ -4,7 +4,7 @@
 		<h1 class='mat-display-4'>{{title}}</h1>
 	</mat-card-header>
 	<mat-card-content>
-		<form [formGroup]='newTrialForm' class='newTrialForm'>
+		<form [formGroup]='newTrialForm' class='newTrialForm' autocomplete="off">
 			<mat-horizontal-stepper [linear]="true" #stepper>
 				<mat-step label='Basic Info' [stepControl]='basicInfoStepForm'>
 					<step-basic-info
@@ -14,6 +14,7 @@
 				</mat-step>
 				<mat-step label='Groups' [stepControl]='trialGroupsStepForm'>
 					<step-trial-groups
+							[groups]='groups'
 							[parent]='this'
 							[parentForm]='trialGroupsStepForm'>
 					</step-trial-groups>

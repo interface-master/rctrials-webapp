@@ -11,7 +11,7 @@ import { AdminNewTrialComponent } from './admin-new-trial.component';
 export class AdminNewTrialTrialGroupsStepComponent {
 	@Input() parent: AdminNewTrialComponent;
 	@Input() parentForm: FormGroup;
-	// @Input() groups: FormArray;
+	@Input() groups: FormArray;
 
 	changeGroupsCount(event:any) {
 		const n = event.target.value;

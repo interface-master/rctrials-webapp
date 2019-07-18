@@ -95,7 +95,7 @@ export class SessionService {
 			// otherwise, all is well
 			else {
 				// TODO: fix this:
-				this.openDialog( "Registration Successful", `Your account has been created. Please note down your ID: ${response.data.id}\nJust kidding. We'll send you an email to validate your account. Once you've confirmed your email, you can log in and create your trials.` );
+				this.openDialog( "Registration Successful", `Your account has been created.\n\nPlease note down your ID:\n\n${response.data.id}` );
 			}
 		})
 		.catch( (error) => {

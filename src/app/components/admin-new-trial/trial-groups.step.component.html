@@ -14,7 +14,7 @@
 		<mat-divider></mat-divider>
 		<div formArrayName="groups"
 				class='group-wrapper'
-				*ngFor="let group of parentForm.get('groups').controls; index as i">
+				*ngFor="let group of groups.controls; index as i">
 			<div [formGroupName]='i' class='col'>
 				<div class='row'>
 					<mat-form-field>
