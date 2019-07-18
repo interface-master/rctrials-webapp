@@ -23,7 +23,10 @@ export class AppComponent implements OnInit {
 		this._routeSubscriber = router.events.subscribe((val) => {
 			if( val instanceof NavigationEnd ) {
 				// store route to toggle background images in the html
-				this.route = val.url.split('/')[1];
+				this.route = val.url
+						.split('#').shift()
+						.split('/').pop();
+				console.log('route is now',this.route);
 				// Google Analytics tracking
 				(<any>window).ga('set', 'page', val.urlAfterRedirects);
 				(<any>window).ga('send', 'pageview');
