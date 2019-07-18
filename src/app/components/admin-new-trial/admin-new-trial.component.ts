@@ -50,9 +50,9 @@ export class AdminNewTrialComponent implements OnInit {
 		this.basicInfoStepForm = this.formBuilder.group({
 			title: new FormControl('',Validators.required),
 			regopen: new FormControl('',Validators.required),
-			regclose: new FormControl('',Validators.required),
+			regclose: new FormControl(''),
 			trialstart: new FormControl('',Validators.required),
-			trialend: new FormControl('',Validators.required),
+			trialend: new FormControl(''),
 			trialtype: ['simple'],
 			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		});
