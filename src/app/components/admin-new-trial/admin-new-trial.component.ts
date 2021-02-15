@@ -72,7 +72,7 @@ export class AdminNewTrialComponent implements OnInit {
 			group_id: [id],
 			group_name: new FormControl('',Validators.required),
 			group_size: ['auto'],
-			group_size_n: [''],
+			group_size_n: ['0'],
 		});
 	}
 
