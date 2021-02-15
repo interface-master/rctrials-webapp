@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ApiService {
-	private _apiRoot:string = "http://localhost:8081/api/";
+  // private _apiRoot:string = "http://rctrials.tk/api/";
+	// private _apiRoot:string = "http://localhost:8081/api/rct/";
+	private _apiRoot:string = "/api/rct/";
 
 	public login:string = `${this._apiRoot}validate/login`;
 	public newTrial:string = `${this._apiRoot}new/trial`;

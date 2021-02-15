@@ -16,7 +16,7 @@ export class SessionService {
 
 	private BLANK = new User();
 	private API_CREDENTIALS = {
-		client_id: 'rctrials.tk',
+		client_id: 'rctrials.interfacemaster.ca',
 		client_secret: 'doascience',
 		scope: 'basic',
 		grant_type: 'password',
