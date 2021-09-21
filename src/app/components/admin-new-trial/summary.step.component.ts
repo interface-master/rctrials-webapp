@@ -39,7 +39,6 @@ export class AdminNewTrialSummaryStepComponent {
 		this._submitting = true;
 		//
 		let user = await this.session.getUser();
-		console.log('kuser:',user);
 		//
 		let trial = this.basicInfoStepForm.value;
 		// add groups
@@ -59,6 +58,7 @@ export class AdminNewTrialSummaryStepComponent {
 		const data = {
 			trial: JSON.stringify(trial)
 		};
+
 		axios.post( this.api.newTrial, data, config)
 		.then( (response) => {
 			if( response.data.status !== 200 ) {
@@ -66,7 +66,7 @@ export class AdminNewTrialSummaryStepComponent {
 				this.dialog.open( "Creating New Trial Failed", message );
 				this._submitting = true;
 			} else {
-				const ret:Subscription = this.dialog.open( "New Trial Created", `Your trial has been created. The ID of your trial is: ${response.data.tid}.\nIt has ${response.data.groups} groups, ${response.data.surveys} surveys, and ${response.data.questions} questions.` )
+				const ret:Subscription = this.dialog.open( "New Trial Created", `Your trial has been created. The ID of your trial is: ${response.data.tid}.\nIt has ${response.data.groups} groups, ${response.data.features} features, ${response.data.surveys} surveys, and ${response.data.questions} questions.` )
 				.subscribe( val => {
 					ret.unsubscribe();
 					this.basicInfoStepForm.markAsUntouched();

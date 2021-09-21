@@ -19,6 +19,7 @@ export class AdminNewTrialComponent implements OnInit {
 	public newTrialForm: FormGroup;
 	public basicInfoStepForm: FormGroup;
 	public trialGroupsStepForm: FormGroup;
+	public trialFeaturesStepForm: FormGroup;
 	public surveyQuestionsStepForm: FormGroup;
 	public groups: FormArray;
 	public features: FormArray;
@@ -28,6 +29,7 @@ export class AdminNewTrialComponent implements OnInit {
 		return this.newTrialForm.touched
 			|| this.basicInfoStepForm.touched
 			|| this.trialGroupsStepForm.touched
+			|| this.trialFeaturesStepForm.touched
 			|| this.surveyQuestionsStepForm.touched;
 	}
 
@@ -56,24 +58,56 @@ export class AdminNewTrialComponent implements OnInit {
 			trialtype: ['simple'],
 			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		});
+
+
+
+
+		const test = JSON.parse("{\"title\":\"Test Trial\",\"regopen\":\"2021-09-01T04:00:00.000Z\",\"regclose\":\"\",\"trialstart\":\"2021-09-02T04:00:00.000Z\",\"trialend\":\"\",\"trialtype\":\"simple\",\"timezone\":\"America/Toronto\",\"groups\":[{\"group_id\":0,\"group_name\":\"Control\",\"group_size\":\"auto\",\"group_size_n\":\"0\"},{\"group_id\":1,\"group_name\":\"Experiment A\",\"group_size\":\"auto\",\"group_size_n\":\"0\"},{\"group_id\":2,\"group_name\":\"Experiment B\",\"group_size\":\"auto\",\"group_size_n\":\"0\"},{\"group_id\":3,\"group_name\":\"Experiment C\",\"group_size\":\"auto\",\"group_size_n\":\"0\"}],\"features\":[{\"feature_id\":0,\"feature_name\":\"Gamification\",\"feature_groups\":[1,3]},{\"feature_id\":1,\"feature_name\":\"Communication\",\"feature_groups\":[2,3]}],\"surveys\":[{\"survey_id\":0,\"survey_name\":\"Demographics\",\"survey_groups\":[0,1,2,3],\"survey_pre\":true,\"survey_during\":false,\"survey_post\":false,\"survey_interval\":1,\"survey_frequency\":\"days\",\"survey_questions\":[{\"question_id\":0,\"question_text\":\"What's your age group:\",\"question_type\":\"radio\",\"question_options\":\"< 18 | 18 - 24 | 25 - 34 | 35 - 44 | 45 - 54 | 55 - 64 | 65 - 74 | 75 - 84 | 85 + | Prefer not to say\"},{\"question_id\":2,\"question_text\":\"What gender do you most identify with:\",\"question_type\":\"radio\",\"question_options\":\"Female | Male | Non-binary | Other | Prefer not to say\"}]},{\"survey_id\":1,\"survey_name\":\"How do you like Gamification?\",\"survey_groups\":[1,3],\"survey_pre\":false,\"survey_during\":false,\"survey_post\":true,\"survey_interval\":3,\"survey_frequency\":\"days\",\"survey_questions\":[{\"question_id\":1,\"question_text\":\"Did you like the gamification feature?\",\"question_type\":\"text\",\"question_options\":\"\"}]},{\"survey_id\":2,\"survey_name\":\"How do you like Communication?\",\"survey_groups\":[2,3],\"survey_pre\":false,\"survey_during\":false,\"survey_post\":true,\"survey_interval\":1,\"survey_frequency\":\"days\",\"survey_questions\":[{\"question_id\":4,\"question_text\":\"How did you like the communication features?\",\"question_type\":\"text\",\"question_options\":\"\"}]}]}");
+
+		/*
+		this.basicInfoStepForm.get('title').setValue( test.title );
+		this.basicInfoStepForm.get('regopen').setValue( test.regopen );
+		this.basicInfoStepForm.get('trialstart').setValue( test.trialstart );
+		this.groups = this.formBuilder.array(
+			test.groups.map( g => this.createGroupWithName( g.group_id, g.group_name ) )
+		);
+		this.features = this.formBuilder.array(
+			test.features.map( f => this.createFeatureWithGroups( f.feature_id, f.feature_name, f.feature_groups ) )
+		);
+		this.surveys = this.formBuilder.array([
+			...test.surveys.map( s => this.createSurveyWithJSON( s ) ),
+			this.createSurvey( this.getNextSurveyID() )
+		]);
+		/**/
+
 		this.trialGroupsStepForm = this.formBuilder.group({
 			groups: this.groups,
 			features: this.features,
 		},{
 			validator: this.doNotRepeatGroups
 		});
+		this.trialFeaturesStepForm = this.formBuilder.group({
+			features: this.features,
+		},{
+			validator: this.doNotRepeatFeatures
+		});
 		this.surveyQuestionsStepForm = this.formBuilder.group({
 			surveys: this.surveys,
+		});
+
+	}
+
+	public createGroupWithName(id: number, name: string): FormGroup {
+		return this.formBuilder.group({
+			group_id: [id],
+			group_name: new FormControl(name,Validators.required),
+			group_size: ['auto'],
+			group_size_n: ['0'],
 		});
 	}
 
 	public createGroup(id: number): FormGroup {
-		return this.formBuilder.group({
-			group_id: [id],
-			group_name: new FormControl('',Validators.required),
-			group_size: ['auto'],
-			group_size_n: ['0'],
-		});
+		return this.createGroupWithName(id, '');
 	}
 
 	doNotRepeatGroups(ctx:any):{[key:string]:boolean} {
@@ -94,11 +128,33 @@ export class AdminNewTrialComponent implements OnInit {
 		return null;
 	}
 
-	createFeature(id: number): FormGroup {
+	doNotRepeatFeatures(ctx:any):{[key:string]:boolean} {
+		const features = <FormArray>ctx.get('features');
+		if( features.controls.length > 1 ) {
+			features.controls
+					.map( g => {
+						const inp = (<FormGroup>g).controls.feature_name;
+						inp.updateValueAndValidity({onlySelf:true,emitEvent:false});
+						return inp.value;
+					})
+					.reduce( (a,c,i) => {
+						if( !a.includes(c) ) a.push(c);
+						else (<FormGroup>features.controls[i]).controls.feature_name.setErrors({repeated:true});
+						return a;
+					}, [] );
+		}
+		return null;
+	}
+
+	public createFeature(id: number): FormGroup {
+		return this.createFeatureWithGroups( id, '', [] );
+	}
+
+	public createFeatureWithGroups(id: number, name: string, groups: number[]): FormGroup {
 		return this.formBuilder.group({
 			feature_id: [id],
-			feature_name: [''],
-			feature_groups: [[]],
+			feature_name: [name],
+			feature_groups: [groups],
 		});
 	}
 
@@ -116,6 +172,20 @@ export class AdminNewTrialComponent implements OnInit {
 		})
 	}
 
+	createSurveyWithJSON( obj: any ): FormGroup {
+		return this.formBuilder.group({
+			survey_id: [ obj.survey_id ],
+			survey_name: [ obj.survey_name ],
+			survey_groups: [ obj.survey_groups ],
+			survey_pre: [ obj.survey_pre ], // is pre-test
+			survey_during: [obj.survey_during ], // is during-test
+			survey_post: [ obj.survey_post ], // is post-test
+			survey_interval: [ obj.survey_interval ], // interval
+			survey_frequency: [ obj.survey_frequency ], // days, weeks, months
+			survey_questions: this.createSurveyQuestionsWithJSON( obj.survey_questions ),
+		})
+	}
+
 	createSurveyQuestion(id: number): FormGroup {
 		return this.formBuilder.group({
 			question_id: [id],
@@ -123,6 +193,18 @@ export class AdminNewTrialComponent implements OnInit {
 			question_type: ['text'],
 			question_options: [''],
 		})
+	}
+
+	createSurveyQuestionsWithJSON( obj: any ): FormArray {
+		return this.formBuilder.array([
+			...obj.map( q => this.formBuilder.group({
+				question_id: [ q.question_id ],
+				question_text: [ q.question_text ],
+				question_type: [ q.question_type ],
+				question_options: [ q.question_options ]
+			}) ),
+			this.createSurveyQuestion( this.getNextQuestionID() )
+		]);
 	}
 
 	getNextSurveyID(): number {

@@ -36,6 +36,7 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
 import { AdminNewTrialComponent } from './components/admin-new-trial/admin-new-trial.component';
 import { AdminNewTrialBasicInfoStepComponent } from './components/admin-new-trial/basic-info.step.component';
 import { AdminNewTrialTrialGroupsStepComponent } from './components/admin-new-trial/trial-groups.step.component';
+import { AdminNewTrialTrialFeaturesStepComponent } from './components/admin-new-trial/trial-features.step.component';
 import { AdminNewTrialSurveyQuestionsStepComponent } from './components/admin-new-trial/survey-questions.step.component';
 import { AdminNewTrialSummaryStepComponent } from './components/admin-new-trial/summary.step.component';
 import { AdminRegistrationComponent } from './components/admin-registration/admin-registration.component';
@@ -69,6 +70,7 @@ import { SpinnerService } from './services/spinner.service';
 		AdminNewTrialComponent,
 		AdminNewTrialBasicInfoStepComponent,
 		AdminNewTrialTrialGroupsStepComponent,
+		AdminNewTrialTrialFeaturesStepComponent,
 		AdminNewTrialSurveyQuestionsStepComponent,
 		AdminNewTrialSummaryStepComponent,
 		AdminTrialDetailsComponent,

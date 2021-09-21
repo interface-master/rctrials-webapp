@@ -38,6 +38,30 @@
 				</div>
 			</div>
 			<div class='col section'>
+				<h3 class='mat-h3'>Features</h3>
+				<div class='row'>
+					<span>Number of Features:</span>
+					<span class='mono'>{{ features.length || "N/A" }}</span>
+				</div>
+				<div class='col'
+				*ngFor='let feature of features.controls; index as f'>
+					<div class='row'>
+						<span>Feature {{ f+1 }}:</span>
+						<span class='mono'>{{ feature.get('feature_name').value || "N/A" }}</span>
+						<span>; Groups:</span>
+						<div class='row'
+						 *ngFor='let group of groups.value; index as g'>
+							<span class='mono'
+							 *ngIf='feature.get("feature_groups").value.includes( group.group_id )'
+							>
+								{{ group.group_name }}
+							</span>
+							<span *ngIf='feature.get("feature_groups").value.includes( group.group_id ) && feature.get("feature_groups").value.indexOf(group.group_id) < feature.get("feature_groups").value.length-1'>,</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class='col section'>
 				<h3 class='mat-h3'>Surveys</h3>
 				<div class='col subsection'
 				*ngFor='let survey of surveys.controls; index as s'>

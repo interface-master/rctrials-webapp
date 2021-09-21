@@ -165,7 +165,7 @@ export class SessionService {
 	 */
 	private saveCookie(key: string, value: string) {
 		var date = new Date();
-		date.setTime( date.getTime() + (24*60*60*1000) );
+		date.setTime( date.getTime() + (5*24*60*60*1000) ); // 5 days
 		window.document.cookie
 				= 'rct_'+key + '=' + value + ';'
 				+ 'path=/;'
